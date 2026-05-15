@@ -1,65 +1,302 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тест виджета BPMSoft</title>
+    <title>Обратная связь — BPMSoft</title>
     
-    <!-- Стили виджета (реальный URL) -->
-    
+    <!-- Стили виджета -->
     <link rel="stylesheet" href="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.css">
-<div id="bpmsoftocc-chat"></div>
-<script> 
-    window.bpmsoftoccconfig = {};
-    window.bpmsoftoccconfig.channelId = '7b545f20-b9af-43e2-bbe8-bc54b11743bf';
-    window.bpmsoftoccconfig.connectorUrl = 'https://bpmsoft-oc-connector1.cloudbpm.ru';
-</script>
-<script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.js" async></script>
-<script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/chunk-vendors.js" async></script>
     
     <style>
-        /* ========== ФОН СТРАНИЦЫ ========== */
-        body {
-            background: #f0f2f5;  /* Меняйте на любой цвет */
+        /* ========== СБРОС И БАЗОВЫЕ СТИЛИ ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        /* ========== МЕНЯЙТЕ ЦВЕТА ЗДЕСЬ ========== */
-        
-        /* Цвет шапки виджета */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8edf2 0%, #d5dde5 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #2c3e50;
+        }
+
+        /* ========== КОНТЕЙНЕР СТРАНИЦЫ ========== */
+        .feedback-page {
+            width: 100%;
+            max-width: 900px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 0 5px 20px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ========== ШАПКА ========== */
+        .page-header {
+            background: linear-gradient(135deg, #4d1965 0%, #6b2d8b 100%);
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .page-header p {
+            font-size: 15px;
+            opacity: 0.9;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        /* ========== ОСНОВНОЙ БЛОК ========== */
+        .page-content {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* ========== КАРТОЧКИ КОНТАКТОВ ========== */
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .contact-card {
+            background: #f8f9fb;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid #eef1f5;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+            border-color: #d0d7e2;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            color: #4d1965;
+        }
+
+        .contact-card h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a1a2e;
+        }
+
+        .contact-card p {
+            font-size: 14px;
+            color: #6c7a8a;
+            line-height: 1.6;
+        }
+
+        .contact-card a {
+            color: #4d1965;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* ========== БЛОК С ЧАТОМ ========== */
+        .chat-section {
+            background: #f8f9fb;
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid #eef1f5;
+            text-align: center;
+        }
+
+        .chat-section h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1a1a2e;
+        }
+
+        .chat-section p {
+            font-size: 14px;
+            color: #6c7a8a;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        /* Кнопка открытия чата */
+        .open-chat-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #F9763D;
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(249, 118, 61, 0.3);
+            text-decoration: none;
+        }
+
+        .open-chat-btn:hover {
+            background: #e86a2f;
+            box-shadow: 0 6px 20px rgba(249, 118, 61, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .open-chat-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* ========== ПОДВАЛ ========== */
+        .page-footer {
+            background: #f8f9fb;
+            padding: 20px 40px;
+            text-align: center;
+            border-top: 1px solid #eef1f5;
+        }
+
+        .page-footer p {
+            font-size: 13px;
+            color: #8e99a4;
+        }
+
+        .page-footer a {
+            color: #4d1965;
+            text-decoration: none;
+        }
+
+        /* ========== СТИЛИ ВИДЖЕТА (ваши оригинальные) ========== */
         #bpmsoftoccchat-container .bpmsoftoccchat-conversation-body-profile {
             background: #4d1965 !important;
         }
 
-        /* Цвет фона всего чата */
         div#bpmsoftoccchat-main-feed {
             background-color: #f5f5f5 !important;
         }
 
-        /* Цвет сообщений */
         .bpmsoftoccchat-comment {
             background: #ffffff !important;
         }
 
-        /* Цвет кнопки открытия виджета */
         .bpmsoftoccchat-widget-startbutton {
             background: #F9763D !important;
         }
 
-        /* Цвет кнопки отправки */
         .bpmsoftoccchat-send-button {
             background: #F9763D !important;
         }
 
-        /* Цвет текста в сообщениях */
         .bpmsoftoccchat-comment p {
             color: #333333 !important;
+        }
+
+        /* ========== АДАПТИВНОСТЬ ========== */
+        @media (max-width: 600px) {
+            .page-header {
+                padding: 25px 20px;
+            }
+            .page-header h1 {
+                font-size: 22px;
+            }
+            .page-content {
+                padding: 25px 20px;
+            }
+            .contact-cards {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Контейнер виджета -->
+    <div class="feedback-page">
+        
+        <!-- ШАПКА -->
+        <header class="page-header">
+            <h1>📬 Обратная связь</h1>
+            <p>Мы всегда рады помочь! Выберите удобный способ связи или напишите нам в чат</p>
+        </header>
+
+        <!-- ОСНОВНОЙ КОНТЕНТ -->
+        <main class="page-content">
+            
+            <!-- Карточки контактов -->
+            <div class="contact-cards">
+                <div class="contact-card">
+                    <div class="contact-icon">📞</div>
+                    <h3>Телефон</h3>
+                    <p>Единый номер поддержки</p>
+                    <a href="tel:+78001234567">8 (800) 123-45-67</a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">✉️</div>
+                    <h3>Почта</h3>
+                    <p>Напишите нам запрос</p>
+                    <a href="mailto:support@company.ru">support@company.ru</a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">🕐</div>
+                    <h3>График работы</h3>
+                    <p>Пн–Пт: 09:00 – 18:00<br>Сб–Вс: выходной</p>
+                </div>
+            </div>
+
+            <!-- Секция с чатом -->
+            <div class="chat-section">
+                <h2>💬 Онлайн-чат</h2>
+                <p>Задайте вопрос прямо сейчас — мы отвечаем в течение нескольких минут</p>
+                <a href="#" class="open-chat-btn" id="openChatButton">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    Начать чат
+                    </a>
+            </div>
+
+        </main>
+
+        <!-- ПОДВАЛ -->
+        <footer class="page-footer">
+            <p>© 2025 Компания. Все права защищены. <a href="#">Политика конфиденциальности</a></p>
+        </footer>
+
+    </div>
+
+    <!-- Контейнер виджета BPMSoft -->
     <div id="bpmsoftocc-chat"></div>
 
     <!-- Настройки виджета -->
@@ -73,6 +310,31 @@
     <!-- Скрипты виджета -->
     <script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.js" async></script>
     <script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/chunk-vendors.js" async></script>
+
+    <!-- Скрипт для открытия виджета по кнопке -->
+    <script>
+        document.getElementById('openChatButton').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Пытаемся найти и кликнуть по кнопке виджета
+            var widgetButton = document.querySelector('.bpmsoftoccchat-widget-startbutton');
+            if (widgetButton) {
+                widgetButton.click();
+            } else {
+                // Если кнопка ещё не загрузилась, пробуем несколько раз
+                var attempts = 0;
+                var interval = setInterval(function() {
+                    widgetButton = document.querySelector('.bpmsoftoccchat-widget-startbutton');
+                    if (widgetButton) {
+                        widgetButton.click();
+                        clearInterval(interval);
+                    }
+                    attempts++;
+                    if (attempts > 20) clearInterval(interval);
+                }, 500);
+            }
+        });
+    </script>
 
 </body>
 </html>
