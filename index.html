@@ -11,18 +11,18 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: #f0f2f5;
+            background: #f9f3ea; /* мягкий песочный фон */
         }
 
         /* ===== HEADER ===== */
         header {
-            background: #f9c876;
+            background: #e89f22; /* оранжевый */
             color: #fff;
             padding: 16px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap; /* важно для адаптива */
+            flex-wrap: wrap;
             gap: 10px;
         }
 
@@ -41,14 +41,14 @@
 
         /* ===== HERO ===== */
         .hero {
-            background: linear-gradient(135deg, #e89f22,#f5eee2);
-            color: white;
+            background: linear-gradient(135deg, #e89f22, #f5eee2);
+            color: #3b2f22;
             padding: 70px 20px;
             text-align: center;
         }
 
         .hero h1 {
-            font-size: clamp(22px, 4vw, 38px); /* адаптивный текст */
+            font-size: clamp(22px, 4vw, 38px);
             margin: 0 0 10px;
         }
 
@@ -70,15 +70,16 @@
         }
 
         .card {
-            background: #fff;
+            background: #fff8ef; /* тёплый фон карточек */
             padding: 20px;
             border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 10px rgba(232, 159, 34, 0.12);
+            border: 1px solid #f0dcc2;
         }
 
         /* ===== FOOTER ===== */
         footer {
-            background: #222;
+            background: #3b2f22;
             color: #fff;
             text-align: center;
             padding: 20px;
@@ -97,21 +98,28 @@
             }
         }
 
-        /* ===== WIDGET ===== */
+        /* ===== WIDGET (BPMSoft override) ===== */
+
+        /* фон шапки/профиля чата */
         #bpmsoftoccchat-container .bpmsoftoccchat-conversation-body-profile {
-            background: #4d1965 !important;
+            background: #e89f22 !important;
+            color: #fff !important;
         }
 
+        /* кнопка запуска */
         .bpmsoftoccchat-widget-startbutton {
-            background: #F9763D !important;
+            background: #e89f22 !important;
+            box-shadow: 0 6px 18px rgba(232, 159, 34, 0.25);
         }
 
+        /* кнопка отправки */
         .bpmsoftoccchat-send-button {
-            background: #F9763D !important;
+            background: #e89f22 !important;
         }
 
+        /* фон чата */
         div#bpmsoftoccchat-main-feed {
-            background: #f5f5f5 !important;
+            background: #fff6e8 !important;
         }
     </style>
 </head>
@@ -130,7 +138,6 @@
 
     <section class="hero">
         <h1>Аудиторские услуги</h1>
-        
     </section>
 
     <div class="container">
@@ -152,8 +159,7 @@
     <div id="bpmsoftocc-chat"></div>
 
     <script>
-        window.bpmsoftoccconfig = {
-            channelId: '7b545f20-b9af-43e2-bbe8-bc54b11743bf',
+        window.bpmsoftoccconfig = {channelId: '7b545f20-b9af-43e2-bbe8-bc54b11743bf',
             connectorUrl: 'https://bpmsoft-oc-connector1.cloudbpm.ru',
             title: 'demobpm'
         };
@@ -164,4 +170,3 @@
 
 </body>
 </html>
-        
