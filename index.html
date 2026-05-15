@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тест виджета BPMSoft</title>
+    <title>ГК МДА</title>
 
     <link rel="stylesheet" href="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.css">
 
@@ -11,41 +11,66 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: #f0f2f5;
+            background: #f5eee2;
+            color: #333;
         }
 
-        /* ====== САЙТ ====== */
-
+        /* ====== HEADER ====== */
         header {
-            background: #4d1965;
-            color: #fff;
-            padding: 16px 40px;
+            background: #f9c876;
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
         }
 
-        header nav a {
-            color: #fff;
-            margin-left: 16px;
+        header .logo {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        nav a {
+            margin-left: 15px;
             text-decoration: none;
-            font-size: 14px;
+            color: #333;
+            font-weight: 500;
         }
 
+        /* ====== HERO ====== */
         .hero {
-            background: linear-gradient(135deg, #4d1965, #7b2cbf);
-            color: white;
-            padding: 70px 40px;
+            position: relative;
             text-align: center;
+            color: white;
         }
 
-        .hero h1 {
-            font-size: 38px;
-            margin: 0 0 10px;
+        .hero img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            filter: brightness(0.6);
         }
 
+        .hero-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+        }
+
+        .hero-text h1 {
+            font-size: 34px;
+            margin: 0;
+        }
+
+        .hero-text p {
+            font-size: 18px;
+        }
+
+        /* ====== CONTENT ====== */
         .container {
-            padding: 40px;
+            padding: 30px;
         }
 
         .cards {
@@ -55,36 +80,59 @@
         }
 
         .card {
-            background: #fff;
+            background: white;
             padding: 20px;
             border-radius: 12px;
+            border-left: 5px solid #e89f22;
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
         }
 
+        .card h3 {
+            margin-top: 0;
+            color: #e89f22;
+        }
+
+        /* ====== FOOTER ====== */
         footer {
-            background: #222;
-            color: #fff;
+            background: #f9c876;
             text-align: center;
             padding: 20px;
             margin-top: 40px;
         }
 
-        /* ====== ВИДЖЕТ (НЕ ТРОГАЕМ ЛОГИКУ) ====== */
-
-        #bpmsoftoccchat-container .bpmsoftoccchat-conversation-body-profile {
-            background: #4d1965 !important;
+        /* ====== ADAPTIVE ====== */
+        @media (max-width: 900px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
+        @media (max-width: 600px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-text h1 {
+                font-size: 24px;
+            }
+
+            nav {
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+
+        /* ====== WIDGET ====== */
         .bpmsoftoccchat-widget-startbutton {
-            background: #F9763D !important;
+            background: #e89f22 !important;
         }
 
         .bpmsoftoccchat-send-button {
-            background: #F9763D !important;
+            background: #e89f22 !important;
         }
 
         div#bpmsoftoccchat-main-feed {
-            background: #f5f5f5 !important;
+            background: #fffaf2 !important;
         }
     </style>
 </head>
@@ -93,46 +141,59 @@
 
     <!-- ===== HEADER ===== -->
     <header>
-        <div><b>Demo BPM Portal</b></div>
+        <div class="logo">ГК МДА</div>
         <nav>
             <a href="#">Главная</a>
-            <a href="#">Сервисы</a>
-            <a href="#">Новости</a>
+            <a href="#">О компании</a>
+            <a href="#">Услуги</a>
             <a href="#">Контакты</a>
         </nav>
     </header>
 
     <!-- ===== HERO ===== -->
     <section class="hero">
-        <h1>Цифровая платформа взаимодействия</h1>
-        <p>Единое пространство для клиентов и сотрудников</p>
+        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80" alt="ГК МДА">
+        <div class="hero-text">
+            <h1>Группа компаний МДА</h1>
+            <p>Современные решения для бизнеса и цифровой трансформации</p>
+        </div>
     </section>
 
     <!-- ===== CONTENT ===== -->
     <div class="container">
-        <h2>Сервисы</h2>
+        <h2>Наши направления</h2>
 
         <div class="cards">
-            <div class="card">Поддержка клиентов</div>
-            <div class="card">Автоматизация процессов</div>
-            <div class="card">Аналитика</div>
+            <div class="card">
+                <h3>Бизнес-решения</h3>
+                <p>Автоматизация процессов и внедрение корпоративных систем.</p>
+            </div>
+
+            <div class="card">
+                <h3>ИТ-разработка</h3>
+                <p>Создание цифровых продуктов и интеграционных решений.</p>
+            </div>
+
+            <div class="card">
+                <h3>Поддержка</h3>
+                <p>Техническое сопровождение и развитие инфраструктуры.</p>
+            </div>
         </div>
     </div>
 
     <!-- ===== FOOTER ===== -->
     <footer>
-        © 2026 Demo BPM Portal
+        © 2026 ГК МДА. Все права защищены.
     </footer>
 
-    <!-- ===== ВИДЖЕТ (ОДИН РАЗ И ТОЛЬКО ЗДЕСЬ) ===== -->
-
+    <!-- ===== WIDGET ===== -->
     <div id="bpmsoftocc-chat"></div>
 
     <script>
         window.bpmsoftoccconfig = {
             channelId: '7b545f20-b9af-43e2-bbe8-bc54b11743bf',
             connectorUrl: 'https://bpmsoft-oc-connector1.cloudbpm.ru',
-            title: 'demobpm'
+            title: 'ГК МДА'
         };
     </script>
 
