@@ -149,4 +149,45 @@
 </div>
 
 </body>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://files.cloudbpm.ru/Delivery/js/track-cookies.js"></script>
+<script src="https://files.cloudbpm.ru/Delivery/js/create-object.js"></script>
+<script>
+
+/**
+* Замените выражение в кавычках "css-selector" в коде ниже значением селектора элемента на Вашей лендинговой странице.
+* Вы можете использовать #id или любой другой CSS селектор, который будет точно определять поле ввода на Вашей лендинговой странице.
+* Пример: "Email": "#MyEmailField".
+* Если Ваша лендинговая страница не содержит одного или нескольких полей из приведенных ниже – оставьте строку без изменений или удалите полностью.
+*/
+var config = {
+    fields: {
+        "contact": "#Contact", // ФИО контакта, который регистрирует обращение
+        "subject": "#Subject", // Имя компании  
+        "description": "#Symptoms", // Мобильный телефон контакта
+    },
+    contactFields: {
+        "contact": "#Name", // Name of a contact
+    },
+    customFields: {},
+    landingId: "bbf5de50-e49b-4b42-946e-77df8294b872",
+    serviceUrl: "https://26072711225013-0000000-bpmsoft-crm.cloudbpm.ru:443/0/ServiceModel/GeneratedObjectWebFormService.svc/SaveWebFormObjectData",
+    redirectUrl: "https://demobpm.github.io/Demo/"
+};
+/**
+* Функция ниже создает объект из введенных данных.
+* Привяжите вызов этой функции к событию "onSubmit" формы или любому другому элементу события.
+* Пример: <form class="mainForm" name="landingForm" onSubmit="createObject(); return false">
+*/
+function createObject() {
+    landing.createObjectFromLanding(config);
+}
+/**
+* Функция ниже инициализирует лендинг из параметров URL.
+*/
+function initLanding() {
+    landing.initLanding(config);
+}
+jQuery(document).ready(initLanding);
+</script>
 </html>
