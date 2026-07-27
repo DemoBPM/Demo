@@ -1,15 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Заказ</title>
-    <style>
+  <title>Зарегистрировать обращение</title>
+  <style>
+            .video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1000;
+            overflow: hidden;
+        }
+
+        #myVideo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1000;
+            transform: translateX(-50%) translateY(-50%);
+        }
         body {
             position: relative;
-            background-image: url('main_background.png');
-            background-size: cover;
-            background-repeat: no-repeat;
             margin: 0;
             overflow: hidden;
         }
@@ -19,9 +38,8 @@
             align-items: center;
             min-height: 100vh;
         }
-        
         .land-form {
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(221 221 221 / 80%);
             padding: 20px;
             border-radius: 15px;
             color: #333;
@@ -38,76 +56,75 @@
           margin-bottom: 15px;
           padding: 10px;
           border-radius: 15px;
-          background-color: #fdf1ec;
+          background-color: #f6f7f8;
           box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.185);
-          position: relative;
-          padding-top: 10px; /* Уменьшаем отступ сверху */
-      }
-
-      .form-inner::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 50%; /* Центрируем по горизонтали */
-          transform: translateX(-50%); /* Корректируем смещение */
-          width: 50%; /* Уменьшаем длину */
-          height: 80px; /* Увеличиваем толщину */
-          background-color: #fa753c;
-          border-radius: 0 0 25px 25px;
-          z-index: 1;
-      }
-
-      .form-inner::after {
-        content: "Оформление заказа";
-        position: absolute;
-        top: 5%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        font-size: 24px; /* Увеличил размер шрифта для лучшей видимости */
-        font-weight: bold;
-        font-family: sans-serif;
-        z-index: 2; /* Убедитесь, что текст находится поверх полосы */
-    }
-        
+        }
         .form-input {
           display: flex;
           flex-wrap: nowrap;
           justify-content: center;
           margin-bottom: 15px;
-          width: 300px;
+          width: 600px;
           flex-direction: column; 
           align-items: flex-start;
           padding-top: 1%;
         }
         .form-input label {
-          width: auto;
-          flex-shrink: 0;
+          width: auto; /* Устанавливаем фиксированную ширину для метки */
+          flex-shrink: 0; /* Не сжимаем метку */
           text-align: left;
           font-family: sans-serif;
         }
         .form-input input {
           padding: 10px;
-          border: 2px solid #D8DBE2;
+          border: 1px solid #313132;
           border-radius: 10px;
           font-size: 16px;
           outline: none;
+          /* width: 100%; Задаем ширину 100%, чтобы они занимали всю доступную ширину */
+          /* max-width: 300px; Максимальная ширина инпута */
           width: 200%;
         }
         .form-input input:focus {
-          border-color: #F9763D;
+          border-color: #313132;
         }
         input[type="submit"] {
-          margin-top: 20px;
-          padding: 10px 20px;
-          border: none;
-          background-color: #F9763D;
-          color: white;
-          border-radius: 10px;
-          cursor: pointer;
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #11345C;
+            color: #FFFF;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 16px;
+            
+            /* Плавные переходы для нескольких свойств */
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Опционально: небольшая тень для лучшего визуального восприятия */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+
         input[type="submit"]:hover {
-          background-color: #012B5D;
+            background-color: #104c91;
+            
+            /* Дополнительные эффекты при наведении */
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        input[type="submit"]:active {
+            /* Эффект при нажатии */
+            transform: translateY(0);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition-duration: 0.1s;
+        }
+
+        input[type="submit"]:focus {
+            /* Стиль для фокуса (для доступности) */
+            outline: 2px solid #104c91;
+            outline-offset: 2px;
         }
         p {
           font-size: 12px;
@@ -122,10 +139,10 @@
         }
         .form-input-input {
           display: flex;
-          width: 350px;
+          width: 600px;
         }
         select{
-          border: 2px solid #D8DBE2;
+          border: 1px solid #D8DBE2;
           border-radius: 10px;
           outline: none;
           padding: 10px;
@@ -141,58 +158,44 @@
         
       }
       option:hover {
-        background-color: #f9763d;
-        color: white;
+        background-color: #ffcd33; /* Цвет фона при наведении */
+        color: black; /* Цвет текста при наведении */
       }
-      
-      /* Стиль для скрытых полей */
-      .delivery-fields-container {
-        transition: all 0.3s ease;
-      }
-      
-      .delivery-fields-container.hidden {
-        display: none !important;
-      }
-
-      .colums {
-        display: flex;
-        justify-content: center;
-        flex-direction: row;
-        align-items: flex-start;
-        margin: 10px 20px; 
-        margin: 40px 0 20px 0; 
-      }
-
-      .first-column{
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        padding-right: 100px;
-       /* border-right: 3px solid #d8dbe2; /* Тонкая серая вертикальная черта */
-      }
-
-      .second-column{
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        padding-right: 50px;
-        padding-left: 120px;
-      }
-      
-      /* Стиль футера */
       footer {
             position: fixed;
             bottom: 0;
             left: 0;
+            padding: 20px;
+            /* background-color: rgba(0, 0, 0, 0.7); */
             color: white;
-            width: 30%;
+            width: 100%;
             display: flex;
             justify-content: flex-start;
             align-items: center;
             gap: 20px;
         }
         .footer-logos img {
-            width: auto;
+            width: 50px; /* Размер логотипов */
+            height: auto;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+         /* Стиль футера */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            padding: 20px;
+            color: white;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 20px;
+            padding-top: 5%;
+        }
+        .footer-logos img {
+            width: auto; /* Размер логотипов */
             height: 70px;
             padding: 1%;
             opacity: 0.8;
@@ -203,520 +206,104 @@
           display: flex;
           align-items: center;
         }
-    </style>
+
+        .logoAccount{
+        padding-left: 5%;
+        }
+  </style>
 </head>
 
 <body>
-<p></p>
-  <form class="transparent"; onSubmit="createObject(); return false">
-      <body>
+    <div class="video-background">
+      <video autoplay muted loop id="myVideo">
+        <source src="Glavnaya.mp4" type="video/mp4">
+      </video>
+    </div>
+
+<form class="transparent"; onSubmit="createObject(); return false">
     <div class="container">
       <div class="land-form">
         <div class="form-inner">
-          <h1 style="font-family: sans-serif; color: #ffffff;">Оформление заказа</h1>
-          <style>
-/* Стиль для всех элементов label */
-label {
-    color: #000000; /* Синий цвет. Можете изменить на любой другой. */
-    font-family: sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    margin: 3px;
-}
-
-/* Опциональные стили для полей форм, чтобы пример выглядел лучше */
-.form-input, .another-form-input {
-    margin-bottom: 15px;
-    width: 300px;
-}
-.form-input-label, .another-form-input .form-input-label {
-    margin-bottom: 5px;
-}
-/*.form-input-input input, .another-form-input .form-input-input input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}*/
-</style>
+          <h1 style="font-family: sans-serif; color: #313132;"> Заполнение обращения</h1>
           
-          <div class="colums">
-            <div class="first-column">
-              <div class="form-input">
-                <div class="form-input-label">
-                  <label for="name">ФИО</label> 
-                </div>
-
-                <div class="form-input-input">
-                  <input type="text" id="Name" required>
-                </div>
-              </div>
-
-              <div class="form-input">
-                <div class="form-input-label">
-                  <label for="name">Тлефон</label>
-                </div>
-
-                <div class="form-input-input">
-                  <input type="text" id="Phone" required>
-                </div>
-              </div>
-
-              <div class="form-input">
-                <div class="form-input-label">
-                  <label for="name">Email</label> 
-                </div>
-
-                <div class="form-input-input">
-                  <input type="text" id="Email" required>
-                </div>
-              </div>
-
-              <!-- начало списка -->
-
-              <div class="form-input">
-
-                <div class="form-input-label">
-                  <label for="ReceiptMethod">Способ получения</label>
-                </div>
-
-                <div class="form-input-input">
-                  <select id="ReceiptMethodName" onchange="toggleDeliveryFields()">
-                    <option value="Курьером">Курьером</option>
-                    <option value="Самовывоз">Самовывоз</option>
-                  </select>
-                </div>
-                
-              </div>
-
-              <!-- конец списка -->
-              
-              <!-- Контейнер для полей доставки -->
-              <div class="form-input delivery-fields-container" id="deliveryFieldsContainer">
-                <div class="form-input-label">
-                  <label for="name">Адрес доставки</label>
-                </div>
-
-                <div class="form-input-input">
-                  <input type="text" id="DeliveryAddress" required>
-                </div>
-              </div>
-
-              <div class="form-input delivery-fields-container" id="deliveryDateContainer">
-                <div class="form-input-label">
-                  <label for="name">Желаемая дата доставки</label> 
-                </div>
-
-                <div class="form-input-input">
-                  <input type="date" id="DeliveryDate" required>
-                </div>
-              </div>
-
+          <div class="form-input">
+            <div class="form-input-label">
+              <label for="name">ФИО</label> 
             </div>
 
+            <div class="form-input-input">
+              <input type="text" id="Name" required>
+            </div>
+          </div>
 
-            <div class="second-column">
-              <!-- Заголовок колонки -->
-              <h2 class="column-title">Продукты</h2> 
-
-               <div class="form-input">
-                <div class="form-input-label">
-                  <label for="Product"></label>
-                </div>
-                <div class="form-input-input">
-                  <select id="ProductName" onchange="toggleNextField()">
-                    <option value="" disabled selected hidden></option>
-                    <option value="Серверная стойка APC NetShelter Electric Optimum">Серверная стойка APC NetShelter Electric Optimum</option>
-                    <option value="Процессор Intel Core i9-14900K OEM">Процессор Intel Core i9-14900K OEM</option>
-                    <option value="Материнская плата Gigabyte AM4 AMD B550 B550M DS3H">Материнская плата Gigabyte AM4 AMD B550 B550M DS3H</option>
-                    <option value="Видеокарта ASUS GTX750TI-2GD5">Видеокарта ASUS GTX750TI-2GD5</option>
-                    <option value="Антивирус Доктор Веб Dr.Web Desktop Security Suite">Антивирус Доктор Веб Dr.Web Desktop Security Suite</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-input" id="Product2Container" style="display: none;">
-                <div class="form-input-label">
-                  <label for="Product2"></label>
-                </div>
-
-                <div class="form-input-input">
-                  <select id="Product2Name" onchange="toggleNextField()">
-                    <option value="" disabled selected hidden></option>
-                    <option value="Серверная стойка APC NetShelter Electric Optimum">Серверная стойка APC NetShelter Electric Optimum</option>
-                    <option value="Процессор Intel Core i9-14900K OEM">Процессор Intel Core i9-14900K OEM</option>
-                    <option value="Материнская плата Gigabyte AM4 AMD B550 B550M DS3H">Материнская плата Gigabyte AM4 AMD B550 B550M DS3H</option>
-                    <option value="Видеокарта ASUS GTX750TI-2GD5">Видеокарта ASUS GTX750TI-2GD5</option>
-                    <option value="Антивирус Доктор Веб Dr.Web Desktop Security Suite">Антивирус Доктор Веб Dr.Web Desktop Security Suite</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-input" id="Product3Container" style="display: none;">
-                <div class="form-input-label">
-                  <label for="Product3"></label>
-                </div>
-
-                <div class="form-input-input">
-                  <select id="Product3Name" onchange="toggleNextField()">
-                    <option value="" disabled selected hidden></option>
-                    <option value="Серверная стойка APC NetShelter Electric Optimum">Серверная стойка APC NetShelter Electric Optimum</option>
-                    <option value="Процессор Intel Core i9-14900K OEM">Процессор Intel Core i9-14900K OEM</option>
-                    <option value="Материнская плата Gigabyte AM4 AMD B550 B550M DS3H">Материнская плата Gigabyte AM4 AMD B550 B550M DS3H</option>
-                    <option value="Видеокарта ASUS GTX750TI-2GD5">Видеокарта ASUS GTX750TI-2GD5</option>
-                    <option value="Антивирус Доктор Веб Dr.Web Desktop Security Suite">Антивирус Доктор Веб Dr.Web Desktop Security Suite</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-input" id="Product4Container" style="display: none;">
-
-                <div class="form-input-label">
-                  <label for="Product4"></label>
-                </div>
-
-                <div class="form-input-input">
-                  <select id="Product4Name" onchange="toggleNextField()">
-                    <option value="" disabled selected hidden></option>
-                    <option value="Серверная стойка APC NetShelter Electric Optimum">Серверная стойка APC NetShelter Electric Optimum</option>
-                    <option value="Процессор Intel Core i9-14900K OEM">Процессор Intel Core i9-14900K OEM</option>
-                    <option value="Материнская плата Gigabyte AM4 AMD B550 B550M DS3H">Материнская плата Gigabyte AM4 AMD B550 B550M DS3H</option>
-                    <option value="Видеокарта ASUS GTX750TI-2GD5">Видеокарта ASUS GTX750TI-2GD5</option>
-                    <option value="Антивирус Доктор Веб Dr.Web Desktop Security Suite">Антивирус Доктор Веб Dr.Web Desktop Security Suite</option>
-                  </select>
-                </div>
-                
-              </div>
-
-              <div class="form-input" id="Product4Container" style="display: none;">
-
-                <div class="form-input-label">
-                  <label for="Product5"></label>
-                </div>
-
-                <div class="form-input-input">
-                  <select id="Product5Name" onchange="toggleProduct5Field()">
-                    <option value="" disabled selected hidden></option>
-                    <option value="Серверная стойка APC NetShelter Electric Optimum">Серверная стойка APC NetShelter Electric Optimum</option>
-                    <option value="Процессор Intel Core i9-14900K OEM">Процессор Intel Core i9-14900K OEM</option>
-                    <option value="Материнская плата Gigabyte AM4 AMD B550 B550M DS3H">Материнская плата Gigabyte AM4 AMD B550 B550M DS3H</option>
-                    <option value="Видеокарта ASUS GTX750TI-2GD5">Видеокарта ASUS GTX750TI-2GD5</option>
-                    <option value="Антивирус Доктор Веб Dr.Web Desktop Security Suite">Антивирус Доктор Веб Dr.Web Desktop Security Suite</option>
-                  </select>
-                </div>
-                
-              </div>
-
-              <script>
-                function toggleNextField() {
-                  const currentSelect = event.target;
-                  const nextContainer = currentSelect.parentNode.parentNode.nextElementSibling;
-
-                  if (currentSelect.value !== "") {
-                    nextContainer.style.display = 'flex';
-                  } else {
-                    nextContainer.style.display = 'none';
-                  }
-                }
-              </script>
-
-              <div class="button-container">
-                  <button id="clearButton" type="button">Очистить список</button>
-              </div>
-
-              <style>
-
-                .second-column .column-title {
-                  font-family: sans-serif;
-                  font-size: 20px;
-                  font-weight: 700;
-                  color: #333;
-                  margin-bottom: 20px;
-              }
-
-              .second-column .column-title {
-                  font-family: sans-serif;
-                  font-size: 18px;
-                  font-weight: 800;
-                  color: #333;
-                  text-transform: uppercase;
-                  position: relative;
-                  padding: 5px 30px;
-                  display: inline-block;
-                  letter-spacing: 2px;
-              }
-
-              .second-column .column-title::before {
-                  content: "[";
-                  position: absolute;
-                  left: 50px;
-                  top: 0;
-                  bottom: 0;
-                  font-size: 35px; /* Большая скобка */
-                  color: #fa753c;
-                  font-weight: 300; /* Тонкая линия скобки */
-                  display: flex;
-                  align-items: center;
-              }
-
-              .second-column .column-title::after {
-                  content: "]";
-                  position: absolute;
-                  right: 50px;
-                  top: 0;
-                  bottom: 0;
-                  font-size: 35px;
-                  color: #fa753c;
-                  font-weight: 300;
-                  display: flex;
-                  align-items: center;
-              }
-              
-              .button-container {
-                  text-align: right; /* Выравнивание по правому краю */
-              }
-
-              #clearButton {
-                  background-color: transparent; /* Без фона */
-                  border: none;                  /* Без границ */
-                  color: #fa753c;                /* Цвет текста */
-                  cursor: pointer;               /* Изменение курсора при наведении */
-                  padding: 20px 0px 5px 0px;             /* Добавление отступов */
-                  font-family: sans-serif;       /* Шрифт */
-                  font-size: 13px;               /* Размер шрифта */
-
-                  position: relative; 
-                  display: inline-block; 
-              }
-
-              #clearButton:hover {
-                  opacity: 1;                  /* Уменьшение прозрачности при наведении */
-              }
-
-              /* Создаем псевдоэлемент для подчеркивания */
-              #clearButton::after {
-                  content: ''; 
-                  position: absolute; 
-                  bottom: 0;          
-                  left: 0;            
-                  
-                  /* --- Изменения для более узкого подчеркивания --- */
-                  width: 100%;        /* Теперь подчеркивание будет занимать 80% ширины кнопки */
-                  height: 1px;        /* Толщина подчеркивания */
-                  background-color: #fa753c; 
-                  
-                  /* --- Изменения для анимации прозрачности --- */
-                  opacity: 0; /* Изначально полностью прозрачно (не видно) */
-                  transition: opacity 0.2s ease-in-out; /* Плавный переход для прозрачности */
-                  /* ------------------------------------------- */
-              }
-
-              /* Меняем прозрачность подчеркивания при наведении */
-              #clearButton:hover::after {
-                  opacity: 1; /* При наведении становится полностью видимым */
-              }
-              </style>
-
-              <script>
-                    const clearButton = document.getElementById('clearButton');
-                    const secondColumn = document.querySelector('.second-column');
-                    const selectElements = secondColumn.querySelectorAll('select');
-
-                    clearButton.addEventListener('click', () => {
-                        selectElements.forEach(select => {
-                            select.value = ''; // Очищаем значение
-                            // Дополнительно можно вызвать событие input или change, чтобы обновить интерфейс
-                            select.dispatchEvent(new Event('input'));
-                            select.dispatchEvent(new Event('change'));
-                        });
-                    });
-                </script>
-
+          <div class="form-input">
+            <div class="form-input-label">
+              <label for="name">Наименование организации</label>
             </div>
 
-          </div>    
+            <div class="form-input-input">
+              <input type="text" id="Account" required>
+            </div>
+          </div>
 
-          <input type="submit" value="Подтвердить" style="width: 35%;">
+          <div class="form-input">
+            <div class="form-input-label">
+              <label for="name">Тема обращения</label>
+            </div>
+
+            <div class="form-input-input">
+              <input type="text" id="Theme" required>
+            </div>
+          </div>
+
+          <div class="form-input">
+            <div class="form-input-label">
+              <label for="name">Описание</label>
+            </div>
+
+            <div class="form-input-input">
+              <input type="text" id="Description" required>
+            </div>
+          </div>
+
+          <input type="submit" value="Зарегистрировать" style="width: 35%;">
           <p style="font-family: sans-serif;">Нажимая на кнопку, я даю согласие на обработку персональных данных</p>
           
         </div>
-
-        <style>
-        /* --- Стили, применимые только в .second-column --- */
-        /* Общий контейнер для всей колонки */
-        .second-column {
-            background-color: rgba(255, 255, 255, 0.7); /* Полупрозрачный белый фон для всей колонки */
-            border-radius: 5px; /* Закругленные углы для всей колонки */
-            padding: 20px; /* Отступы внутри колонки */
-            margin-bottom: 20px; /* Отступ снизу колонки */
-            margin-left: 80px; /* Внешний отступ слева */
-            margin-right: px; /* Внешний отступ справа */
-        }
-
-        /* Общие стили для всех блоков полей формы внутри .second-column */
-        .second-column .form-input {
-        }
-
-        /* Стили для контейнера заголовка внутри .form-input, который находится в .second-column */
-        .second-column .form-input-label {
-            margin-bottom: 10px; 
-        }
-
-
-         /* 1. Инициализируем счетчик для всей колонки */
-          .second-column {
-              counter-reset: field-counter; /* Создаем счетчик с названием field-counter */
-          }
-
-          /* 2. Контейнер поля: увеличиваем счетчик и создаем отступ слева для цифры */
-          .second-column .form-input {
-              counter-increment: field-counter; /* Увеличиваем счетчик на 1 при каждом появлении .form-input */
-              position: relative;
-              padding-left: 40px; /* Пространство для цифры */
-              margin-bottom: 15px;
-              max-width: 340px;
-          }
-
-          /* 3. Оформление самой цифры перед каждым полем */
-          .second-column .form-input::before {
-              content: counter(field-counter) "."; /* Выводим значение счетчика с точкой */
-              position: absolute;
-              left: 0;
-              top: 25px; /* Выравнивание по высоте (подстройте под ваш дизайн) */
-              font-family: sans-serif;
-              font-weight: bold;
-              font-size: 18px;
-              color: #fa753c; /* Ваш фирменный оранжевый цвет */
-          }
-
-        /* Контейнер для позиционирования стрелки */
-        .second-column .form-input-input {
-            position: relative;
-            width: 100%;
-            max-width: 300px; /* Опционально: ограничиваем ширину */
-        }
-
-        /* Стили для контейнера поля выбора/ввода внутри .form-input, который находится в .second-column */
-        .second-column .form-input-input select {
-            width: 100%;
-            background-color: transparent; /* Без фона */
-            border: none;                  /* Убираем все границы */
-            border-bottom: 2px solid #ccc; /* Только нижняя черта */
-            border-radius: 0;              /* Убираем скругления */
-            padding: 1px 10px 5px 0;      /* Отступы: справа место под стрелку, слева 0 */
-            font-family: sans-serif;
-            font-size: 14px;
-            color: #333;
-            cursor: pointer;
-        }
-
-        /* Стили для самого поля выбора (select) или поля ввода (input) внутри .form-input-input, которое находится в .second-column */
-        .second-column .form-input-input select,
-        .second-column .form-input-input input { /* Применяем стили и к input, если они есть */
-            width: 100%;                 
-            padding: 10px 12px;
-            
-            border-radius: 5px;          
-            
-            color: #333;                 
-            font-size: 16px;             
-            line-height: 1.5;            
-            cursor: pointer;             
-            
-            /* Стили для select */
-            -webkit-appearance: none;    
-            -moz-appearance: none;       
-            appearance: none;            
-            background-repeat: no-repeat;
-            background-position: right 12px top 50%; 
-            background-size: 10px auto; 
-            
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        /* Стили для input, если они есть внутри .second-column .form-input-input */
-        .second-column .form-input-input input {
-            /* Можно добавить специфичные стили для input, если они отличаются от select */
-            /* Например, если у input нет своей стрелки и background-image */
-            background-image: none; 
-            padding: 10px 12px; /* Убедимся, что padding такой же, как у select */
-        }
-
-        /* Стиль при фокусе для select и input */
-        .second-column .form-input-input select:focus,
-        .second-column .form-input-input input:focus {
-            outline: none; 
-            border-color: #D8DBE2; 
-            box-shadow: 0 0 0 3px rgba(173, 173, 173, 0.3);
-        }
-
-        /* Стиль для placeholder (скрытого option) */
-        .second-column .form-input-input select option[value=""][disabled] {
-            color: #999; 
-        }
-
-        /* Если у вас есть input, возможно, понадобится такой же стиль для его placeholder */
-        .second-column .form-input-input input::placeholder {
-            color: #999;
-        }
-        </style>
       </div>
     </div>
     
-    <!-- Футер (для логотипов в углу) -->
     <footer>
         <div class="footer-logos">
             <img src="BPMSoft.png" alt="Логотип 1">
-            <!-- <img src="X.png" alt="Логотип 2">
+            <img src="X.png" alt="Логотип 2">
             <div class ="logoAccount">
               <img src="Account.png" alt="Логотип 3">
-            </div> -->
+            </div>
         </div>
     </footer>
   </form>
-</body>
+</body> 
+  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://files.cloudbpm.ru/Delivery/js/track-cookies.js"></script>
+<script src="https://files.cloudbpm.ru/Delivery/js/create-object.js"></script>
+
+<link rel="stylesheet" href="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.css">
+<div id="bpmsoftocc-chat"></div>
+<script> 
+    window.bpmsoftoccconfig = {};
+    window.bpmsoftoccconfig.channelId = '819f796e-2e18-4a8b-848a-ebaadd3d3360';
+    window.bpmsoftoccconfig.connectorUrl = 'https://bpmsoft-oc-connector1.cloudbpm.ru';
+</script>
+<script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.js" async></script>
+<script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/chunk-vendors.js" async></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://files.cloudbpm.ru/Delivery/js/track-cookies.js"></script>
+<script src="https://files.cloudbpm.ru/Delivery/js/create-object.js"></script>
 
 <script>
-// Функция для скрытия/показа полей доставки
-function toggleDeliveryFields() {
-    const receiptMethod = document.getElementById('ReceiptMethodName');
-    const deliveryAddressContainer = document.getElementById('deliveryFieldsContainer');
-    const deliveryDateContainer = document.getElementById('deliveryDateContainer');
-    const deliveryAddressInput = document.getElementById('DeliveryAddress');
-    const deliveryDateInput = document.getElementById('DeliveryDate');
-    
-    if (receiptMethod.value === 'Самовывоз') {
-        // Если выбран "Самовывоз" - скрываем поля доставки
-        deliveryAddressContainer.classList.add('hidden');
-        deliveryDateContainer.classList.add('hidden');
-        
-        // Убираем обязательность полей
-        deliveryAddressInput.removeAttribute('required');
-        deliveryDateInput.removeAttribute('required');
-        
-        // Очищаем значения при скрытии
-        deliveryAddressInput.value = '';
-        deliveryDateInput.value = '';
-    } else {
-        // Если выбран "Доставка" - показываем поля доставки
-        deliveryAddressContainer.classList.remove('hidden');
-        deliveryDateContainer.classList.remove('hidden');
-        
-        // Делаем поля обязательными
-        deliveryAddressInput.setAttribute('required', 'required');
-        deliveryDateInput.setAttribute('required', 'required');
-    }
-}
-
-// Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-    // Вызываем функцию при загрузке, чтобы установить правильное состояние
-    toggleDeliveryFields();
-});
-
-</script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://files.cloudbpm.ru/Delivery/js/track-cookies.js"></script>
@@ -731,32 +318,25 @@ document.addEventListener('DOMContentLoaded', function() {
 */
 var config = {
     fields: {
-        "Contact": "#Name", // ФИО контакта, который создает заказ
-        "Account": "#Account", // Название контрагента, который создает заказ
-        "ContactNumber": "#Phone", // Мобильный телефон контакта
-        "ReceiverName": "#Name", // ФИО получателя заказа
-        "Description": "css-selector", // Комментарий
-        "DeliveryType": "#ReceiptMethodName", // Способ доставки заказа
-        "PaymentType": "css-selector", // Способ оплаты заказа
-        "DeliveryAddress": "#DeliveryAddress", // Адрес доставки заказа
-        "DueDate": "#DeliveryDate", // Желаемая дата доставки (в системе - плановая дата выполнения)
-        "UsrProduct1": "#ProductName",
-        "UsrProduct2": "#Product2Name",
-        "UsrProduct3": "#Product3Name",
-        "UsrProduct4": "#Product4Name",
-        "UsrProduct5": "#Product5Name"
-
-
+        "Name": "#Name", // ФИО контакта, который регистрирует обращение
+        "Account": "#Account", // Имя компании  
+        "Phone": "css-selector", // Мобильный телефон контакта
+        "Email": "css-selector", // Email контакта
+        "Subject": "#Theme", // Тема обращения
+        "Symptoms": "#Description", // Описание обращения
+        "BPMSerialNumber": "css-selector", // Серийный номер
+        "BPMDatePurchase": "css-selector", // Дата покупки
+        "BPMFault": "css-selector" // Неисправность
     },
     contactFields: {
         "FullName": "#Name", // Name of a contact
-        "Phone": "#Phone", // Contact's mobile phone
-        "Email": "#Email" // Contact's email
+        "Phone": "css-selector", // Contact's mobile phone
+        "Email": "css-selector" // Contact's email
     },
     customFields: {},
-    landingId: "99e29680-fc94-478b-8d73-41939811802b",
-    serviceUrl: "https://ai-bpms-002.bpmrnd.ru:5002/ServiceModel/GeneratedObjectWebFormService.svc/SaveWebFormObjectData",
-    redirectUrl: "https://bpmsoft.ru/"
+    landingId: "8ac80b88-0512-4500-95c9-8ed0dd88391f",
+    serviceUrl: "https://26020315022471-0000000-bpmsoft-crm.cloudbpm.ru:443/0/ServiceModel/GeneratedObjectWebFormService.svc/SaveWebFormObjectData",
+    redirectUrl: "https://atb-e.ru/"
 };
 /**
 * Функция ниже создает объект из введенных данных.
@@ -774,4 +354,256 @@ function initLanding() {
 }
 jQuery(document).ready(initLanding);
 </script>
-</html>
+
+<!-- <script>
+// Переменная для хранения выбранной категории
+let selectedCategory = 'booking';
+
+// Функция выбора категории
+function selectCategory(category) {
+  selectedCategory = category;
+  
+  // Обновляем активную кнопку
+  document.querySelectorAll('.category-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  
+  if (category === 'booking') {
+    document.querySelector('.booking-btn').classList.add('active');
+    document.getElementById('currentCategory').textContent = 'Бронирование гостиниц';
+    document.getElementById('bookingSection').classList.remove('hidden');
+    document.getElementById('refundSection').classList.add('hidden');
+  } else {
+    document.querySelector('.refund-btn').classList.add('active');
+    document.getElementById('currentCategory').textContent = 'Возврат билетов';
+    document.getElementById('bookingSection').classList.add('hidden');
+    document.getElementById('refundSection').classList.remove('hidden');
+  }
+}
+
+// Конфигурация для BPMSoft
+var config = {
+  fields: {
+    "UsrFIO": getCurrentFullNameSelector(),
+    "UsrEmailAdd": "#email",
+    "UsrTelMob": getCurrentPhoneSelector(),
+    "UsrTelRab": "#workPhone",
+    "UsrString1": getCategoryValue(),
+    "UsrPass": "#passportNumber",
+    "UsrBirthDate": "#birthDate",
+    "UsrCityID": "#city",
+    "UsrHotelName": "#hotelName",
+    "UsrDateStart": "#checkinDate", 
+    "UsrDateEnd": "#checkoutDate",
+    "UsrNumberType": "#roomType",
+    "UsrExecutor": getCurrentExecutorSelector(),
+    "UsrUchMar": "#routeSection",
+    "UsrDateStartRefund": "#departureDate",
+    "UsrTimeRefund": "#departureTime",
+    "UsrOwnerRefund": "#refundExecutor"
+  },
+  contactFields: {
+    "FullName": getCurrentFullNameSelector(),
+    "Phone": getCurrentPhoneSelector(),
+    "Email": "#email"
+  },
+  customFields: {},
+  serviceUrl: "https://26072711225013-0000000-bpmsoft-crm.cloudbpm.ru:443/0/ServiceModel/GeneratedObjectWebFormService.svc/SaveWebFormObjectData"
+};
+
+// Вспомогательные функции для динамического выбора полей
+function getCurrentFullNameSelector() {
+  return selectedCategory === 'booking' ? "#bookingFullName" : "#refundFullName";
+}
+
+function getCurrentPhoneSelector() {
+  // Обратите внимание: в форме возврата билетов нет отдельного поля мобильного телефона
+  // Используем поле мобильного телефона из бронирования или можно добавить новое поле
+  return "#mobilePhone"; // Используем одно поле для обеих форм
+}
+
+function getCurrentExecutorSelector() {
+  return selectedCategory === 'booking' ? "#bookingExecutor" : "#refundExecutor";
+}
+
+function getCategoryValue() {
+  return selectedCategory === 'booking' ? "Бронирование гостиниц" : "Возврат билетов";
+}
+
+// Валидация формы (все поля теперь необязательные)
+function validateForm() {
+  clearErrors();
+  
+  // Все поля необязательные, просто очищаем ошибки
+  clearErrors();
+  
+  // Проверка логики дат (если они заполнены)
+  if (selectedCategory === 'booking') {
+    const checkinDate = document.getElementById('checkinDate');
+    const checkoutDate = document.getElementById('checkoutDate');
+    
+    // Если обе даты заполнены, проверяем логику
+    if (checkinDate.value && checkoutDate.value) {
+      const checkin = new Date(checkinDate.value);
+      const checkout = new Date(checkoutDate.value);
+      
+      if (checkout <= checkin) {
+        showError(checkoutDate, 'Дата выезда должна быть позже даты заезда');
+        return false;
+      }
+    }
+  }
+  
+  return true;
+}
+
+// Показать ошибку (оставляем только для логических проверок)
+function showError(field, message) {
+  if (!field) return;
+  
+  const parent = field.parentElement;
+  const errorDiv = document.createElement('div');
+  errorDiv.className = 'error-message';
+  errorDiv.style.color = '#ff0000';
+  errorDiv.style.fontSize = '12px';
+  errorDiv.style.marginTop = '5px';
+  errorDiv.textContent = message;
+  
+  field.style.borderColor = '#ff0000';
+  field.style.boxShadow = '0 0 0 2px rgba(255, 0, 0, 0.2)';
+  
+  parent.appendChild(errorDiv);
+}
+
+// Очистить ошибки
+function clearErrors() {
+  document.querySelectorAll('.error-message').forEach(el => el.remove());
+  document.querySelectorAll('input, select, textarea').forEach(field => {
+    if (field) {
+      field.style.borderColor = '';
+      field.style.boxShadow = '';
+    }
+  });
+}
+
+// Основная функция отправки формы
+function submitForm() {
+  if (!validateForm()) {
+    return false;
+  }
+  
+  // ДЛЯ ОТЛАДКИ: выводим значения полей в консоль
+  console.log("=== ДЕБАГ ИНФОРМАЦИЯ ===");
+  console.log("Выбранная категория:", selectedCategory);
+  console.log("Селектор ФИО:", getCurrentFullNameSelector());
+  console.log("Значение ФИО:", document.querySelector(getCurrentFullNameSelector())?.value);
+  console.log("Конфиг UsrFIO:", config.fields.UsrFIO);
+  console.log("Конфиг Contact.FullName:", config.contactFields.FullName);
+  console.log("=== КОНЕЦ ДЕБАГА ===");
+  
+  // Обновляем конфигурацию для текущей категории
+  updateConfigForCurrentCategory();
+  
+  // Показываем индикатор загрузки
+  const submitBtn = document.querySelector('.submit-btn');
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = 'Отправка...';
+  submitBtn.disabled = true;
+  
+  // Вызываем функцию BPMSoft для создания объекта
+  try {
+    if (typeof landing !== 'undefined' && typeof landing.createObjectFromLanding === 'function') {
+      landing.createObjectFromLanding(config);
+      
+      // Сброс формы после успешной отправки
+      setTimeout(() => {
+        document.getElementById('applicationForm').reset();
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        alert('Заявка успешно отправлена!');
+      }, 2000);
+    } else {
+      console.error('BPMSoft landing library not loaded');
+      alert('Ошибка отправки формы. Попробуйте позже.');
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+    }
+  } catch (error) {
+    console.error('Error submitting form:', error);
+    alert('Ошибка при отправке формы: ' + error.message);
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
+  }
+  
+  return false;
+}
+
+// Обновление конфигурации для текущей категории
+function updateConfigForCurrentCategory() {
+  // Обновляем конфигурацию для текущей категории
+  config.fields.UsrFIO = getCurrentFullNameSelector();
+  config.fields.UsrTelMob = getCurrentPhoneSelector();
+  config.fields.UsrExecutor = getCurrentExecutorSelector();
+  config.fields.UsrString1 = getCategoryValue();
+  
+  // Обновляем contactFields
+  config.contactFields.FullName = getCurrentFullNameSelector();
+  config.contactFields.Phone = getCurrentPhoneSelector();
+}
+
+// Функция для отображения имени выбранного файла
+function setupFileInputs() {
+  const fileInputs = document.querySelectorAll('input[type="file"]');
+  
+  fileInputs.forEach(input => {
+    input.addEventListener('change', function() {
+      const fileName = this.files[0]?.name || (this.id === 'document2' ? 'Выберите файл (опционально)' : 'Выберите файл');
+      const btn = this.previousElementSibling;
+      if (btn && btn.classList.contains('file-upload-btn')) {
+        btn.textContent = `📎 ${fileName}`;
+        if (fileName !== 'Выберите файл' && fileName !== 'Выберите файл (опционально)') {
+          btn.style.backgroundColor = '#e8f5e9';
+          btn.style.borderColor = '#4CAF50';
+        } else {
+          btn.style.backgroundColor = '#f8f9fa';
+          btn.style.borderColor = '#DC143C';
+        }
+      }
+    });
+  });
+}
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+  // Настройка обработчиков файлов
+  setupFileInputs();
+  
+  // Устанавливаем минимальную дату для полей даты
+  const today = new Date().toISOString().split('T')[0];
+  const birthDate = document.getElementById('birthDate');
+  const checkinDate = document.getElementById('checkinDate');
+  const checkoutDate = document.getElementById('checkoutDate');
+  const departureDate = document.getElementById('departureDate');
+  
+  if (birthDate) birthDate.max = today;
+  if (checkinDate) checkinDate.min = today;
+  if (checkoutDate) checkoutDate.min = today;
+  if (departureDate) departureDate.min = today;
+
+  // Добавляем логику для автоматической установки минимальной даты выезда
+  if (checkinDate && checkoutDate) {
+    checkinDate.addEventListener('change', function() {
+      checkoutDate.min = this.value;
+    });
+  }
+
+  if (typeof $ !== 'undefined') {
+    $(document).ready(function() {
+      if (typeof landing !== 'undefined') {
+        landing.initLanding(config);
+      }
+    });
+  }
+});
+</script>
+</html> -->
