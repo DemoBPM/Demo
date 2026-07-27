@@ -1,609 +1,152 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="ru">
 <head>
-  <title>Зарегистрировать обращение</title>
-  <style>
-            .video-background {
-            position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -1000;
-            overflow: hidden;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Создание обращения</title>
 
-        #myVideo {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -1000;
-            transform: translateX(-50%) translateY(-50%);
-        }
-        body {
-            position: relative;
-            margin: 0;
-            overflow: hidden;
-        }
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .land-form {
-            background-color: rgba(221 221 221 / 80%);
-            padding: 20px;
-            border-radius: 15px;
-            color: #333;
-            text-align: center;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
-            width: 950px;
-            height: auto;
-        }
-        .form-inner {
-          display: flex;
-          align-content: center;
-          flex-direction: column;
-          align-items: center;
-          margin-bottom: 15px;
-          padding: 10px;
-          border-radius: 15px;
-          background-color: #f6f7f8;
-          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.185);
-        }
-        .form-input {
-          display: flex;
-          flex-wrap: nowrap;
-          justify-content: center;
-          margin-bottom: 15px;
-          width: 600px;
-          flex-direction: column; 
-          align-items: flex-start;
-          padding-top: 1%;
-        }
-        .form-input label {
-          width: auto; /* Устанавливаем фиксированную ширину для метки */
-          flex-shrink: 0; /* Не сжимаем метку */
-          text-align: left;
-          font-family: sans-serif;
-        }
-        .form-input input {
-          padding: 10px;
-          border: 1px solid #313132;
-          border-radius: 10px;
-          font-size: 16px;
-          outline: none;
-          /* width: 100%; Задаем ширину 100%, чтобы они занимали всю доступную ширину */
-          /* max-width: 300px; Максимальная ширина инпута */
-          width: 200%;
-        }
-        .form-input input:focus {
-          border-color: #313132;
-        }
-        input[type="submit"] {
-            margin-top: 20px;
-            padding: 10px 20px;
-            border: none;
-            background-color: #11345C;
-            color: #FFFF;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 16px;
-            
-            /* Плавные переходы для нескольких свойств */
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            
-            /* Опционально: небольшая тень для лучшего визуального восприятия */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+    }
 
-        input[type="submit"]:hover {
-            background-color: #104c91;
-            
-            /* Дополнительные эффекты при наведении */
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
+    body {
+        background: #f5f7fa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+    }
 
-        input[type="submit"]:active {
-            /* Эффект при нажатии */
-            transform: translateY(0);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            transition-duration: 0.1s;
-        }
+    .form-container {
+        width: 100%;
+        max-width: 600px;
+        background: #fff;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
 
-        input[type="submit"]:focus {
-            /* Стиль для фокуса (для доступности) */
-            outline: 2px solid #104c91;
-            outline-offset: 2px;
-        }
-        p {
-          font-size: 12px;
-          text-align: center;
-          margin-top: 15px;
-          
-        }
-        .form-input-label {
-          display: flex;
-          margin-right: 350px;
-          font-size: 17px;
-        }
-        .form-input-input {
-          display: flex;
-          width: 600px;
-        }
-        select{
-          border: 1px solid #D8DBE2;
-          border-radius: 10px;
-          outline: none;
-          padding: 10px;
-          font-size: 16px;
-          background-color: #ffffff;
-          width: 100%;
-        }
-        option {
-        background-color: #fff;
+    h2 {
+        text-align: center;
+        margin-bottom: 25px;
         color: #333;
-        padding: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #444;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 12px;
         font-size: 16px;
-        
-      }
-      option:hover {
-        background-color: #ffcd33; /* Цвет фона при наведении */
-        color: black; /* Цвет текста при наведении */
-      }
-      footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
+        transition: .2s;
+    }
+
+    input:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #4a90e2;
+    }
+
+    textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    button {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 8px;
+        background: #4a90e2;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    button:hover {
+        background: #357bd8;
+    }
+
+    @media (max-width: 600px) {
+        .form-container {
             padding: 20px;
-            /* background-color: rgba(0, 0, 0, 0.7); */
-            color: white;
-            width: 100%;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            gap: 20px;
-        }
-        .footer-logos img {
-            width: 50px; /* Размер логотипов */
-            height: auto;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
-        }
-         /* Стиль футера */
-        footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            padding: 20px;
-            color: white;
-            width: 100%;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            gap: 20px;
-            padding-top: 5%;
-        }
-        .footer-logos img {
-            width: auto; /* Размер логотипов */
-            height: 70px;
-            padding: 1%;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
-            opacity: 1;
-        }
-        .footer-logos{
-          display: flex;
-          align-items: center;
         }
 
-        .logoAccount{
-        padding-left: 5%;
+        h2 {
+            font-size: 22px;
         }
-  </style>
+
+        input,
+        textarea,
+        button {
+            font-size: 15px;
+        }
+    }
+</style>
+
+
 </head>
 
 <body>
-    <div class="video-background">
-      <video autoplay muted loop id="myVideo">
-        <source src="Glavnaya.mp4" type="video/mp4">
-      </video>
+
+<div class="form-container">
+
+<h2>Создание обращения</h2>
+
+<form>
+
+    <div class="form-group">
+        <label for="contact">Контакт</label>
+        <input
+            type="text"
+            id="contact"
+            name="contact"
+            placeholder="Введите контакт">
     </div>
 
-<form class="transparent"; onSubmit="createObject(); return false">
-    <div class="container">
-      <div class="land-form">
-        <div class="form-inner">
-          <h1 style="font-family: sans-serif; color: #313132;"> Заполнение обращения</h1>
-          
-          <div class="form-input">
-            <div class="form-input-label">
-              <label for="name">ФИО</label> 
-            </div>
-
-            <div class="form-input-input">
-              <input type="text" id="Name" required>
-            </div>
-          </div>
-
-          <div class="form-input">
-            <div class="form-input-label">
-              <label for="name">Наименование организации</label>
-            </div>
-
-            <div class="form-input-input">
-              <input type="text" id="Account" required>
-            </div>
-          </div>
-
-          <div class="form-input">
-            <div class="form-input-label">
-              <label for="name">Тема обращения</label>
-            </div>
-
-            <div class="form-input-input">
-              <input type="text" id="Theme" required>
-            </div>
-          </div>
-
-          <div class="form-input">
-            <div class="form-input-label">
-              <label for="name">Описание</label>
-            </div>
-
-            <div class="form-input-input">
-              <input type="text" id="Description" required>
-            </div>
-          </div>
-
-          <input type="submit" value="Зарегистрировать" style="width: 35%;">
-          <p style="font-family: sans-serif;">Нажимая на кнопку, я даю согласие на обработку персональных данных</p>
-          
-        </div>
-      </div>
+    <div class="form-group">
+        <label for="subject">Тема</label>
+        <input
+            type="text"
+            id="subject"
+            name="subject"
+            placeholder="Введите тему обращения">
     </div>
-    
-    <footer>
-        <div class="footer-logos">
-            <img src="BPMSoft.png" alt="Логотип 1">
-            <img src="X.png" alt="Логотип 2">
-            <div class ="logoAccount">
-              <img src="Account.png" alt="Логотип 3">
-            </div>
-        </div>
-    </footer>
-  </form>
-</body> 
-  
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://files.cloudbpm.ru/Delivery/js/track-cookies.js"></script>
-<script src="https://files.cloudbpm.ru/Delivery/js/create-object.js"></script>
 
-<link rel="stylesheet" href="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.css">
-<div id="bpmsoftocc-chat"></div>
-<script> 
-    window.bpmsoftoccconfig = {};
-    window.bpmsoftoccconfig.channelId = '819f796e-2e18-4a8b-848a-ebaadd3d3360';
-    window.bpmsoftoccconfig.connectorUrl = 'https://bpmsoft-oc-connector1.cloudbpm.ru';
-</script>
-<script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.js" async></script>
-<script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/chunk-vendors.js" async></script>
+    <div class="form-group">
+        <label for="description">Описание</label>
+        <textarea
+            id="description"
+            name="description"
+            placeholder="Введите описание обращения"></textarea>
+    </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://files.cloudbpm.ru/Delivery/js/track-cookies.js"></script>
-<script src="https://files.cloudbpm.ru/Delivery/js/create-object.js"></script>
+    <button type="submit">
+        Создать обращение
+    </button>
 
-<script>
+</form>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://files.cloudbpm.ru/Delivery/js/track-cookies.js"></script>
-<script src="https://files.cloudbpm.ru/Delivery/js/create-object.js"></script>
-<script>
 
-/**
-* Замените выражение в кавычках "css-selector" в коде ниже значением селектора элемента на Вашей лендинговой странице.
-* Вы можете использовать #id или любой другой CSS селектор, который будет точно определять поле ввода на Вашей лендинговой странице.
-* Пример: "Email": "#MyEmailField".
-* Если Ваша лендинговая страница не содержит одного или нескольких полей из приведенных ниже – оставьте строку без изменений или удалите полностью.
-*/
-var config = {
-    fields: {
-        "Name": "#Name", // ФИО контакта, который регистрирует обращение
-        "Account": "#Account", // Имя компании  
-        "Phone": "css-selector", // Мобильный телефон контакта
-        "Email": "css-selector", // Email контакта
-        "Subject": "#Theme", // Тема обращения
-        "Symptoms": "#Description", // Описание обращения
-        "BPMSerialNumber": "css-selector", // Серийный номер
-        "BPMDatePurchase": "css-selector", // Дата покупки
-        "BPMFault": "css-selector" // Неисправность
-    },
-    contactFields: {
-        "FullName": "#Name", // Name of a contact
-        "Phone": "css-selector", // Contact's mobile phone
-        "Email": "css-selector" // Contact's email
-    },
-    customFields: {},
-    landingId: "8ac80b88-0512-4500-95c9-8ed0dd88391f",
-    serviceUrl: "https://26020315022471-0000000-bpmsoft-crm.cloudbpm.ru:443/0/ServiceModel/GeneratedObjectWebFormService.svc/SaveWebFormObjectData",
-    redirectUrl: "https://atb-e.ru/"
-};
-/**
-* Функция ниже создает объект из введенных данных.
-* Привяжите вызов этой функции к событию "onSubmit" формы или любому другому элементу события.
-* Пример: <form class="mainForm" name="landingForm" onSubmit="createObject(); return false">
-*/
-function createObject() {
-    landing.createObjectFromLanding(config);
-}
-/**
-* Функция ниже инициализирует лендинг из параметров URL.
-*/
-function initLanding() {
-    landing.initLanding(config);
-}
-jQuery(document).ready(initLanding);
-</script>
+</div>
 
-<!-- <script>
-// Переменная для хранения выбранной категории
-let selectedCategory = 'booking';
-
-// Функция выбора категории
-function selectCategory(category) {
-  selectedCategory = category;
-  
-  // Обновляем активную кнопку
-  document.querySelectorAll('.category-btn').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  
-  if (category === 'booking') {
-    document.querySelector('.booking-btn').classList.add('active');
-    document.getElementById('currentCategory').textContent = 'Бронирование гостиниц';
-    document.getElementById('bookingSection').classList.remove('hidden');
-    document.getElementById('refundSection').classList.add('hidden');
-  } else {
-    document.querySelector('.refund-btn').classList.add('active');
-    document.getElementById('currentCategory').textContent = 'Возврат билетов';
-    document.getElementById('bookingSection').classList.add('hidden');
-    document.getElementById('refundSection').classList.remove('hidden');
-  }
-}
-
-// Конфигурация для BPMSoft
-var config = {
-  fields: {
-    "UsrFIO": getCurrentFullNameSelector(),
-    "UsrEmailAdd": "#email",
-    "UsrTelMob": getCurrentPhoneSelector(),
-    "UsrTelRab": "#workPhone",
-    "UsrString1": getCategoryValue(),
-    "UsrPass": "#passportNumber",
-    "UsrBirthDate": "#birthDate",
-    "UsrCityID": "#city",
-    "UsrHotelName": "#hotelName",
-    "UsrDateStart": "#checkinDate", 
-    "UsrDateEnd": "#checkoutDate",
-    "UsrNumberType": "#roomType",
-    "UsrExecutor": getCurrentExecutorSelector(),
-    "UsrUchMar": "#routeSection",
-    "UsrDateStartRefund": "#departureDate",
-    "UsrTimeRefund": "#departureTime",
-    "UsrOwnerRefund": "#refundExecutor"
-  },
-  contactFields: {
-    "FullName": getCurrentFullNameSelector(),
-    "Phone": getCurrentPhoneSelector(),
-    "Email": "#email"
-  },
-  customFields: {},
-  serviceUrl: "https://26072711225013-0000000-bpmsoft-crm.cloudbpm.ru:443/0/ServiceModel/GeneratedObjectWebFormService.svc/SaveWebFormObjectData"
-};
-
-// Вспомогательные функции для динамического выбора полей
-function getCurrentFullNameSelector() {
-  return selectedCategory === 'booking' ? "#bookingFullName" : "#refundFullName";
-}
-
-function getCurrentPhoneSelector() {
-  // Обратите внимание: в форме возврата билетов нет отдельного поля мобильного телефона
-  // Используем поле мобильного телефона из бронирования или можно добавить новое поле
-  return "#mobilePhone"; // Используем одно поле для обеих форм
-}
-
-function getCurrentExecutorSelector() {
-  return selectedCategory === 'booking' ? "#bookingExecutor" : "#refundExecutor";
-}
-
-function getCategoryValue() {
-  return selectedCategory === 'booking' ? "Бронирование гостиниц" : "Возврат билетов";
-}
-
-// Валидация формы (все поля теперь необязательные)
-function validateForm() {
-  clearErrors();
-  
-  // Все поля необязательные, просто очищаем ошибки
-  clearErrors();
-  
-  // Проверка логики дат (если они заполнены)
-  if (selectedCategory === 'booking') {
-    const checkinDate = document.getElementById('checkinDate');
-    const checkoutDate = document.getElementById('checkoutDate');
-    
-    // Если обе даты заполнены, проверяем логику
-    if (checkinDate.value && checkoutDate.value) {
-      const checkin = new Date(checkinDate.value);
-      const checkout = new Date(checkoutDate.value);
-      
-      if (checkout <= checkin) {
-        showError(checkoutDate, 'Дата выезда должна быть позже даты заезда');
-        return false;
-      }
-    }
-  }
-  
-  return true;
-}
-
-// Показать ошибку (оставляем только для логических проверок)
-function showError(field, message) {
-  if (!field) return;
-  
-  const parent = field.parentElement;
-  const errorDiv = document.createElement('div');
-  errorDiv.className = 'error-message';
-  errorDiv.style.color = '#ff0000';
-  errorDiv.style.fontSize = '12px';
-  errorDiv.style.marginTop = '5px';
-  errorDiv.textContent = message;
-  
-  field.style.borderColor = '#ff0000';
-  field.style.boxShadow = '0 0 0 2px rgba(255, 0, 0, 0.2)';
-  
-  parent.appendChild(errorDiv);
-}
-
-// Очистить ошибки
-function clearErrors() {
-  document.querySelectorAll('.error-message').forEach(el => el.remove());
-  document.querySelectorAll('input, select, textarea').forEach(field => {
-    if (field) {
-      field.style.borderColor = '';
-      field.style.boxShadow = '';
-    }
-  });
-}
-
-// Основная функция отправки формы
-function submitForm() {
-  if (!validateForm()) {
-    return false;
-  }
-  
-  // ДЛЯ ОТЛАДКИ: выводим значения полей в консоль
-  console.log("=== ДЕБАГ ИНФОРМАЦИЯ ===");
-  console.log("Выбранная категория:", selectedCategory);
-  console.log("Селектор ФИО:", getCurrentFullNameSelector());
-  console.log("Значение ФИО:", document.querySelector(getCurrentFullNameSelector())?.value);
-  console.log("Конфиг UsrFIO:", config.fields.UsrFIO);
-  console.log("Конфиг Contact.FullName:", config.contactFields.FullName);
-  console.log("=== КОНЕЦ ДЕБАГА ===");
-  
-  // Обновляем конфигурацию для текущей категории
-  updateConfigForCurrentCategory();
-  
-  // Показываем индикатор загрузки
-  const submitBtn = document.querySelector('.submit-btn');
-  const originalText = submitBtn.textContent;
-  submitBtn.textContent = 'Отправка...';
-  submitBtn.disabled = true;
-  
-  // Вызываем функцию BPMSoft для создания объекта
-  try {
-    if (typeof landing !== 'undefined' && typeof landing.createObjectFromLanding === 'function') {
-      landing.createObjectFromLanding(config);
-      
-      // Сброс формы после успешной отправки
-      setTimeout(() => {
-        document.getElementById('applicationForm').reset();
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-        alert('Заявка успешно отправлена!');
-      }, 2000);
-    } else {
-      console.error('BPMSoft landing library not loaded');
-      alert('Ошибка отправки формы. Попробуйте позже.');
-      submitBtn.textContent = originalText;
-      submitBtn.disabled = false;
-    }
-  } catch (error) {
-    console.error('Error submitting form:', error);
-    alert('Ошибка при отправке формы: ' + error.message);
-    submitBtn.textContent = originalText;
-    submitBtn.disabled = false;
-  }
-  
-  return false;
-}
-
-// Обновление конфигурации для текущей категории
-function updateConfigForCurrentCategory() {
-  // Обновляем конфигурацию для текущей категории
-  config.fields.UsrFIO = getCurrentFullNameSelector();
-  config.fields.UsrTelMob = getCurrentPhoneSelector();
-  config.fields.UsrExecutor = getCurrentExecutorSelector();
-  config.fields.UsrString1 = getCategoryValue();
-  
-  // Обновляем contactFields
-  config.contactFields.FullName = getCurrentFullNameSelector();
-  config.contactFields.Phone = getCurrentPhoneSelector();
-}
-
-// Функция для отображения имени выбранного файла
-function setupFileInputs() {
-  const fileInputs = document.querySelectorAll('input[type="file"]');
-  
-  fileInputs.forEach(input => {
-    input.addEventListener('change', function() {
-      const fileName = this.files[0]?.name || (this.id === 'document2' ? 'Выберите файл (опционально)' : 'Выберите файл');
-      const btn = this.previousElementSibling;
-      if (btn && btn.classList.contains('file-upload-btn')) {
-        btn.textContent = `📎 ${fileName}`;
-        if (fileName !== 'Выберите файл' && fileName !== 'Выберите файл (опционально)') {
-          btn.style.backgroundColor = '#e8f5e9';
-          btn.style.borderColor = '#4CAF50';
-        } else {
-          btn.style.backgroundColor = '#f8f9fa';
-          btn.style.borderColor = '#DC143C';
-        }
-      }
-    });
-  });
-}
-
-// Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-  // Настройка обработчиков файлов
-  setupFileInputs();
-  
-  // Устанавливаем минимальную дату для полей даты
-  const today = new Date().toISOString().split('T')[0];
-  const birthDate = document.getElementById('birthDate');
-  const checkinDate = document.getElementById('checkinDate');
-  const checkoutDate = document.getElementById('checkoutDate');
-  const departureDate = document.getElementById('departureDate');
-  
-  if (birthDate) birthDate.max = today;
-  if (checkinDate) checkinDate.min = today;
-  if (checkoutDate) checkoutDate.min = today;
-  if (departureDate) departureDate.min = today;
-
-  // Добавляем логику для автоматической установки минимальной даты выезда
-  if (checkinDate && checkoutDate) {
-    checkinDate.addEventListener('change', function() {
-      checkoutDate.min = this.value;
-    });
-  }
-
-  if (typeof $ !== 'undefined') {
-    $(document).ready(function() {
-      if (typeof landing !== 'undefined') {
-        landing.initLanding(config);
-      }
-    });
-  }
-});
-</script>
-</html> -->
+</body>
+</html>
