@@ -28,7 +28,7 @@
         background: #fff;
         border-radius: 12px;
         padding: 30px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        box-shadow: 0 8px 20px rgba(0,0,0,.1);
     }
 
     h2 {
@@ -45,17 +45,15 @@
         display: block;
         margin-bottom: 8px;
         font-weight: 600;
-        color: #444;
     }
 
     input,
     textarea {
         width: 100%;
+        padding: 12px;
         border: 1px solid #ccc;
         border-radius: 8px;
-        padding: 12px;
         font-size: 16px;
-        transition: .2s;
     }
 
     input:focus,
@@ -72,32 +70,27 @@
     button {
         width: 100%;
         padding: 14px;
-        border: none;
-        border-radius: 8px;
         background: #4a90e2;
         color: white;
-        font-size: 16px;
+        border: none;
+        border-radius: 8px;
         cursor: pointer;
-        transition: .2s;
+        font-size: 16px;
     }
 
     button:hover {
         background: #357bd8;
     }
 
-    @media (max-width: 600px) {
+    #result {
+        margin-top: 20px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    @media (max-width:600px) {
         .form-container {
             padding: 20px;
-        }
-
-        h2 {
-            font-size: 22px;
-        }
-
-        input,
-        textarea,
-        button {
-            font-size: 15px;
         }
     }
 </style>
@@ -105,20 +98,19 @@
 
 </head>
 
-<body onSubmit="createObject(); return false">
+<body>
 
 <div class="form-container">
 
 <h2>Создание обращения</h2>
 
-<form onSubmit="createObject(); return false">
+<form id="caseForm" onSubmit="createObject(); return false">
 
     <div class="form-group">
         <label for="contact">Контакт</label>
         <input
             type="text"
             id="contact"
-            name="contact"
             placeholder="Введите контакт">
     </div>
 
@@ -127,7 +119,6 @@
         <input
             type="text"
             id="subject"
-            name="subject"
             placeholder="Введите тему обращения">
     </div>
 
@@ -135,8 +126,7 @@
         <label for="description">Описание</label>
         <textarea
             id="description"
-            name="description"
-            placeholder="Введите описание обращения"></textarea>
+            placeholder="Введите описание"></textarea>
     </div>
 
     <button type="submit">
@@ -145,8 +135,71 @@
 
 </form>
 
+<div id="result"></div>
+
 
 </div>
+
+<script>
+
+document.getElementById("caseForm").addEventListener("submit", async function(e){
+
+e.preventDefault();
+
+const contact = document.getElementById("contact").value;
+const subject = document.getElementById("subject").value;
+const description = document.getElementById("description").value;
+
+const body = {
+    Subject: subject,
+    DetailedDescription: description,
+
+    // Пользовательское текстовое поле
+    // Замените на свое название колонки
+    UsrContactName: contact
+};
+
+try {
+
+    const response = await fetch("/0/odata/Case", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify(body)
+    });
+
+    if(response.ok){
+
+        document.getElementById("result").style.color = "green";
+        document.getElementById("result").innerHTML =
+            "Обращение успешно создано.";
+
+        document.getElementById("caseForm").reset();
+
+    }
+    else{
+
+        const error = await response.text();
+
+        document.getElementById("result").style.color = "red";
+        document.getElementById("result").innerHTML =
+            "Ошибка создания:<br>" + error;
+    }
+
+}
+catch(ex){
+
+    document.getElementById("result").style.color = "red";
+    document.getElementById("result").innerHTML =
+        "Ошибка подключения:<br>" + ex.message;
+}
+
+
+});
+
+</script>
 
 </body>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -191,3 +244,4 @@ function initLanding() {
 jQuery(document).ready(initLanding);
 </script>
 </html>
+
