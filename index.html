@@ -1,172 +1,777 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тест виджета BPMSoft</title>
-
-    <link rel="stylesheet" href="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.css">
-
+    <title>Заказ</title>
     <style>
         body {
+            position: relative;
+            background-image: url('main_background.png');
+            background-size: cover;
+            background-repeat: no-repeat;
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f9f3ea; /* мягкий песочный фон */
+            overflow: hidden;
         }
-
-        /* ===== HEADER ===== */
-        header {
-            background: #e89f22; /* оранжевый */
-            color: #fff;
-            padding: 16px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        header nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        header nav a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 14px;
-            white-space: nowrap;
-        }
-
-        /* ===== HERO ===== */
-        .hero {
-            background: linear-gradient(135deg, #e89f22, #f5eee2);
-            color: #3b2f22;
-            padding: 70px 20px;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: clamp(22px, 4vw, 38px);
-            margin: 0 0 10px;
-        }
-
-        .hero p {
-            font-size: clamp(14px, 2.5vw, 18px);
-        }
-
-        /* ===== CONTENT ===== */
         .container {
-            padding: 40px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
+        
+        .land-form {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            color: #333;
+            text-align: center;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+            width: 950px;
+            height: auto;
+        }
+        .form-inner {
+          display: flex;
+          align-content: center;
+          flex-direction: column;
+          align-items: center;
+          margin-bottom: 15px;
+          padding: 10px;
+          border-radius: 15px;
+          background-color: #fdf1ec;
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.185);
+          position: relative;
+          padding-top: 10px; /* Уменьшаем отступ сверху */
+      }
 
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      .form-inner::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 50%; /* Центрируем по горизонтали */
+          transform: translateX(-50%); /* Корректируем смещение */
+          width: 50%; /* Уменьшаем длину */
+          height: 80px; /* Увеличиваем толщину */
+          background-color: #fa753c;
+          border-radius: 0 0 25px 25px;
+          z-index: 1;
+      }
+
+      .form-inner::after {
+        content: "Оформление заказа";
+        position: absolute;
+        top: 5%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 24px; /* Увеличил размер шрифта для лучшей видимости */
+        font-weight: bold;
+        font-family: sans-serif;
+        z-index: 2; /* Убедитесь, что текст находится поверх полосы */
+    }
+        
+        .form-input {
+          display: flex;
+          flex-wrap: nowrap;
+          justify-content: center;
+          margin-bottom: 15px;
+          width: 300px;
+          flex-direction: column; 
+          align-items: flex-start;
+          padding-top: 1%;
+        }
+        .form-input label {
+          width: auto;
+          flex-shrink: 0;
+          text-align: left;
+          font-family: sans-serif;
+        }
+        .form-input input {
+          padding: 10px;
+          border: 2px solid #D8DBE2;
+          border-radius: 10px;
+          font-size: 16px;
+          outline: none;
+          width: 200%;
+        }
+        .form-input input:focus {
+          border-color: #F9763D;
+        }
+        input[type="submit"] {
+          margin-top: 20px;
+          padding: 10px 20px;
+          border: none;
+          background-color: #F9763D;
+          color: white;
+          border-radius: 10px;
+          cursor: pointer;
+        }
+        input[type="submit"]:hover {
+          background-color: #012B5D;
+        }
+        p {
+          font-size: 12px;
+          text-align: center;
+          margin-top: 15px;
+          
+        }
+        .form-input-label {
+          display: flex;
+          margin-right: 350px;
+          font-size: 17px;
+        }
+        .form-input-input {
+          display: flex;
+          width: 350px;
+        }
+        select{
+          border: 2px solid #D8DBE2;
+          border-radius: 10px;
+          outline: none;
+          padding: 10px;
+          font-size: 16px;
+          background-color: #ffffff;
+          width: 100%;
+        }
+        option {
+        background-color: #fff;
+        color: #333;
+        padding: 10px;
+        font-size: 16px;
+        
+      }
+      option:hover {
+        background-color: #f9763d;
+        color: white;
+      }
+      
+      /* Стиль для скрытых полей */
+      .delivery-fields-container {
+        transition: all 0.3s ease;
+      }
+      
+      .delivery-fields-container.hidden {
+        display: none !important;
+      }
+
+      .colums {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        align-items: flex-start;
+        margin: 10px 20px; 
+        margin: 40px 0 20px 0; 
+      }
+
+      .first-column{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding-right: 100px;
+       /* border-right: 3px solid #d8dbe2; /* Тонкая серая вертикальная черта */
+      }
+
+      .second-column{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding-right: 50px;
+        padding-left: 120px;
+      }
+      
+      /* Стиль футера */
+      footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            color: white;
+            width: 30%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
             gap: 20px;
         }
-
-        .card {
-            background: #fff8ef; /* тёплый фон карточек */
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(232, 159, 34, 0.12);
-            border: 1px solid #f0dcc2;
+        .footer-logos img {
+            width: auto;
+            height: 70px;
+            padding: 1%;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            opacity: 1;
         }
-
-        /* ===== FOOTER ===== */
-        footer {
-            background: #3b2f22;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-        }
-
-        /* ===== MOBILE FIXES ===== */
-        @media (max-width: 600px) {
-            header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .container {
-                padding: 20px 15px;
-            }
-        }
-
-        /* ===== WIDGET (BPMSoft override) ===== */
-
-        /* фон шапки/профиля чата */
-        #bpmsoftoccchat-container .bpmsoftoccchat-conversation-body-profile {
-            background: #e89f22 !important;
-            color: #fff !important;
-        }
-
-        /* кнопка запуска */
-        .bpmsoftoccchat-widget-startbutton {
-            background: #e89f22 !important;
-            box-shadow: 0 6px 18px rgba(232, 159, 34, 0.25);
-        }
-
-        /* кнопка отправки */
-        .bpmsoftoccchat-send-button {
-            background: #e89f22 !important;
-        }
-
-        /* фон чата */
-        div#bpmsoftoccchat-main-feed {
-            background: #fff6e8 !important;
+        .footer-logos{
+          display: flex;
+          align-items: center;
         }
     </style>
 </head>
 
 <body>
-
-    <header>
-        <div><b>ГК МДА</b></div>
-        <nav>
-            <a href="#">Главная</a>
-            <a href="#">Услуги</a>
-            <a href="#">Новости</a>
-            <a href="#">Контакты</a>
-        </nav>
-    </header>
-
-    <section class="hero">
-        <h1>Аудиторские услуги</h1>
-    </section>
-
+<p></p>
+  <form class="transparent"; onSubmit="createObject(); return false">
+      <body>
     <div class="container">
-        <h2>Услуги</h2>
+      <div class="land-form">
+        <div class="form-inner">
+          <h1 style="font-family: sans-serif; color: #ffffff;">Оформление заказа</h1>
+          <style>
+/* Стиль для всех элементов label */
+label {
+    color: #000000; /* Синий цвет. Можете изменить на любой другой. */
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 3px;
+}
 
-        <div class="cards">
-            <div class="card">Обязательный аудит</div>
-            <div class="card">Инициативный аудит</div>
-            <div class="card">Сопутствующие аудиту услуги (обзорные проверки, проведение согласованных процедур)</div>
-            <div class="card">Иные услуги</div>
+/* Опциональные стили для полей форм, чтобы пример выглядел лучше */
+.form-input, .another-form-input {
+    margin-bottom: 15px;
+    width: 300px;
+}
+.form-input-label, .another-form-input .form-input-label {
+    margin-bottom: 5px;
+}
+/*.form-input-input input, .another-form-input .form-input-input input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}*/
+</style>
+          
+          <div class="colums">
+            <div class="first-column">
+              <div class="form-input">
+                <div class="form-input-label">
+                  <label for="name">ФИО</label> 
+                </div>
+
+                <div class="form-input-input">
+                  <input type="text" id="Name" required>
+                </div>
+              </div>
+
+              <div class="form-input">
+                <div class="form-input-label">
+                  <label for="name">Тлефон</label>
+                </div>
+
+                <div class="form-input-input">
+                  <input type="text" id="Phone" required>
+                </div>
+              </div>
+
+              <div class="form-input">
+                <div class="form-input-label">
+                  <label for="name">Email</label> 
+                </div>
+
+                <div class="form-input-input">
+                  <input type="text" id="Email" required>
+                </div>
+              </div>
+
+              <!-- начало списка -->
+
+              <div class="form-input">
+
+                <div class="form-input-label">
+                  <label for="ReceiptMethod">Способ получения</label>
+                </div>
+
+                <div class="form-input-input">
+                  <select id="ReceiptMethodName" onchange="toggleDeliveryFields()">
+                    <option value="Курьером">Курьером</option>
+                    <option value="Самовывоз">Самовывоз</option>
+                  </select>
+                </div>
+                
+              </div>
+
+              <!-- конец списка -->
+              
+              <!-- Контейнер для полей доставки -->
+              <div class="form-input delivery-fields-container" id="deliveryFieldsContainer">
+                <div class="form-input-label">
+                  <label for="name">Адрес доставки</label>
+                </div>
+
+                <div class="form-input-input">
+                  <input type="text" id="DeliveryAddress" required>
+                </div>
+              </div>
+
+              <div class="form-input delivery-fields-container" id="deliveryDateContainer">
+                <div class="form-input-label">
+                  <label for="name">Желаемая дата доставки</label> 
+                </div>
+
+                <div class="form-input-input">
+                  <input type="date" id="DeliveryDate" required>
+                </div>
+              </div>
+
+            </div>
+
+
+            <div class="second-column">
+              <!-- Заголовок колонки -->
+              <h2 class="column-title">Продукты</h2> 
+
+               <div class="form-input">
+                <div class="form-input-label">
+                  <label for="Product"></label>
+                </div>
+                <div class="form-input-input">
+                  <select id="ProductName" onchange="toggleNextField()">
+                    <option value="" disabled selected hidden></option>
+                    <option value="Серверная стойка APC NetShelter Electric Optimum">Серверная стойка APC NetShelter Electric Optimum</option>
+                    <option value="Процессор Intel Core i9-14900K OEM">Процессор Intel Core i9-14900K OEM</option>
+                    <option value="Материнская плата Gigabyte AM4 AMD B550 B550M DS3H">Материнская плата Gigabyte AM4 AMD B550 B550M DS3H</option>
+                    <option value="Видеокарта ASUS GTX750TI-2GD5">Видеокарта ASUS GTX750TI-2GD5</option>
+                    <option value="Антивирус Доктор Веб Dr.Web Desktop Security Suite">Антивирус Доктор Веб Dr.Web Desktop Security Suite</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-input" id="Product2Container" style="display: none;">
+                <div class="form-input-label">
+                  <label for="Product2"></label>
+                </div>
+
+                <div class="form-input-input">
+                  <select id="Product2Name" onchange="toggleNextField()">
+                    <option value="" disabled selected hidden></option>
+                    <option value="Серверная стойка APC NetShelter Electric Optimum">Серверная стойка APC NetShelter Electric Optimum</option>
+                    <option value="Процессор Intel Core i9-14900K OEM">Процессор Intel Core i9-14900K OEM</option>
+                    <option value="Материнская плата Gigabyte AM4 AMD B550 B550M DS3H">Материнская плата Gigabyte AM4 AMD B550 B550M DS3H</option>
+                    <option value="Видеокарта ASUS GTX750TI-2GD5">Видеокарта ASUS GTX750TI-2GD5</option>
+                    <option value="Антивирус Доктор Веб Dr.Web Desktop Security Suite">Антивирус Доктор Веб Dr.Web Desktop Security Suite</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-input" id="Product3Container" style="display: none;">
+                <div class="form-input-label">
+                  <label for="Product3"></label>
+                </div>
+
+                <div class="form-input-input">
+                  <select id="Product3Name" onchange="toggleNextField()">
+                    <option value="" disabled selected hidden></option>
+                    <option value="Серверная стойка APC NetShelter Electric Optimum">Серверная стойка APC NetShelter Electric Optimum</option>
+                    <option value="Процессор Intel Core i9-14900K OEM">Процессор Intel Core i9-14900K OEM</option>
+                    <option value="Материнская плата Gigabyte AM4 AMD B550 B550M DS3H">Материнская плата Gigabyte AM4 AMD B550 B550M DS3H</option>
+                    <option value="Видеокарта ASUS GTX750TI-2GD5">Видеокарта ASUS GTX750TI-2GD5</option>
+                    <option value="Антивирус Доктор Веб Dr.Web Desktop Security Suite">Антивирус Доктор Веб Dr.Web Desktop Security Suite</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-input" id="Product4Container" style="display: none;">
+
+                <div class="form-input-label">
+                  <label for="Product4"></label>
+                </div>
+
+                <div class="form-input-input">
+                  <select id="Product4Name" onchange="toggleNextField()">
+                    <option value="" disabled selected hidden></option>
+                    <option value="Серверная стойка APC NetShelter Electric Optimum">Серверная стойка APC NetShelter Electric Optimum</option>
+                    <option value="Процессор Intel Core i9-14900K OEM">Процессор Intel Core i9-14900K OEM</option>
+                    <option value="Материнская плата Gigabyte AM4 AMD B550 B550M DS3H">Материнская плата Gigabyte AM4 AMD B550 B550M DS3H</option>
+                    <option value="Видеокарта ASUS GTX750TI-2GD5">Видеокарта ASUS GTX750TI-2GD5</option>
+                    <option value="Антивирус Доктор Веб Dr.Web Desktop Security Suite">Антивирус Доктор Веб Dr.Web Desktop Security Suite</option>
+                  </select>
+                </div>
+                
+              </div>
+
+              <div class="form-input" id="Product4Container" style="display: none;">
+
+                <div class="form-input-label">
+                  <label for="Product5"></label>
+                </div>
+
+                <div class="form-input-input">
+                  <select id="Product5Name" onchange="toggleProduct5Field()">
+                    <option value="" disabled selected hidden></option>
+                    <option value="Серверная стойка APC NetShelter Electric Optimum">Серверная стойка APC NetShelter Electric Optimum</option>
+                    <option value="Процессор Intel Core i9-14900K OEM">Процессор Intel Core i9-14900K OEM</option>
+                    <option value="Материнская плата Gigabyte AM4 AMD B550 B550M DS3H">Материнская плата Gigabyte AM4 AMD B550 B550M DS3H</option>
+                    <option value="Видеокарта ASUS GTX750TI-2GD5">Видеокарта ASUS GTX750TI-2GD5</option>
+                    <option value="Антивирус Доктор Веб Dr.Web Desktop Security Suite">Антивирус Доктор Веб Dr.Web Desktop Security Suite</option>
+                  </select>
+                </div>
+                
+              </div>
+
+              <script>
+                function toggleNextField() {
+                  const currentSelect = event.target;
+                  const nextContainer = currentSelect.parentNode.parentNode.nextElementSibling;
+
+                  if (currentSelect.value !== "") {
+                    nextContainer.style.display = 'flex';
+                  } else {
+                    nextContainer.style.display = 'none';
+                  }
+                }
+              </script>
+
+              <div class="button-container">
+                  <button id="clearButton" type="button">Очистить список</button>
+              </div>
+
+              <style>
+
+                .second-column .column-title {
+                  font-family: sans-serif;
+                  font-size: 20px;
+                  font-weight: 700;
+                  color: #333;
+                  margin-bottom: 20px;
+              }
+
+              .second-column .column-title {
+                  font-family: sans-serif;
+                  font-size: 18px;
+                  font-weight: 800;
+                  color: #333;
+                  text-transform: uppercase;
+                  position: relative;
+                  padding: 5px 30px;
+                  display: inline-block;
+                  letter-spacing: 2px;
+              }
+
+              .second-column .column-title::before {
+                  content: "[";
+                  position: absolute;
+                  left: 50px;
+                  top: 0;
+                  bottom: 0;
+                  font-size: 35px; /* Большая скобка */
+                  color: #fa753c;
+                  font-weight: 300; /* Тонкая линия скобки */
+                  display: flex;
+                  align-items: center;
+              }
+
+              .second-column .column-title::after {
+                  content: "]";
+                  position: absolute;
+                  right: 50px;
+                  top: 0;
+                  bottom: 0;
+                  font-size: 35px;
+                  color: #fa753c;
+                  font-weight: 300;
+                  display: flex;
+                  align-items: center;
+              }
+              
+              .button-container {
+                  text-align: right; /* Выравнивание по правому краю */
+              }
+
+              #clearButton {
+                  background-color: transparent; /* Без фона */
+                  border: none;                  /* Без границ */
+                  color: #fa753c;                /* Цвет текста */
+                  cursor: pointer;               /* Изменение курсора при наведении */
+                  padding: 20px 0px 5px 0px;             /* Добавление отступов */
+                  font-family: sans-serif;       /* Шрифт */
+                  font-size: 13px;               /* Размер шрифта */
+
+                  position: relative; 
+                  display: inline-block; 
+              }
+
+              #clearButton:hover {
+                  opacity: 1;                  /* Уменьшение прозрачности при наведении */
+              }
+
+              /* Создаем псевдоэлемент для подчеркивания */
+              #clearButton::after {
+                  content: ''; 
+                  position: absolute; 
+                  bottom: 0;          
+                  left: 0;            
+                  
+                  /* --- Изменения для более узкого подчеркивания --- */
+                  width: 100%;        /* Теперь подчеркивание будет занимать 80% ширины кнопки */
+                  height: 1px;        /* Толщина подчеркивания */
+                  background-color: #fa753c; 
+                  
+                  /* --- Изменения для анимации прозрачности --- */
+                  opacity: 0; /* Изначально полностью прозрачно (не видно) */
+                  transition: opacity 0.2s ease-in-out; /* Плавный переход для прозрачности */
+                  /* ------------------------------------------- */
+              }
+
+              /* Меняем прозрачность подчеркивания при наведении */
+              #clearButton:hover::after {
+                  opacity: 1; /* При наведении становится полностью видимым */
+              }
+              </style>
+
+              <script>
+                    const clearButton = document.getElementById('clearButton');
+                    const secondColumn = document.querySelector('.second-column');
+                    const selectElements = secondColumn.querySelectorAll('select');
+
+                    clearButton.addEventListener('click', () => {
+                        selectElements.forEach(select => {
+                            select.value = ''; // Очищаем значение
+                            // Дополнительно можно вызвать событие input или change, чтобы обновить интерфейс
+                            select.dispatchEvent(new Event('input'));
+                            select.dispatchEvent(new Event('change'));
+                        });
+                    });
+                </script>
+
+            </div>
+
+          </div>    
+
+          <input type="submit" value="Подтвердить" style="width: 35%;">
+          <p style="font-family: sans-serif;">Нажимая на кнопку, я даю согласие на обработку персональных данных</p>
+          
         </div>
+
+        <style>
+        /* --- Стили, применимые только в .second-column --- */
+        /* Общий контейнер для всей колонки */
+        .second-column {
+            background-color: rgba(255, 255, 255, 0.7); /* Полупрозрачный белый фон для всей колонки */
+            border-radius: 5px; /* Закругленные углы для всей колонки */
+            padding: 20px; /* Отступы внутри колонки */
+            margin-bottom: 20px; /* Отступ снизу колонки */
+            margin-left: 80px; /* Внешний отступ слева */
+            margin-right: px; /* Внешний отступ справа */
+        }
+
+        /* Общие стили для всех блоков полей формы внутри .second-column */
+        .second-column .form-input {
+        }
+
+        /* Стили для контейнера заголовка внутри .form-input, который находится в .second-column */
+        .second-column .form-input-label {
+            margin-bottom: 10px; 
+        }
+
+
+         /* 1. Инициализируем счетчик для всей колонки */
+          .second-column {
+              counter-reset: field-counter; /* Создаем счетчик с названием field-counter */
+          }
+
+          /* 2. Контейнер поля: увеличиваем счетчик и создаем отступ слева для цифры */
+          .second-column .form-input {
+              counter-increment: field-counter; /* Увеличиваем счетчик на 1 при каждом появлении .form-input */
+              position: relative;
+              padding-left: 40px; /* Пространство для цифры */
+              margin-bottom: 15px;
+              max-width: 340px;
+          }
+
+          /* 3. Оформление самой цифры перед каждым полем */
+          .second-column .form-input::before {
+              content: counter(field-counter) "."; /* Выводим значение счетчика с точкой */
+              position: absolute;
+              left: 0;
+              top: 25px; /* Выравнивание по высоте (подстройте под ваш дизайн) */
+              font-family: sans-serif;
+              font-weight: bold;
+              font-size: 18px;
+              color: #fa753c; /* Ваш фирменный оранжевый цвет */
+          }
+
+        /* Контейнер для позиционирования стрелки */
+        .second-column .form-input-input {
+            position: relative;
+            width: 100%;
+            max-width: 300px; /* Опционально: ограничиваем ширину */
+        }
+
+        /* Стили для контейнера поля выбора/ввода внутри .form-input, который находится в .second-column */
+        .second-column .form-input-input select {
+            width: 100%;
+            background-color: transparent; /* Без фона */
+            border: none;                  /* Убираем все границы */
+            border-bottom: 2px solid #ccc; /* Только нижняя черта */
+            border-radius: 0;              /* Убираем скругления */
+            padding: 1px 10px 5px 0;      /* Отступы: справа место под стрелку, слева 0 */
+            font-family: sans-serif;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        /* Стили для самого поля выбора (select) или поля ввода (input) внутри .form-input-input, которое находится в .second-column */
+        .second-column .form-input-input select,
+        .second-column .form-input-input input { /* Применяем стили и к input, если они есть */
+            width: 100%;                 
+            padding: 10px 12px;
+            
+            border-radius: 5px;          
+            
+            color: #333;                 
+            font-size: 16px;             
+            line-height: 1.5;            
+            cursor: pointer;             
+            
+            /* Стили для select */
+            -webkit-appearance: none;    
+            -moz-appearance: none;       
+            appearance: none;            
+            background-repeat: no-repeat;
+            background-position: right 12px top 50%; 
+            background-size: 10px auto; 
+            
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        /* Стили для input, если они есть внутри .second-column .form-input-input */
+        .second-column .form-input-input input {
+            /* Можно добавить специфичные стили для input, если они отличаются от select */
+            /* Например, если у input нет своей стрелки и background-image */
+            background-image: none; 
+            padding: 10px 12px; /* Убедимся, что padding такой же, как у select */
+        }
+
+        /* Стиль при фокусе для select и input */
+        .second-column .form-input-input select:focus,
+        .second-column .form-input-input input:focus {
+            outline: none; 
+            border-color: #D8DBE2; 
+            box-shadow: 0 0 0 3px rgba(173, 173, 173, 0.3);
+        }
+
+        /* Стиль для placeholder (скрытого option) */
+        .second-column .form-input-input select option[value=""][disabled] {
+            color: #999; 
+        }
+
+        /* Если у вас есть input, возможно, понадобится такой же стиль для его placeholder */
+        .second-column .form-input-input input::placeholder {
+            color: #999;
+        }
+        </style>
+      </div>
     </div>
-
+    
+    <!-- Футер (для логотипов в углу) -->
     <footer>
-        © 2026 Demo BPM Portal
+        <div class="footer-logos">
+            <img src="BPMSoft.png" alt="Логотип 1">
+            <!-- <img src="X.png" alt="Логотип 2">
+            <div class ="logoAccount">
+              <img src="Account.png" alt="Логотип 3">
+            </div> -->
+        </div>
     </footer>
-
-    <!-- WIDGET -->
-    <div id="bpmsoftocc-chat"></div>
-
-    <script>
-        window.bpmsoftoccconfig = {channelId: '7b545f20-b9af-43e2-bbe8-bc54b11743bf',
-            connectorUrl: 'https://bpmsoft-oc-connector1.cloudbpm.ru',
-            title: 'demobpm'
-        };
-    </script>
-
-    <script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.js" async></script>
-    <script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/chunk-vendors.js" async></script>
-
+  </form>
 </body>
+
+<script>
+// Функция для скрытия/показа полей доставки
+function toggleDeliveryFields() {
+    const receiptMethod = document.getElementById('ReceiptMethodName');
+    const deliveryAddressContainer = document.getElementById('deliveryFieldsContainer');
+    const deliveryDateContainer = document.getElementById('deliveryDateContainer');
+    const deliveryAddressInput = document.getElementById('DeliveryAddress');
+    const deliveryDateInput = document.getElementById('DeliveryDate');
+    
+    if (receiptMethod.value === 'Самовывоз') {
+        // Если выбран "Самовывоз" - скрываем поля доставки
+        deliveryAddressContainer.classList.add('hidden');
+        deliveryDateContainer.classList.add('hidden');
+        
+        // Убираем обязательность полей
+        deliveryAddressInput.removeAttribute('required');
+        deliveryDateInput.removeAttribute('required');
+        
+        // Очищаем значения при скрытии
+        deliveryAddressInput.value = '';
+        deliveryDateInput.value = '';
+    } else {
+        // Если выбран "Доставка" - показываем поля доставки
+        deliveryAddressContainer.classList.remove('hidden');
+        deliveryDateContainer.classList.remove('hidden');
+        
+        // Делаем поля обязательными
+        deliveryAddressInput.setAttribute('required', 'required');
+        deliveryDateInput.setAttribute('required', 'required');
+    }
+}
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    // Вызываем функцию при загрузке, чтобы установить правильное состояние
+    toggleDeliveryFields();
+});
+
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://files.cloudbpm.ru/Delivery/js/track-cookies.js"></script>
+<script src="https://files.cloudbpm.ru/Delivery/js/create-object.js"></script>
+<script>
+
+/**
+* Замените выражение в кавычках "css-selector" в коде ниже значением селектора элемента на Вашей лендинговой странице.
+* Вы можете использовать #id или любой другой CSS селектор, который будет точно определять поле ввода на Вашей лендинговой странице.
+* Пример: "Email": "#MyEmailField".
+* Если Ваша лендинговая страница не содержит одного или нескольких полей из приведенных ниже – оставьте строку без изменений или удалите полностью.
+*/
+var config = {
+    fields: {
+        "Contact": "#Name", // ФИО контакта, который создает заказ
+        "Account": "#Account", // Название контрагента, который создает заказ
+        "ContactNumber": "#Phone", // Мобильный телефон контакта
+        "ReceiverName": "#Name", // ФИО получателя заказа
+        "Description": "css-selector", // Комментарий
+        "DeliveryType": "#ReceiptMethodName", // Способ доставки заказа
+        "PaymentType": "css-selector", // Способ оплаты заказа
+        "DeliveryAddress": "#DeliveryAddress", // Адрес доставки заказа
+        "DueDate": "#DeliveryDate", // Желаемая дата доставки (в системе - плановая дата выполнения)
+        "UsrProduct1": "#ProductName",
+        "UsrProduct2": "#Product2Name",
+        "UsrProduct3": "#Product3Name",
+        "UsrProduct4": "#Product4Name",
+        "UsrProduct5": "#Product5Name"
+
+
+    },
+    contactFields: {
+        "FullName": "#Name", // Name of a contact
+        "Phone": "#Phone", // Contact's mobile phone
+        "Email": "#Email" // Contact's email
+    },
+    customFields: {},
+    landingId: "99e29680-fc94-478b-8d73-41939811802b",
+    serviceUrl: "https://ai-bpms-002.bpmrnd.ru:5002/ServiceModel/GeneratedObjectWebFormService.svc/SaveWebFormObjectData",
+    redirectUrl: "https://bpmsoft.ru/"
+};
+/**
+* Функция ниже создает объект из введенных данных.
+* Привяжите вызов этой функции к событию "onSubmit" формы или любому другому элементу события.
+* Пример: <form class="mainForm" name="landingForm" onSubmit="createObject(); return false">
+*/
+function createObject() {
+    landing.createObjectFromLanding(config);
+}
+/**
+* Функция ниже инициализирует лендинг из параметров URL.
+*/
+function initLanding() {
+    landing.initLanding(config);
+}
+jQuery(document).ready(initLanding);
+</script>
 </html>
