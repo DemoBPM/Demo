@@ -3,245 +3,335 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Создание обращения</title>
-
+<title>Регистрация обращения</title>
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Arial, Helvetica, sans-serif;
-    }
+  :root{
+    --ink: #16203a;
+    --ink-soft: #5b6478;
+    --paper: #f4f5f8;
+    --card: #ffffff;
+    --accent: #2f3ab2;
+    --accent-soft: #e7e8fb;
+    --line: #dfe1ec;
+    --ok: #1f9d63;
+    --error: #d64545;
+    --radius: 14px;
+    --mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+    --sans: "Manrope", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  }
 
-    body {
-        background: #f5f7fa;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        padding: 20px;
-    }
+  * { box-sizing: border-box; }
 
-    .form-container {
-        width: 100%;
-        max-width: 600px;
-        background: #fff;
-        border-radius: 12px;
-        padding: 30px;
-        box-shadow: 0 8px 20px rgba(0,0,0,.1);
-    }
+  body {
+    margin: 0;
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(47,58,178,0.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(47,58,178,0.05), transparent 45%);
+    font-family: var(--sans);
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
 
-    h2 {
-        text-align: center;
-        margin-bottom: 25px;
-        color: #333;
-    }
+  .ticket-wrap {
+    width: 100%;
+    max-width: 560px;
+  }
 
-    .form-group {
-        margin-bottom: 18px;
-    }
+  .ticket-id {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 
-    label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 600;
-    }
+  .ticket-id::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+  }
 
-    input,
-    textarea {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        font-size: 16px;
-    }
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    box-shadow: 0 24px 60px -20px rgba(22,32,58,0.18);
+    overflow: hidden;
+  }
 
-    input:focus,
-    textarea:focus {
-        outline: none;
-        border-color: #4a90e2;
-    }
+  .card-head {
+    padding: 34px 36px 22px;
+    border-bottom: 1px solid var(--line);
+  }
 
-    textarea {
-        min-height: 150px;
-        resize: vertical;
-    }
+  .card-head h1 {
+    margin: 0 0 8px;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
 
-    button {
-        width: 100%;
-        padding: 14px;
-        background: #4a90e2;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 16px;
-    }
+  .card-head p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 14.5px;
+    line-height: 1.5;
+  }
 
-    button:hover {
-        background: #357bd8;
-    }
+  form {
+    padding: 28px 36px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
 
-    #result {
-        margin-top: 20px;
-        text-align: center;
-        font-weight: bold;
-    }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+  }
 
-    @media (max-width:600px) {
-        .form-container {
-            padding: 20px;
-        }
-    }
+  .field label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .field .hint {
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-weight: 400;
+  }
+
+  .field input,
+  .field textarea {
+    font-family: var(--sans);
+    font-size: 15px;
+    padding: 13px 14px;
+    border-radius: 10px;
+    border: 1.5px solid var(--line);
+    background: #fbfbfd;
+    color: var(--ink);
+    outline: none;
+    transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+    resize: none;
+  }
+
+  .field input:focus,
+  .field textarea:focus {
+    border-color: var(--accent);
+    background: #fff;
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+
+  .field textarea {
+    min-height: 130px;
+    line-height: 1.5;
+  }
+
+  .field.invalid input,
+  .field.invalid textarea {
+    border-color: var(--error);
+  }
+
+  .field .error-msg {
+    font-size: 12.5px;
+    color: var(--error);
+    display: none;
+  }
+
+  .field.invalid .error-msg {
+    display: block;
+  }
+
+  .counter {
+    position: absolute;
+    right: 14px;
+    bottom: 12px;
+    font-size: 11.5px;
+    font-family: var(--mono);
+    color: var(--ink-soft);
+    pointer-events: none;
+  }
+
+  button.submit {
+    margin-top: 6px;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 15px 20px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s ease, transform .1s ease;
+    font-family: var(--sans);
+  }
+
+  button.submit:hover { background: var(--accent); }
+  button.submit:active { transform: scale(0.99); }
+  button.submit:disabled {
+    background: #b8bcd0;
+    cursor: not-allowed;
+  }
+
+  .status {
+    text-align: center;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    min-height: 18px;
+  }
+
+  .status.ok { color: var(--ok); font-weight: 700; }
+  .status.error { color: var(--error); font-weight: 700; }
+
+  @media (max-width: 480px) {
+    .card-head, form { padding-left: 22px; padding-right: 22px; }
+  }
 </style>
-
-
 </head>
-
 <body>
 
-<div class="form-container">
-
-<h2>Создание обращения</h2>
-
-<form id="caseForm">
-
-    <div class="form-group">
-        <label for="contact">Контакт</label>
-        <input
-            type="text"
-            id="contact"
-            placeholder="Введите контакт">
+<div class="ticket-wrap">
+  <div class="ticket-id">Новое обращение</div>
+  <div class="card">
+    <div class="card-head">
+      <h1>Опишите вашу проблему</h1>
+      <p>Заполните форму — мы зарегистрируем обращение в системе и свяжемся с вами по указанным контактам в ближайшее рабочее время.</p>
     </div>
 
-    <div class="form-group">
-        <label for="subject">Тема</label>
-        <input
-            type="text"
-            id="subject"
-            placeholder="Введите тему обращения">
-    </div>
+    <form class="mainForm" name="landingForm" id="requestForm" onsubmit="handleSubmit(event)">
 
-    <div class="form-group">
-        <label for="description">Описание</label>
-        <textarea
-            id="description"
-            placeholder="Введите описание"></textarea>
-    </div>
+      <div class="field" id="field-name">
+        <label for="reg-name">Ваше имя</label>
+        <input type="text" id="reg-name" name="name" placeholder="Иван Иванов" autocomplete="name" required>
+        <span class="error-msg">Пожалуйста, укажите имя</span>
+      </div>
 
-    <button type="submit">
-        Создать обращение
-    </button>
+      <div class="field" id="field-subject">
+        <label for="reg-subject">Тема обращения</label>
+        <input type="text" id="reg-subject" name="subject" placeholder="Кратко — о чём обращение" required>
+        <span class="error-msg">Пожалуйста, укажите тему обращения</span>
+      </div>
 
-</form>
+      <div class="field" id="field-description">
+        <label for="reg-description">Описание <span class="hint">— опишите ситуацию максимально подробно</span></label>
+        <textarea id="reg-description" name="description" maxlength="1500" placeholder="Что произошло, когда, какие шаги уже предпринимались…" required></textarea>
+        <span class="counter" id="descCounter">0 / 1500</span>
+        <span class="error-msg">Пожалуйста, опишите обращение</span>
+      </div>
 
-<div id="result"></div>
-
-
+      <button type="submit" class="submit" id="submitBtn">Зарегистрировать обращение</button>
+      <div class="status" id="formStatus"></div>
+    </form>
+  </div>
 </div>
 
-<script>
-
-document.getElementById("caseForm").addEventListener("submit", async function(e){
-
-e.preventDefault();
-
-const contact = document.getElementById("contact").value;
-const subject = document.getElementById("subject").value;
-const description = document.getElementById("description").value;
-
-const body = {
-    Subject: subject,
-    DetailedDescription: description,
-
-    // Пользовательское текстовое поле
-    // Замените на свое название колонки
-    UsrContactName: contact
-};
-
-try {
-
-    const response = await fetch("/0/odata/Case", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        credentials: "include",
-        body: JSON.stringify(body)
-    });
-
-    if(response.ok){
-
-        document.getElementById("result").style.color = "green";
-        document.getElementById("result").innerHTML =
-            "Обращение успешно создано.";
-
-        document.getElementById("caseForm").reset();
-
-    }
-    else{
-
-        const error = await response.text();
-
-        document.getElementById("result").style.color = "red";
-        document.getElementById("result").innerHTML =
-            "Ошибка создания:<br>" + error;
-    }
-
-}
-catch(ex){
-
-    document.getElementById("result").style.color = "red";
-    document.getElementById("result").innerHTML =
-        "Ошибка подключения:<br>" + ex.message;
-}
-
-
-});
-
-</script>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://files.cloudbpm.ru/Delivery/js/track-cookies.js"></script>
 <script src="https://files.cloudbpm.ru/Delivery/js/create-object.js"></script>
 <script>
-
 /**
-* Замените выражение в кавычках "css-selector" в коде ниже значением селектора элемента на Вашей лендинговой странице.
-* Вы можете использовать #id или любой другой CSS селектор, который будет точно определять поле ввода на Вашей лендинговой странице.
-* Пример: "Email": "#MyEmailField".
-* Если Ваша лендинговая страница не содержит одного или нескольких полей из приведенных ниже – оставьте строку без изменений или удалите полностью.
-*/
+ * Соответствие полей формы и полей объекта в BPMSoft.
+ * Селекторы ниже уже указывают на поля этой страницы — при переносе
+ * формы на другой лендинг менять нужно только сами id полей выше
+ * либо значения справа от двоеточия здесь.
+ */
 var config = {
-    fields: {
-        "contact": "#Contact", // ФИО контакта, который регистрирует обращение
-        "subject": "#Subject", // Имя компании  
-        "description": "#Symptoms", // Мобильный телефон контакта
-    },
-    contactFields: {
-        "contact": "#Name", // Name of a contact
-    },
-    customFields: {},
-    landingId: "bbf5de50-e49b-4b42-946e-77df8294b872",
-    serviceUrl: "https://26072711225013-0000000-bpmsoft-crm.cloudbpm.ru:443/0/ServiceModel/GeneratedObjectWebFormService.svc/SaveWebFormObjectData",
-    redirectUrl: "https://demobpm.github.io/Demo/"
+  fields: {
+    "Name": "#reg-name",           // ФИО контакта, который регистрирует обращение
+    "Account": "",                 // поле "Имя компании" на странице отсутствует
+    "Phone": "",                   // поле "Телефон" на странице отсутствует
+    "Email": "",                   // поле "Email" на странице отсутствует
+    "Subject": "#reg-subject",     // Тема обращения
+    "Symptoms": "#reg-description" // Описание обращения
+  },
+  contactFields: {
+    "FullName": "#reg-name",       // Имя контакта дублируется в карточку контакта
+    "Phone": "",
+    "Email": ""
+  },
+  customFields: {},
+  landingId: "bbf5de50-e49b-4b42-946e-77df8294b872",
+  serviceUrl: "https://26072711225013-0000000-bpmsoft-crm.cloudbpm.ru:443/0/ServiceModel/GeneratedObjectWebFormService.svc/SaveWebFormObjectData",
+  redirectUrl: "https://demobpm.github.io/Demo/"
 };
-/**
-* Функция ниже создает объект из введенных данных.
-* Привяжите вызов этой функции к событию "onSubmit" формы или любому другому элементу события.
-* Пример: <form class="mainForm" name="landingForm" onSubmit="createObject(); return false">
-*/
-function createObject() {
-    landing.createObjectFromLanding(config);
-}
-/**
-* Функция ниже инициализирует лендинг из параметров URL.
-*/
+
 function initLanding() {
-    landing.initLanding(config);
+  landing.initLanding(config);
 }
 jQuery(document).ready(initLanding);
+
+// --- Валидация и UX формы ---
+var descField = document.getElementById('reg-description');
+var counter = document.getElementById('descCounter');
+descField.addEventListener('input', function () {
+  counter.textContent = descField.value.length + ' / 1500';
+});
+
+function validateForm() {
+  var valid = true;
+  var checks = [
+    ['field-name', 'reg-name'],
+    ['field-subject', 'reg-subject'],
+    ['field-description', 'reg-description']
+  ];
+  checks.forEach(function (pair) {
+    var wrap = document.getElementById(pair[0]);
+    var input = document.getElementById(pair[1]);
+    if (!input.value.trim()) {
+      wrap.classList.add('invalid');
+      valid = false;
+    } else {
+      wrap.classList.remove('invalid');
+    }
+  });
+  return valid;
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+  var status = document.getElementById('formStatus');
+  var btn = document.getElementById('submitBtn');
+
+  if (!validateForm()) {
+    status.textContent = 'Проверьте заполнение полей выше';
+    status.className = 'status error';
+    return false;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Отправляем…';
+  status.textContent = '';
+  status.className = 'status';
+
+  try {
+    // Функция из create-object.js — создаёт объект в BPMSoft из данных формы
+    landing.createObjectFromLanding(config);
+    status.textContent = 'Обращение зарегистрировано, спасибо!';
+    status.className = 'status ok';
+  } catch (err) {
+    status.textContent = 'Не удалось отправить обращение, попробуйте ещё раз';
+    status.className = 'status error';
+    btn.disabled = false;
+    btn.textContent = 'Зарегистрировать обращение';
+  }
+
+  return false;
+}
 </script>
 </body>
-  
 </html>
-
