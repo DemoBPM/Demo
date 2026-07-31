@@ -4,243 +4,76 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Создание обращения</title>
-
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    body {
-        background: #f5f7fa;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        padding: 20px;
-    }
-
-    .form-container {
-        width: 100%;
-        max-width: 600px;
-        background: #fff;
-        border-radius: 12px;
-        padding: 30px;
-        box-shadow: 0 8px 20px rgba(0,0,0,.1);
-    }
-
-    h2 {
-        text-align: center;
-        margin-bottom: 25px;
-        color: #333;
-    }
-
-    .form-group {
-        margin-bottom: 18px;
-    }
-
-    label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 600;
-    }
-
-    input,
-    textarea {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        font-size: 16px;
-    }
-
-    input:focus,
-    textarea:focus {
-        outline: none;
-        border-color: #4a90e2;
-    }
-
-    textarea {
-        min-height: 150px;
-        resize: vertical;
-    }
-
-    button {
-        width: 100%;
-        padding: 14px;
-        background: #4a90e2;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-
-    button:hover {
-        background: #357bd8;
-    }
-
-    #result {
-        margin-top: 20px;
-        text-align: center;
-        font-weight: bold;
-    }
-
-    @media (max-width:600px) {
-        .form-container {
-            padding: 20px;
-        }
-    }
+    /* Стили оставляем без изменений */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; }
+    body { background: #f5f7fa; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+    .form-container { width: 100%; max-width: 600px; background: #fff; border-radius: 12px; padding: 30px; box-shadow: 0 8px 20px rgba(0,0,0,.1); }
+    h2 { text-align: center; margin-bottom: 25px; color: #333; }
+    .form-group { margin-bottom: 18px; }
+    label { display: block; margin-bottom: 8px; font-weight: 600; }
+    input, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; }
+    input:focus, textarea:focus { outline: none; border-color: #4a90e2; }
+    textarea { min-height: 150px; resize: vertical; }
+    button { width: 100%; padding: 14px; background: #4a90e2; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; }
+    button:hover { background: #357bd8; }
 </style>
-
-
 </head>
-
 <body>
 
 <div class="form-container">
-
-<h2>Создание обращения</h2>
-
-<form id="caseForm">
-
-    <div class="form-group">
-        <label for="contact">Контакт</label>
-        <input
-            type="text"
-            id="contact"
-            placeholder="Введите контакт">
-    </div>
-
-    <div class="form-group">
-        <label for="subject">Тема</label>
-        <input
-            type="text"
-            id="subject"
-            placeholder="Введите тему обращения">
-    </div>
-
-    <div class="form-group">
-        <label for="description">Описание</label>
-        <textarea
-            id="description"
-            placeholder="Введите описание"></textarea>
-    </div>
-
-    <button type="submit">
-        Создать обращение
-    </button>
-
-</form>
-
-<div id="result"></div>
-
-
+    <h2>Создание обращения</h2>
+    <!-- ИСПРАВЛЕНО: Добавлен onsubmit для вызова функции createObject -->
+    <form id="caseForm" onsubmit="createObject(); return false;">
+        <div class="form-group">
+            <label for="contact">Контакт</label>
+            <input type="text" id="contact" placeholder="Введите контакт">
+        </div>
+        <div class="form-group">
+            <label for="subject">Тема</label>
+            <input type="text" id="subject" placeholder="Введите тему обращения">
+        </div>
+        <div class="form-group">
+            <label for="description">Описание</label>
+            <textarea id="description" placeholder="Введите описание"></textarea>
+        </div>
+        <button type="submit">Создать обращение</button>
+    </form>
 </div>
 
-<script>
-
-document.getElementById("caseForm").addEventListener("submit", async function(e){
-
-e.preventDefault();
-
-const contact = document.getElementById("contact").value;
-const subject = document.getElementById("subject").value;
-const description = document.getElementById("description").value;
-
-const body = {
-    Subject: subject,
-    DetailedDescription: description,
-
-    // Пользовательское текстовое поле
-    // Замените на свое название колонки
-    UsrContactName: contact
-};});
-
-/*try {
-
-    const response = await fetch("/0/odata/Case", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        credentials: "include",
-        body: JSON.stringify(body)
-    });
-
-    if(response.ok){
-
-        document.getElementById("result").style.color = "green";
-        document.getElementById("result").innerHTML =
-            "Обращение успешно создано.";
-
-        document.getElementById("caseForm").reset();
-
-    }
-    else{
-
-        const error = await response.text();
-
-        document.getElementById("result").style.color = "red";
-        document.getElementById("result").innerHTML =
-            "Ошибка создания:<br>" + error;
-    }
-
-}
-catch(ex){
-
-    document.getElementById("result").style.color = "red";
-    document.getElementById("result").innerHTML =
-        "Ошибка подключения:<br>" + ex.message;
-}
-
-
-});*/
-
-</script>
+<!-- Подключение библиотек -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://files.cloudbpm.ru/Delivery/js/track-cookies.js"></script>
 <script src="https://files.cloudbpm.ru/Delivery/js/create-object.js"></script>
-<script>
 
+<script>
 /**
-* Замените выражение в кавычках "css-selector" в коде ниже значением селектора элемента на Вашей лендинговой странице.
-* Вы можете использовать #id или любой другой CSS селектор, который будет точно определять поле ввода на Вашей лендинговой странице.
-* Пример: "Email": "#MyEmailField".
-* Если Ваша лендинговая страница не содержит одного или нескольких полей из приведенных ниже – оставьте строку без изменений или удалите полностью.
-*/
+ * Конфигурация для работы с платформой BPMSoft
+ */
 var config = {
     fields: {
-        "contact": "#Contact", // ФИО контакта, который регистрирует обращение
-        "subject": "#Subject", // Имя компании  
-        "description": "#Symptoms", // Мобильный телефон контакта
+        // ИСПРАВЛЕНО: Селекторы должны СТРОГО соответствовать id в HTML ниже
+        "Subject": "#subject",           // Имя колонки в BPMSoft : Селектор на странице
+        "DetailedDescription": "#description", 
+        "UsrContactName": "#contact"     // Ваше пользовательское текстовое поле
     },
-    contactFields: {
-        "contact": "#Name", // Name of a contact
-    },
-    customFields: {},
     landingId: "bbf5de50-e49b-4b42-946e-77df8294b872",
+    // Убедитесь, что этот URL верный и доступен с вашего домена
     serviceUrl: "https://26072711225013-0000000-bpmsoft-crm.cloudbpm.ru:443/0/ServiceModel/GeneratedObjectWebFormService.svc/SaveWebFormObjectData",
     redirectUrl: "https://demobpm.github.io/Demo/"
 };
-/**
-* Функция ниже создает объект из введенных данных.
-* Привяжите вызов этой функции к событию "onSubmit" формы или любому другому элементу события.
-* Пример: <form class="mainForm" name="landingForm" onSubmit="createObject(); return false">
-*/
+
 function createObject() {
+    // Вызов метода из библиотеки BPMSoft
     landing.createObjectFromLanding(config);
 }
-/**
-* Функция ниже инициализирует лендинг из параметров URL.
-*/
+
 function initLanding() {
     landing.initLanding(config);
 }
+
 jQuery(document).ready(initLanding);
 </script>
+
 </body>
-  
 </html>
