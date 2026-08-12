@@ -1,79 +1,170 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Создание обращения</title>
-<style>
-    /* Стили оставляем без изменений */
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; }
-    body { background: #f5f7fa; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-    .form-container { width: 100%; max-width: 600px; background: #fff; border-radius: 12px; padding: 30px; box-shadow: 0 8px 20px rgba(0,0,0,.1); }
-    h2 { text-align: center; margin-bottom: 25px; color: #333; }
-    .form-group { margin-bottom: 18px; }
-    label { display: block; margin-bottom: 8px; font-weight: 600; }
-    input, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; }
-    input:focus, textarea:focus { outline: none; border-color: #4a90e2; }
-    textarea { min-height: 150px; resize: vertical; }
-    button { width: 100%; padding: 14px; background: #4a90e2; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; }
-    button:hover { background: #357bd8; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест виджета BPMSoft</title>
+
+    <link rel="stylesheet" href="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f9f3ea; /* мягкий песочный фон */
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: #e89f22; /* оранжевый */
+            color: #fff;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        header nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, #e89f22, #f5eee2);
+            color: #3b2f22;
+            padding: 70px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(22px, 4vw, 38px);
+            margin: 0 0 10px;
+        }
+
+        .hero p {
+            font-size: clamp(14px, 2.5vw, 18px);
+        }
+
+        /* ===== CONTENT ===== */
+        .container {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #fff8ef; /* тёплый фон карточек */
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(232, 159, 34, 0.12);
+            border: 1px solid #f0dcc2;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #3b2f22;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        /* ===== MOBILE FIXES ===== */
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .container {
+                padding: 20px 15px;
+            }
+        }
+
+        /* ===== WIDGET (BPMSoft override) ===== */
+
+        /* фон шапки/профиля чата */
+        #bpmsoftoccchat-container .bpmsoftoccchat-conversation-body-profile {
+            background: #e89f22 !important;
+            color: #fff !important;
+        }
+
+        /* кнопка запуска */
+        .bpmsoftoccchat-widget-startbutton {
+            background: #e89f22 !important;
+            box-shadow: 0 6px 18px rgba(232, 159, 34, 0.25);
+        }
+
+        /* кнопка отправки */
+        .bpmsoftoccchat-send-button {
+            background: #e89f22 !important;
+        }
+
+        /* фон чата */
+        div#bpmsoftoccchat-main-feed {
+            background: #fff6e8 !important;
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="form-container">
-    <h2>Создание обращения</h2>
-    <!-- ИСПРАВЛЕНО: Добавлен onsubmit для вызова функции createObject -->
-    <form id="caseForm" onsubmit="createObject(); return false;">
-        <div class="form-group">
-            <label for="contact">Контакт</label>
-            <input type="text" id="contact" placeholder="Введите контакт">
+    <header>
+        <div><b>ГК МДА</b></div>
+        <nav>
+            <a href="#">Главная</a>
+            <a href="#">Услуги</a>
+            <a href="#">Новости</a>
+            <a href="#">Контакты</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Аудиторские услуги</h1>
+    </section>
+
+    <div class="container">
+        <h2>Услуги</h2>
+
+        <div class="cards">
+            <div class="card">Обязательный аудит</div>
+            <div class="card">Инициативный аудит</div>
+            <div class="card">Сопутствующие аудиту услуги (обзорные проверки, проведение согласованных процедур)</div>
+            <div class="card">Иные услуги</div>
         </div>
-        <div class="form-group">
-            <label for="subject">Тема</label>
-            <input type="text" id="subject" placeholder="Введите тему обращения">
-        </div>
-        <div class="form-group">
-            <label for="description">Описание</label>
-            <textarea id="description" placeholder="Введите описание"></textarea>
-        </div>
-        <button type="submit">Создать обращение</button>
-    </form>
-</div>
+    </div>
 
-<!-- Подключение библиотек -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://files.cloudbpm.ru/Delivery/js/track-cookies.js"></script>
-<script src="https://files.cloudbpm.ru/Delivery/js/create-object.js"></script>
+    <footer>
+        © 2026 Demo BPM Portal
+    </footer>
 
-<script>
-/**
- * Конфигурация для работы с платформой BPMSoft
- */
-var config = {
-    fields: {
-        // ИСПРАВЛЕНО: Селекторы должны СТРОГО соответствовать id в HTML ниже
-        "Subject": "#subject",           // Имя колонки в BPMSoft : Селектор на странице
-        "DetailedDescription": "#description", 
-        "UsrContactName": "#contact"     // Ваше пользовательское текстовое поле
-    },
-    landingId: "bbf5de50-e49b-4b42-946e-77df8294b872",
-    // Убедитесь, что этот URL верный и доступен с вашего домена
-    serviceUrl: "https://26072711225013-0000000-bpmsoft-crm.cloudbpm.ru:443/0/ServiceModel/GeneratedObjectWebFormService.svc/SaveWebFormObjectData",
-    redirectUrl: "https://demobpm.github.io/Demo/"
-};
-
-function createObject() {
-    // Вызов метода из библиотеки BPMSoft
-    landing.createObjectFromLanding(config);
-}
-
-function initLanding() {
-    landing.initLanding(config);
-}
-
-jQuery(document).ready(initLanding);
+    <!-- WIDGET -->
+    <div id="bpmsoftocc-chat"></div>
+<script> 
+    window.bpmsoftoccconfig = {};
+    window.bpmsoftoccconfig.channelId = 'bf409ce6-a0c8-41f4-a9bd-4acb216652a3';
+    window.bpmsoftoccconfig.connectorUrl = 'https://bpmsoft-oc-connector1.cloudbpm.ru';
 </script>
+<script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.js" async></script>
+<script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/chunk-vendors.js" async></script>
+
 
 </body>
 </html>
