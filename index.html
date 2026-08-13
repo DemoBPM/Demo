@@ -3,160 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тест виджета BPMSoft</title>
-
+    <title>Placeholder - Soterra Style</title>
     <link rel="stylesheet" href="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.css">
-
     <style>
-        body {
+        /* Обнуление базовых стилей */
+        * {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f9f3ea; /* мягкий песочный фон */
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        /* ===== HEADER ===== */
-        header {
-            background: #e89f22; /* оранжевый */
-            color: #fff;
-            padding: 16px 40px;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Стили навигации */
+        .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
+            padding: 20px 10%;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        header nav {
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0056b3; /* Пример фирменного цвета */
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            list-style: none;
             display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
         }
 
-        header nav a {
-            color: #fff;
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
             text-decoration: none;
-            font-size: 14px;
-            white-space: nowrap;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
         }
 
-        /* ===== HERO ===== */
+        .nav-links a:hover {
+            color: #0056b3;
+        }
+
+        /* Стили Hero-секции */
         .hero {
-            background: linear-gradient(135deg, #e89f22, #f5eee2);
-            color: #3b2f22;
-            padding: 70px 20px;
+            height: 80vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1350&q=80'); /* Заглушка фонового изображения */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
+            color: #fff;
+            padding: 0 20px;
         }
 
         .hero h1 {
-            font-size: clamp(22px, 4vw, 38px);
-            margin: 0 0 10px;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            max-width: 800px;
         }
 
         .hero p {
-            font-size: clamp(14px, 2.5vw, 18px);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
         }
 
-        /* ===== CONTENT ===== */
-        .container {
-            padding: 40px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background: #fff8ef; /* тёплый фон карточек */
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(232, 159, 34, 0.12);
-            border: 1px solid #f0dcc2;
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            background: #3b2f22;
+        .cta-button {
+            padding: 15px 40px;
+            font-size: 1rem;
             color: #fff;
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
+            background-color: #0056b3;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background 0.3s ease;
         }
 
-        /* ===== MOBILE FIXES ===== */
-        @media (max-width: 600px) {
-            header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .container {
-                padding: 20px 15px;
-            }
+        .cta-button:hover {
+            background-color: #003d7a;
         }
 
-        /* ===== WIDGET (BPMSoft override) ===== */
-
-        /* фон шапки/профиля чата */
-        #bpmsoftoccchat-container .bpmsoftoccchat-conversation-body-profile {
-            background: #e89f22 !important;
-            color: #fff !important;
-        }
-
-        /* кнопка запуска */
-        .bpmsoftoccchat-widget-startbutton {
-            background: #e89f22 !important;
-            box-shadow: 0 6px 18px rgba(232, 159, 34, 0.25);
-        }
-
-        /* кнопка отправки */
-        .bpmsoftoccchat-send-button {
-            background: #e89f22 !important;
-        }
-
-        /* фон чата */
-        div#bpmsoftoccchat-main-feed {
-            background: #fff6e8 !important;
+        /* Секция-заглушка перед следующим блоком */
+        .spacer {
+            height: 100px;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-style: italic;
+            color: #888;
         }
     </style>
 </head>
-
 <body>
 
-    <header>
-        <div><b>ГК МДА</b></div>
-        <nav>
-            <a href="#">Главная</a>
-            <a href="#">Услуги</a>
-            <a href="#">Новости</a>
-            <a href="#">Контакты</a>
-        </nav>
+    <!-- Навигационная панель -->
+    <header class="navbar">
+        <div class="logo">Logo</div>
+        <ul class="nav-links">
+            <li><a href="#">Главная</a></li>
+            <li><a href="#">О компании</a></li>
+            <li><a href="#">Решения</a></li>
+            <li><a href="#">Контакты</a></li>
+        </ul>
     </header>
 
+    <!-- Главный блок (Hero Section) -->
     <section class="hero">
-        <h1>Аудиторские услуги</h1>
+        <h1>Разработка инженерных решений и производство геосинтетических материалов</h1>
+        <p>ООО «Сотерра Инжиниринг» (ранее ООО «Тенсар Инновэйтив Солюшнз») специализируется на разработке инженерных решений и производстве геосинтетических материалов для армирования и стабилизации грунта, стабилизации оснований, армогрунтовых систем и усиления асфальтобетона.</p>
+        <button class="cta-button">Узнать больше</button>
     </section>
 
-    <div class="container">
-        <h2>Услуги</h2>
-
-        <div class="cards">
-            <div class="card">Обязательный аудит</div>
-            <div class="card">Инициативный аудит</div>
-            <div class="card">Сопутствующие аудиту услуги (обзорные проверки, проведение согласованных процедур)</div>
-            <div class="card">Иные услуги</div>
-        </div>
+    <!-- Заглушка перед следующим разделом -->
+    <div class="spacer">
+        [ Блок "Отраслевые решения" будет здесь ]
     </div>
-
-    <footer>
-        © 2026 Demo BPM Portal
-    </footer>
-
-    <!-- WIDGET -->
-    <div id="bpmsoftocc-chat"></div>
+ <div id="bpmsoftocc-chat"></div>
 <script> 
     window.bpmsoftoccconfig = {};
     window.bpmsoftoccconfig.channelId = 'bf409ce6-a0c8-41f4-a9bd-4acb216652a3';
