@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Placeholder - Soterra Style</title>
-    <link rel="stylesheet" href="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.css">
+    <title>Soterra Style Placeholder</title>
     <style>
-        /* Обнуление базовых стилей */
+        /* --- БАЗОВЫЕ СТИЛИ --- */
         * {
             margin: 0;
             padding: 0;
@@ -15,16 +14,17 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+            line-height: 1.4;
             color: #333;
+            background-color: #fff;
         }
 
-        /* Стили навигации */
+        /* --- НАВИГАЦИЯ --- */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 10%;
+            padding: 15px 10%;
             background: #fff;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             position: sticky;
@@ -32,11 +32,10 @@
             z-index: 1000;
         }
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #0056b3; /* Пример фирменного цвета */
-            text-transform: uppercase;
+        .logo-img {
+            height: 40px; 
+            width: auto;
+            display: block;
         }
 
         .nav-links {
@@ -45,25 +44,22 @@
         }
 
         .nav-links li {
-            margin-left: 30px;
+            margin-left: 25px;
         }
 
         .nav-links a {
             text-decoration: none;
             color: #333;
             font-weight: 500;
-            transition: color 0.3s;
+            font-size: 14px;
         }
 
-        .nav-links a:hover {
-            color: #0056b3;
-        }
-
-        /* Стили Hero-секции */
+        /* --- HERO SECTION --- */
         .hero {
-            height: 80vh;
+            height: 60vh;
+            /* ВСТАВЬТЕ ССЫЛКУ НА ФОН НИЖЕ */
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                        url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1350&q=80'); /* Заглушка фонового изображения */
+                        url('https://soterra.ru/upload/iblock/e8a/25rzedf8rbgqcivua8fxxjl81rl5zb2s.webp'); 
             background-size: cover;
             background-position: center;
             display: flex;
@@ -76,78 +72,171 @@
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            max-width: 800px;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            max-width: 600px;
+            font-size: 3rem;
+            margin-bottom: 15px;
         }
 
         .cta-button {
-            padding: 15px 40px;
-            font-size: 1rem;
-            color: #fff;
+            padding: 12px 30px;
             background-color: #0056b3;
+            color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
+            font-weight: bold;
             text-transform: uppercase;
-            transition: background 0.3s ease;
         }
 
-        .cta-button:hover {
-            background-color: #003d7a;
+        /* --- БЛОК КАРТОЧЕК (ОТРАСЛЕВЫЕ РЕШЕНИЯ) --- */
+        .solutions-section {
+            background-color: #001b3d; /* Темно-синий фон как на картинке */
+            padding: 60px 5%;
         }
 
-        /* Секция-заглушка перед следующим блоком */
-        .spacer {
-            height: 100px;
-            background: #f4f4f4;
+        .solutions-grid {
+            display: grid;
+            /* Создаем сетку из 7 колонок (или сколько влезет) */
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            position: relative;
+            height: 320px;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            /* ЭФФЕКТ ЗАГНУТОГО УГЛА через clip-path */
+            clip-path: polygon(0 0, 85% 0, 100% 15%, 100% 100%, 0 100%);
+        }
+
+        /* Вариант темной карточки (с рамкой) */
+        .card-dark {
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: #fff;
+        }
+
+        /* Вариант светлой карточки */
+        .card-light {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            height: 60px; /* Фиксированная высота для выравнивания */
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .card-icon {
+            flex-grow: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-style: italic;
-            color: #888;
+        }
+
+        /* Стили для иконок-заглушек (просто текст или простые фигуры) */
+        .icon-placeholder {
+            font-size: 40px;
+            opacity: 0.8;
+        }
+
+        /* Адаптивность для мобильных */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .solutions-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
 <body>
 
-    <!-- Навигационная панель -->
+    <!-- Навигация -->
     <header class="navbar">
-        <div class="logo">Logo</div>
+        <a href="#">
+            <!-- ВСТАВЬТЕ ССЫЛКУ НА ЛОГОТИП ТУТ -->
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRK6OfceKhZ3ojNgMDKuIy4iQz7S8yXnX36Ppf_rpWYQA&s=10?text=LOGO" alt="Logo" class="logo-img">
+        </a>
         <ul class="nav-links">
             <li><a href="#">Главная</a></li>
-            <li><a href="#">О компании</a></li>
             <li><a href="#">Решения</a></li>
             <li><a href="#">Контакты</a></li>
         </ul>
     </header>
 
-    <!-- Главный блок (Hero Section) -->
+    <!-- Hero Section -->
     <section class="hero">
         <h1>Разработка инженерных решений и производство геосинтетических материалов</h1>
         <p>ООО «Сотерра Инжиниринг» (ранее ООО «Тенсар Инновэйтив Солюшнз») специализируется на разработке инженерных решений и производстве геосинтетических материалов для армирования и стабилизации грунта, стабилизации оснований, армогрунтовых систем и усиления асфальтобетона.</p>
-        <button class="cta-button">Узнать больше</button>
+        <button class="cta-button">Смотреть проекты</button>
     </section>
 
-    <!-- Заглушка перед следующим разделом -->
-    <div class="spacer">
-        [ Блок "Отраслевые решения" будет здесь ]
-    </div>
- <div id="bpmsoftocc-chat"></div>
-<script> 
-    window.bpmsoftoccconfig = {};
-    window.bpmsoftoccconfig.channelId = 'bf409ce6-a0c8-41f4-a9bd-4acb216652a3';
-    window.bpmsoftoccconfig.connectorUrl = 'https://bpmsoft-oc-connector1.cloudbpm.ru';
-</script>
-<script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.js" async></script>
-<script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/chunk-vendors.js" async></script>
+    <!-- Блок с карточками (вместо заглушки) -->
+    <section class="solutions-section">
+        <div class="solutions-grid">
+            
+            <!-- Карточка 1 (Темная) -->
+            <div class="card card-dark">
+                <div class="card-title">Гексагональная георешетка ТриАкс (TX)</div>
+                <div class="card-icon">
+                    <div class="icon-placeholder">⬡</div> <!-- Заглушка иконки -->
+                </div>
+            </div>
 
+            <!-- Карточка 2 (Темная) -->
+            <div class="card card-dark">
+                <div class="card-title">Одноосная георешетка RE</div>
+                <div class="card-icon">
+                    <div class="icon-placeholder">〓</div>
+                </div>
+            </div>
+
+            <!-- Карточка 3 (Светлая) -->
+            <div class="card card-light">
+                <div class="card-title">Двуосная георешетка SS</div>
+                <div class="card-icon">
+                    <div class="icon-placeholder">▦</div>
+                </div>
+            </div>
+
+            <!-- Карточка 4 (Светлая) -->
+            <div class="card card-light">
+                <div class="card-title">ГласстексГрид</div>
+                <div class="card-icon">
+                    <div class="icon-placeholder">≋</div>
+                </div>
+            </div>
+
+            <!-- Карточка 5 (Темная) -->
+            <div class="card card-dark">
+                <div class="card-title">Модульный бетонный блок TW</div>
+                <div class="card-icon">
+                    <div class="icon-placeholder">▤</div>
+                </div>
+            </div>
+
+            <!-- Карточка 6 (Темная) -->
+            <div class="card card-dark">
+                <div class="card-title">Геопанель из стальной сетки</div>
+                <div class="card-icon">
+                    <div class="icon-placeholder">☷</div>
+                </div>
+            </div>
+
+            <!-- Карточка 7 (Светлая) -->
+            <div class="card card-light">
+                <div class="card-title">Железобетонные блоки</div>
+                <div class="card-icon">
+                    <div class="icon-placeholder">▥</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
 
 </body>
 </html>
