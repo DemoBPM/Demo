@@ -4,125 +4,188 @@
 <head>
   <title>Оставить заявку</title>
   <style>
-    * {
-      box-sizing: border-box;
+    <style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #f5f5f3;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #222;
+  }
+
+  .transparent {
+    position: relative;
+    max-width: 520px;
+    margin: 70px auto;
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+    border-radius: 0;
+    padding: 0;
+  }
+
+  .form-inner {
+    padding: 42px 45px 38px;
+    margin: 0;
+  }
+
+  .form-inner h3 {
+    margin: 0 0 35px;
+    color: #222222;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 1.2;
+    text-transform: none;
+    text-align: left;
+  }
+
+  .form-inner label {
+    display: block;
+    margin: 0 0 8px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333333;
+    text-transform: none;
+    font-size: 14px;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  .form-inner input,
+  .form-inner select {
+    display: block;
+    width: 100%;
+    height: 50px;
+    padding: 0 16px;
+    margin-bottom: 22px;
+    border: 1px solid #d6d6d6;
+    border-radius: 2px;
+    outline: none;
+    color: #222222;
+    background-color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .form-inner input:hover,
+  .form-inner select:hover {
+    border-color: #bcbcbc;
+  }
+
+  .form-inner input:focus,
+  .form-inner select:focus {
+    border-color: #222222;
+    box-shadow: 0 0 0 1px #222222;
+  }
+
+  .form-inner input[type="submit"] {
+    height: 52px;
+    background: #222222;
+    display: block;
+    width: 100%;
+    padding: 0 20px;
+    margin-top: 30px;
+    border: 1px solid #222222;
+    border-radius: 2px;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .form-inner input[type="submit"]:hover {
+    background: #3a3a3a;
+    border-color: #3a3a3a;
+  }
+
+  .form-inner input[type="submit"]:active {
+    transform: translateY(1px);
+  }
+
+  .center-img {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .block {
+    background-color: #f3f3f1;
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 2px;
+  }
+
+  .left-text {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    color: #222222;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    text-align: left;
+    display: none;
+  }
+
+  .left-text.animated {
+    display: block;
+  }
+
+  .form-inner p {
+    color: #777777;
+    line-height: 1.5;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
     }
 
-    body {
-      background-color: #E5F1F9;
+    100% {
+      opacity: 1;
     }
+  }
 
+  .animated {
+    animation-name: fadeIn;
+    animation-duration: 2s;
+    animation-fill-mode: both;
+  }
+
+  /* Адаптация под мобильные устройства */
+  @media (max-width: 600px) {
     .transparent {
-      position: relative;
-      max-width: 500px;
-      margin: 100px auto;
-      background-color: #FEFEFE;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      padding: 20px;
+      width: calc(100% - 30px);
+      margin: 30px auto;
     }
 
     .form-inner {
-      padding: 30px;
-      margin: 0;
+      padding: 30px 22px;
     }
 
     .form-inner h3 {
-      margin-top: 0;
-      color: #006EBA;
-      font-family: 'Roboto', sans-serif;
-      font-weight: bold;
       font-size: 24px;
-      text-transform: capitalize;
-      text-align: center;
-    }
-
-    .form-inner label {
-      display: block;
-      margin-bottom: 5px;
-      font-family: 'Roboto', sans-serif;
-      color: #51B8E9;
-      text-transform: uppercase;
-      font-size: 16px;
+      margin-bottom: 28px;
     }
 
     .form-inner input,
     .form-inner select {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 20px;
-      border: 1px solid #51B8E9;
-      border-radius: 3px;
-      color: black;
-      background-color: rgba(255, 255, 255, 0.8);
-      font-family: 'Roboto', sans-serif;
-      font-size: 16px;
+      height: 48px;
     }
-
-    .form-inner input[type="submit"] {
-      background: linear-gradient(to right, #00A196, #008ACB, #95BFFF);
-      display: block;
-      width: 100%;
-      padding: 10px;
-      margin-top: 20px;
-      border: none;
-      border-radius: 5px;
-      color: white;
-      font-family: 'Roboto', sans-serif;
-      font-weight: bold;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .form-inner input[type="submit"]:hover {
-      background: linear-gradient(to right, #95BFFF, #008ACB, #00A196);
-    }
-
-    .center-img {
-      display: block;
-      margin: 0 auto;
-    }
-
-    .block {
-      background-color: #BFC1C2;
-      padding: 20px;
-      margin-top: 30px;
-      border-radius: 8px;
-    }
-
-    .left-text {
-      position: absolute;
-      top: 50%;
-      left: 20px;
-      transform: translateY(-50%);
-      color: black;
-      font-family: 'Roboto', sans-serif;
-      font-weight: bold;
-      font-size: 18px;
-      text-align: left;
-      display: none; 
-    }
-
-    .left-text.animated {
-      display: block; 
-    }
-
-    @keyframes fadeIn {
-      0% {
-        opacity: 0;
-      }
-
-      100% {
-        opacity: 1;
-      }
-    }
-
-    .animated {
-      animation-name: fadeIn;
-      animation-duration: 2s;
-      animation-fill-mode: both;
-    }
+  }
+</style>
   </style>
 </head>
 
