@@ -190,6 +190,283 @@
 </head>
 
 <body>
+  <!-- HEADER -->
+<header class="site-header">
+  <div class="header-container">
+
+    <a href="#" class="site-logo">
+      POLYPARK
+    </a>
+
+    <nav class="main-nav">
+      <a href="#about">О компании</a>
+      <a href="#services">Услуги</a>
+      <a href="#projects">Проекты</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+
+    <div class="header-right">
+      <a href="tel:+70000000000" class="header-phone">
+        +7 (000) 000-00-00
+      </a>
+
+      <a href="#form" class="header-button">
+        Оставить заявку
+      </a>
+    </div>
+
+    <button class="mobile-menu-button" type="button" aria-label="Открыть меню">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+  </div>
+</header>
+
+
+<style>
+  /* ==============================
+     HEADER
+  ============================== */
+
+  .site-header {
+    width: 100%;
+    height: 82px;
+    background: #ffffff;
+    border-bottom: 1px solid #e8e8e8;
+    position: relative;
+    z-index: 100;
+  }
+
+  .header-container {
+    width: 100%;
+    max-width: 1440px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+
+  /* ЛОГОТИП */
+
+  .site-logo {
+    display: inline-flex;
+    align-items: center;
+
+    color: #171717;
+    text-decoration: none;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+
+    white-space: nowrap;
+  }
+
+  .site-logo:hover {
+    color: #171717;
+  }
+
+
+  /* ОСНОВНОЕ МЕНЮ */
+
+  .main-nav {
+    display: flex;
+    align-items: center;
+    gap: 38px;
+
+    margin-left: 50px;
+  }
+
+  .main-nav a {
+    position: relative;
+
+    color: #333333;
+    text-decoration: none;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+
+    padding: 31px 0;
+
+    transition: color 0.2s ease;
+  }
+
+  .main-nav a::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: 23px;
+
+    width: 0;
+    height: 1px;
+
+    background: #222222;
+
+    transition: width 0.25s ease;
+  }
+
+  .main-nav a:hover {
+    color: #000000;
+  }
+
+  .main-nav a:hover::after {
+    width: 100%;
+  }
+
+
+  /* ПРАВАЯ ЧАСТЬ */
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+
+    margin-left: auto;
+  }
+
+  .header-phone {
+    color: #222222;
+    text-decoration: none;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    transition: opacity 0.2s ease;
+  }
+
+  .header-phone:hover {
+    opacity: 0.65;
+  }
+
+
+  /* КНОПКА */
+
+  .header-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 44px;
+    padding: 0 22px;
+
+    background: #222222;
+    border: 1px solid #222222;
+    border-radius: 2px;
+
+    color: #ffffff;
+    text-decoration: none;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .header-button:hover {
+    background: #444444;
+    border-color: #444444;
+  }
+
+
+  /* МОБИЛЬНАЯ КНОПКА */
+
+  .mobile-menu-button {
+    display: none;
+
+    width: 42px;
+    height: 42px;
+
+    padding: 9px;
+
+    background: transparent;
+    border: none;
+
+    cursor: pointer;
+  }
+
+  .mobile-menu-button span {
+    display: block;
+
+    width: 24px;
+    height: 1px;
+
+    margin: 5px auto;
+
+    background: #222222;
+  }
+
+
+  /* ==============================
+     TABLET
+  ============================== */
+
+  @media (max-width: 1050px) {
+
+    .header-container {
+      padding: 0 30px;
+    }
+
+    .main-nav {
+      gap: 22px;
+      margin-left: 30px;
+    }
+
+    .main-nav a {
+      font-size: 13px;
+    }
+
+    .header-phone {
+      display: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+    }
+  }
+
+
+  /* ==============================
+     MOBILE
+  ============================== */
+
+  @media (max-width: 760px) {
+
+    .site-header {
+      height: 70px;
+    }
+
+    .header-container {
+      padding: 0 20px;
+    }
+
+    .main-nav,
+    .header-right {display: none;
+    }
+
+    .mobile-menu-button {
+      display: block;
+    }
+
+    .site-logo {
+      font-size: 19px;
+    }
+  }
+</style>
   <form class="transparent"; onSubmit="createObject(); return false">
       <div id="leftText" class="left-text">
         <p id="line1">Ответим на все вопросы <br>и подберём услуги</p>
