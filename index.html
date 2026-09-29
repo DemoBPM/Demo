@@ -1,540 +1,268 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="ru">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Оставить заявку</title>
   <style>
-    <style>
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    margin: 0;
-    background: #f5f5f3;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #222;
-  }
-
-  .transparent {
-    position: relative;
-    max-width: 520px;
-    margin: 70px auto;
-    background: #ffffff;
-    border: 1px solid #e5e5e5;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
-    border-radius: 0;
-    padding: 0;
-  }
-
-  .form-inner {
-    padding: 42px 45px 38px 45px;
-    margin: 0;
-  }
-
-  .form-inner h3 {
-    margin: 0 0 35px;
-    color: #222222;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 700;
-    font-size: 28px;
-    line-height: 1.2;
-    text-transform: none;
-    text-align: left;
-  }
-
-  .form-inner label {
-    display: block;
-    margin: 0 0 8px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #333333;
-    text-transform: none;
-    font-size: 14px;
-    line-height: 1.4;
-    font-weight: 500;
-  }
-
-  .form-inner input,
-  .form-inner select {
-    display: block;
-    width: 100%;
-    height: 50px;
-    padding: 0 16px;
-    margin-bottom: 22px;
-    border: 1px solid #d6d6d6;
-    border-radius: 2px;
-    outline: none;
-    color: #222222;
-    background-color: #ffffff;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
-    transition:
-      border-color 0.2s ease,
-      box-shadow 0.2s ease;
-  }
-
-  .form-inner input:hover,
-  .form-inner select:hover {
-    border-color: #bcbcbc;
-  }
-
-  .form-inner input:focus,
-  .form-inner select:focus {
-    border-color: #222222;
-    box-shadow: 0 0 0 1px #222222;
-  }
-
-  .form-inner input[type="submit"] {
-    height: 52px;
-    background: #222222;
-    display: block;
-    width: 100%;
-    padding: 0 20px;
-    margin-top: 30px;
-    border: 1px solid #222222;
-    border-radius: 2px;
-    color: #ffffff;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: 0.2px;
-    cursor: pointer;
-    transition:
-      background-color 0.2s ease,
-      border-color 0.2s ease,
-      transform 0.2s ease;
-  }
-
-  .form-inner input[type="submit"]:hover {
-    background: #3a3a3a;
-    border-color: #3a3a3a;
-  }
-
-  .form-inner input[type="submit"]:active {
-    transform: translateY(1px);
-  }
-
-  .center-img {
-    display: block;
-    margin: 0 auto;
-  }
-
-  .block {
-    background-color: #f3f3f1;
-    padding: 20px;
-    margin-top: 30px;
-    border-radius: 2px;
-  }
-
-  .left-text {
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    transform: translateY(-50%);
-    color: #222222;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    text-align: left;
-    display: none;
-  }
-
-  .left-text.animated {
-    display: block;
-  }
-
-  .form-inner p {
-    color: #777777;
-    line-height: 1.5;
-  }
-
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
+    :root {
+      /* Ссылки на ваши фоны */
+      --bg-desktop: url('https://26092811061660-0000000-bpmsoft-crm.cloudbpm.ru/upload/iblock/8f3/ykqtn7cfw6k9tylw9uk8t1qvtut5glpa.jpg');
+      --bg-mobile: url('https://26092811061660-0000000-bpmsoft-crm.cloudbpm.ru/upload/iblock/396/nz6a35qla7zqkrdhp8991rrhfytaq45w.png');
+      --primary-color: #222222;
+      --accent-color: #3a3a3a;
     }
 
-    100% {
-      opacity: 1;
-    }
-  }
-
-  .animated {
-    animation-name: fadeIn;
-    animation-duration: 2s;
-    animation-fill-mode: both;
-  }
-
-  /* Адаптация под мобильные устройства */
-  @media (max-width: 600px) {
-    .transparent {
-      width: calc(100% - 30px);
-      margin: 30px auto;
+    * {
+      box-sizing: border-box;
     }
 
-    .form-inner {
-      padding: 30px 22px;
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #222;
+      /* Применение фона */
+      background-image: var(--bg-desktop);
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-color: #f5f5f3;
+      min-height: 100vh;
     }
 
-    .form-inner h3 {
-      font-size: 24px;
-      margin-bottom: 28px;
-    }
-
-    .form-inner input,
-    .form-inner select {
-      height: 48px;
-    }
-  }
-</style>
-  </style>
-</head>
-
-<body>
-  <!-- HEADER -->
-<header class="site-header">
-  <div class="header-container">
-
-    <a href="#" class="site-logo">
-      POLYPARK
-    </a>
-
-    <nav class="main-nav">
-      <a href="#about">О компании</a>
-      <a href="#services">Услуги</a>
-      <a href="#projects">Проекты</a>
-      <a href="#contacts">Контакты</a>
-    </nav>
-
-    <div class="header-right">
-      <a href="tel:+70000000000" class="header-phone">
-        +7 (000) 000-00-00
-      </a>
-
-      <a href="#form" class="header-button">
-        Оставить заявку
-      </a>
-    </div>
-
-    <button class="mobile-menu-button" type="button" aria-label="Открыть меню">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-
-  </div>
-</header>
-
-
-<style>
-  /* ==============================
-     HEADER
-  ============================== */
-
-  .site-header {
-    width: 100%;
-    height: 82px;
-    background: #ffffff;
-    border-bottom: 1px solid #e8e8e8;
-    position: relative;
-    z-index: 100;
-  }
-
-  .header-container {
-    width: 100%;
-    max-width: 1440px;
-    height: 100%;
-    margin: 0 auto;
-    padding: 0 45px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-
-  /* ЛОГОТИП */
-
-  .site-logo {
-    display: inline-flex;
-    align-items: center;
-
-    color: #171717;
-    text-decoration: none;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 21px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-
-    white-space: nowrap;
-  }
-
-  .site-logo:hover {
-    color: #171717;
-  }
-
-
-  /* ОСНОВНОЕ МЕНЮ */
-
-  .main-nav {
-    display: flex;
-    align-items: center;
-    gap: 38px;
-
-    margin-left: 50px;
-  }
-
-  .main-nav a {
-    position: relative;
-
-    color: #333333;
-    text-decoration: none;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-
-    padding: 31px 0;
-
-    transition: color 0.2s ease;
-  }
-
-  .main-nav a::after {
-    content: "";
-
-    position: absolute;
-    left: 0;
-    bottom: 23px;
-
-    width: 0;
-    height: 1px;
-
-    background: #222222;
-
-    transition: width 0.25s ease;
-  }
-
-  .main-nav a:hover {
-    color: #000000;
-  }
-
-  .main-nav a:hover::after {
-    width: 100%;
-  }
-
-
-  /* ПРАВАЯ ЧАСТЬ */
-
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-
-    margin-left: auto;
-  }
-
-  .header-phone {
-    color: #222222;
-    text-decoration: none;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-
-    white-space: nowrap;
-
-    transition: opacity 0.2s ease;
-  }
-
-  .header-phone:hover {
-    opacity: 0.65;
-  }
-
-
-  /* КНОПКА */
-
-  .header-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    height: 44px;
-    padding: 0 22px;
-
-    background: #222222;
-    border: 1px solid #222222;
-    border-radius: 2px;
-
-    color: #ffffff;
-    text-decoration: none;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-
-    transition:
-      background 0.2s ease,
-      border-color 0.2s ease;
-  }
-
-  .header-button:hover {
-    background: #444444;
-    border-color: #444444;
-  }
-
-
-  /* МОБИЛЬНАЯ КНОПКА */
-
-  .mobile-menu-button {
-    display: none;
-
-    width: 42px;
-    height: 42px;
-
-    padding: 9px;
-
-    background: transparent;
-    border: none;
-
-    cursor: pointer;
-  }
-
-  .mobile-menu-button span {
-    display: block;
-
-    width: 24px;
-    height: 1px;
-
-    margin: 5px auto;
-
-    background: #222222;
-  }
-
-
-  /* ==============================
-     TABLET
-  ============================== */
-
-  @media (max-width: 1050px) {
-
-    .header-container {
-      padding: 0 30px;
-    }
-
-    .main-nav {
-      gap: 22px;
-      margin-left: 30px;
-    }
-
-    .main-nav a {
-      font-size: 13px;
-    }
-
-    .header-phone {
-      display: none;
-    }
-
-    .header-right {
-      margin-left: auto;
-    }
-  }
-
-
-  /* ==============================
-     MOBILE
-  ============================== */
-
-  @media (max-width: 760px) {
-
+    /* --- ШАПКА (HEADER) --- */
     .site-header {
-      height: 70px;
+      width: 100%;
+      height: 82px;
+      background: #ffffff;
+      border-bottom: 1px solid #e8e8e8;
+      position: relative;
+      z-index: 100;
     }
 
     .header-container {
-      padding: 0 20px;
-    }
-
-    .main-nav,
-    .header-right {display: none;
-    }
-
-    .mobile-menu-button {
-      display: block;
+      width: 100%;
+      max-width: 1440px;
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 45px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .site-logo {
-      font-size: 19px;
+      color: #171717;
+      text-decoration: none;
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
     }
-  }
-</style>
-  <form class="transparent"; onSubmit="createObject(); return false">
-      <div id="leftText" class="left-text">
-        <p id="line1">Ответим на все вопросы <br>и подберём услуги</p>
-        <p id="line2">Оставьте контакты <br>и наш менеджер свяжется с вами</p>
-      </div>
-      <div class="form-inner">
-        <h3>Оставить заявку</h3>
-        <label for="namelid">Название контрагента</label>
-        <input type="namelid" id="namelid" required>
-        <label for="name">ФИО</label>
-        <input type="text" id="name" required>
-        <label for="phone">Телефон</label>
-        <input type="text" id="phone" required>
-        <label for="email">E-mail</label>
-        <input type="email" id="email" required>
-        <input type="submit" value="Оставить заявку">
-        <p style="font-size: 12px; text-align: center; margin-top: 15px;">Нажимая на кнопку, я даю согласие на обработку персональных данных</p>
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 38px;
+      margin-left: 50px;
+    }
+
+    .main-nav a {
+      position: relative;
+      color: #333333;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 31px 0;
+      transition: color 0.2s ease;
+    }
+
+    .main-nav a:hover {
+      color: #000000;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      margin-left: auto;
+    }
+
+    .header-phone {
+      color: #222222;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .header-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 44px;
+      padding: 0 22px;
+      background: #222222;
+      border: 1px solid #222222;
+      border-radius: 2px;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* --- ФОРМА --- */
+    .transparent {
+      position: relative;
+      max-width: 520px;
+      margin: 70px auto;
+      background: #ffffff;
+      border: 1px solid #e5e5e5;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+    }
+
+    .form-inner {
+      /* Увеличен отступ справа (padding-right) с 45px до 65px */
+      padding: 42px 65px 38px 45px; 
+      margin: 0;
+    }
+
+    .form-inner h3 {
+      margin: 0 0 35px;
+      color: #222222;
+      font-weight: 700;
+      font-size: 28px;
+    }
+
+    .form-inner label {
+      display: block;
+      margin: 0 0 8px;
+      color: #333333;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .form-inner input {
+      display: block;
+      width: 100%;
+      height: 50px;
+      padding: 0 16px;
+      margin-bottom: 22px;
+      border: 1px solid #d6d6d6;
+      border-radius: 2px;
+      outline: none;
+      font-size: 16px;
+    }
+
+    .form-inner input[type="submit"] {
+      height: 52px;
+      background: #222222;
+      border: 1px solid #222222;
+      color: #ffffff;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s ease;
+    }
+
+    .form-inner input[type="submit"]:hover {
+      background: #3a3a3a;
+    }
+
+    .form-inner p {
+      font-size: 12px;
+      color: #777777;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    /* --- АДАПТИВНОСТЬ --- */
+    @media (max-width: 1050px) {
+      .main-nav { display: none; }
+    }
+
+    @media (max-width: 760px) {
+      body { background-image: var(--bg-mobile); }
+      .header-right, .main-nav { display: none; }
+      .header-container { justify-content: center; padding: 0 20px; }
+      .transparent { width: calc(100% - 30px); margin: 30px auto; }
+      .form-inner { padding: 30px 25px; } /* На мобильных убираем большой отступ справа для удобства */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="#" class="site-logo">POLYPARK</a>
+      <nav class="main-nav">
+        <a href="#about">О компании</a>
+        <a href="#services">Услуги</a>
+        <a href="#projects">Проекты</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <div class="header-right">
+        <a href="tel:+70000000000" class="header-phone">+7 (000) 000-00-00</a>
+        <a href="#form" class="header-button">Оставить заявку</a>
       </div>
     </div>
-  </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://files.cloudbpm.ru/Delivery/js/track-cookies.js"></script>
-<script src="https://files.cloudbpm.ru/Delivery/js/create-object.js"></script>
-<script>
+  </header>
 
-/**
-* Замените выражение в кавычках "css-selector" в коде ниже значением селектора элемента на Вашей лендинговой странице.
-* Вы можете использовать #id или любой другой CSS селектор, который будет точно определять поле ввода на Вашей лендинговой странице.
-* Пример: "Email": "#MyEmailField".
-* Если Ваша лендинговая страница не содержит одного или нескольких полей из приведенных ниже – оставьте строку без изменений или удалите полностью.
-*/
-var config = {
-    fields: {
-        "Name": "name", // Имя посетителя, заполнившего форму
-        "Email": "email", // Email посетителя
-        "Zip": "css-selector", // Почтовый индекс посетителя
-        "MobilePhone": "phone", // Телефон посетителя
-        "Company": "namelid", // Название компании
-        "Industry": "css-selector", // Отрасль компании
-        "FullJobTitle": "css-selector", // Должность посетителя
-        "UseEmail": "css-selector", // Логическое значение «да» - согласие посетителя получать email рассылки
-        "City": "css-selector", // Город
-        "Country": "css-selector", // Страна
-        "Commentary": "css-selector" // Примечание
-    },
-    contactFields: {
-        "FullName": "css-selector", // Name of a contact
-        "Phone": "css-selector", // Contact's mobile phone
-        "Email": "css-selector" // Contact's email
-    },
-    customFields: {},
-    landingId: "7ccdaa40-c2d9-4d4f-b6c6-b1f5008775a1",
-    serviceUrl: "https://26092811061660-0000000-bpmsoft-crm.cloudbpm.ru/ServiceModel/GeneratedObjectWebFormService.svc/SaveWebFormObjectData",
-    redirectUrl: ""
-};
-/**
-* Функция ниже создает объект из введенных данных.
-* Привяжите вызов этой функции к событию "onSubmit" формы или любому другому элементу события.
-* Пример: <form class="mainForm" name="landingForm" onSubmit="createObject(); return false">
-*/
-function createObject() {
-    landing.createObjectFromLanding(config);
-}
-/**
-* Функция ниже инициализирует лендинг из параметров URL.
-*/
-function initLanding() {
-    landing.initLanding(config);
-}
-jQuery(document).ready(initLanding);
-</script>
+  <!-- FORM -->
+  <form class="transparent" onSubmit="createObject(); return false">
+    <div class="form-inner">
+      <h3>Оставить заявку</h3>
+      
+      <label for="namelid">Название контрагента</label>
+      <input type="text" id="namelid" required>
+
+      <label for="name">ФИО</label>
+      <input type="text" id="name" required>
+
+      <label for="phone">Телефон</label>
+      <input type="text" id="phone" required>
+
+      <label for="email">E-mail</label>
+      <input type="email" id="email" required>
+
+      <input type="submit" value="Оставить заявку">
+      
+      <p>Нажимая на кнопку, я даю согласие на обработку персональных данных</p>
+    </div>
+  </form>
+
+  <!-- SCRIPTS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://files.cloudbpm.ru/Delivery/js/track-cookies.js"></script>
+  <script src="https://files.cloudbpm.ru/Delivery/js/create-object.js"></script>
+  <script>
+    var config = {
+        fields: {
+            "Name": "name",
+            "Email": "email",
+            "MobilePhone": "phone",
+            "Company": "namelid"
+        },
+        contactFields: {
+            "FullName": "name",
+            "Phone": "phone",
+            "Email": "email"
+        },
+        landingId: "7ccdaa40-c2d9-4d4f-b6c6-b1f5008775a1",
+        serviceUrl: "https://26092811061660-0000000-bpmsoft-crm.cloudbpm.ru/ServiceModel/GeneratedObjectWebFormService.svc/SaveWebFormObjectData",
+        redirectUrl: ""
+    };
+
+    function createObject() {
+        landing.createObjectFromLanding(config);
+    }
+
+    function initLanding() {
+        landing.initLanding(config);
+    }
+
+    jQuery(document).ready(initLanding);
+  </script>
+</body>
+</html>
