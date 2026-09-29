@@ -238,31 +238,44 @@
   <script src="https://files.cloudbpm.ru/Delivery/js/create-object.js"></script>
   <script>
     var config = {
-        fields: {
-            "Name": "name",
-            "Email": "email",
-            "MobilePhone": "phone",
-            "Company": "namelid"
-        },
-        contactFields: {
-            "FullName": "name",
-            "Phone": "phone",
-            "Email": "email"
-        },
-        landingId: "7ccdaa40-c2d9-4d4f-b6c6-b1f5008775a1",
-        serviceUrl: "https://26092811061660-0000000-bpmsoft-crm.cloudbpm.ru/ServiceModel/GeneratedObjectWebFormService.svc/SaveWebFormObjectData",
-        redirectUrl: ""
-    };
-
-    function createObject() {
-        landing.createObjectFromLanding(config);
-    }
-
-    function initLanding() {
-        landing.initLanding(config);
-    }
-
-    jQuery(document).ready(initLanding);
-  </script>
+    fields: {
+        "Name": "name", // Имя посетителя, заполнившего форму
+        "Email": "email", // Email посетителя
+        "Zip": "css-selector", // Почтовый индекс посетителя
+        "MobilePhone": "phone", // Телефон посетителя
+        "Company": "namelid", // Название компании
+        "Industry": "css-selector", // Отрасль компании
+        "FullJobTitle": "css-selector", // Должность посетителя
+        "UseEmail": "css-selector", // Логическое значение «да» - согласие посетителя получать email рассылки
+        "City": "css-selector", // Город
+        "Country": "css-selector", // Страна
+        "Commentary": "css-selector" // Примечание
+    },
+    contactFields: {
+        "FullName": "css-selector", // Name of a contact
+        "Phone": "css-selector", // Contact's mobile phone
+        "Email": "css-selector" // Contact's email
+    },
+    customFields: {},
+    landingId: "7ccdaa40-c2d9-4d4f-b6c6-b1f5008775a1",
+    serviceUrl: "https://26092811061660-0000000-bpmsoft-crm.cloudbpm.ru/ServiceModel/GeneratedObjectWebFormService.svc/SaveWebFormObjectData",
+    redirectUrl: ""
+};
+/**
+* Функция ниже создает объект из введенных данных.
+* Привяжите вызов этой функции к событию "onSubmit" формы или любому другому элементу события.
+* Пример: <form class="mainForm" name="landingForm" onSubmit="createObject(); return false">
+*/
+function createObject() {
+    landing.createObjectFromLanding(config);
+}
+/**
+* Функция ниже инициализирует лендинг из параметров URL.
+*/
+function initLanding() {
+    landing.initLanding(config);
+}
+jQuery(document).ready(initLanding);
+</script>
 </body>
 </html>
