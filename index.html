@@ -1,248 +1,200 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soterra Style Placeholder</title>
-     <link rel="stylesheet" href="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.css">
-    <style>
-        /* --- БАЗОВЫЕ СТИЛИ --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-.hero p {
-    font-size: 1.2rem;
-    margin-bottom: 30px; /* Создает пустое пространство под текстом */
-    max-width: 600px;
-}
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.4;
-            color: #333;
-            background-color: #fff;
-        }
+  <title>Оставить заявку</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-        /* --- НАВИГАЦИЯ --- */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 10%;
-            background: #fff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+    body {
+      background-color: #E5F1F9;
+    }
 
-        .logo-img {
-            height: 40px; 
-            width: auto;
-            display: block;
-        }
+    .transparent {
+      position: relative;
+      max-width: 500px;
+      margin: 100px auto;
+      background-color: #FEFEFE;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      padding: 20px;
+    }
 
-        .nav-links {
-            list-style: none;
-            display: flex;
-        }
+    .form-inner {
+      padding: 30px;
+      margin: 0;
+    }
 
-        .nav-links li {
-            margin-left: 25px;
-        }
+    .form-inner h3 {
+      margin-top: 0;
+      color: #006EBA;
+      font-family: 'Roboto', sans-serif;
+      font-weight: bold;
+      font-size: 24px;
+      text-transform: capitalize;
+      text-align: center;
+    }
 
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            font-size: 14px;
-        }
+    .form-inner label {
+      display: block;
+      margin-bottom: 5px;
+      font-family: 'Roboto', sans-serif;
+      color: #51B8E9;
+      text-transform: uppercase;
+      font-size: 16px;
+    }
 
-        /* --- HERO SECTION --- */
-        .hero {
-            height: 60vh;
-            /* ВСТАВЬТЕ ССЫЛКУ НА ФОН НИЖЕ */
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                        url('https://soterra.ru/upload/iblock/e8a/25rzedf8rbgqcivua8fxxjl81rl5zb2s.webp'); 
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: #fff;
-            padding: 0 20px;
-        }
+    .form-inner input,
+    .form-inner select {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #51B8E9;
+      border-radius: 3px;
+      color: black;
+      background-color: rgba(255, 255, 255, 0.8);
+      font-family: 'Roboto', sans-serif;
+      font-size: 16px;
+    }
 
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
+    .form-inner input[type="submit"] {
+      background: linear-gradient(to right, #00A196, #008ACB, #95BFFF);
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-family: 'Roboto', sans-serif;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
 
-        .cta-button {
-            padding: 12px 30px;
-            background-color: #0056b3;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
+    .form-inner input[type="submit"]:hover {
+      background: linear-gradient(to right, #95BFFF, #008ACB, #00A196);
+    }
 
-        /* --- БЛОК КАРТОЧЕК (ОТРАСЛЕВЫЕ РЕШЕНИЯ) --- */
-        .solutions-section {
-            background-color: #001b3d; /* Темно-синий фон как на картинке */
-            padding: 60px 5%;
-        }
+    .center-img {
+      display: block;
+      margin: 0 auto;
+    }
 
-        .solutions-grid {
-            display: grid;
-            /* Создаем сетку из 7 колонок (или сколько влезет) */
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 15px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+    .block {
+      background-color: #BFC1C2;
+      padding: 20px;
+      margin-top: 30px;
+      border-radius: 8px;
+    }
 
-        .card {
-            position: relative;
-            height: 320px;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            /* ЭФФЕКТ ЗАГНУТОГО УГЛА через clip-path */
-            clip-path: polygon(0 0, 85% 0, 100% 15%, 100% 100%, 0 100%);
-        }
+    .left-text {
+      position: absolute;
+      top: 50%;
+      left: 20px;
+      transform: translateY(-50%);
+      color: black;
+      font-family: 'Roboto', sans-serif;
+      font-weight: bold;
+      font-size: 18px;
+      text-align: left;
+      display: none; 
+    }
 
-        /* Вариант темной карточки (с рамкой) */
-        .card-dark {
-            background-color: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            color: #fff;
-        }
+    .left-text.animated {
+      display: block; 
+    }
 
-        /* Вариант светлой карточки */
-        .card-light {
-            background-color: #e0e0e0;
-            color: #333;
-        }
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
 
-        .card-title {
-            font-size: 14px;
-            font-weight: 600;
-            height: 60px; /* Фиксированная высота для выравнивания */
-            margin-bottom: 20px;
-            line-height: 1.3;
-        }
+      100% {
+        opacity: 1;
+      }
+    }
 
-        .card-icon {
-            flex-grow: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Стили для иконок-заглушек (просто текст или простые фигуры) */
-        .icon-placeholder {
-            font-size: 40px;
-            opacity: 0.8;
-        }
-
-        /* Адаптивность для мобильных */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            .solutions-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-    </style>
+    .animated {
+      animation-name: fadeIn;
+      animation-duration: 2s;
+      animation-fill-mode: both;
+    }
+  </style>
 </head>
+
 <body>
+  <form class="transparent"; onSubmit="createObject(); return false">
+      <div id="leftText" class="left-text">
+        <p id="line1">Ответим на все вопросы <br>и подберём услуги</p>
+        <p id="line2">Оставьте контакты <br>и наш менеджер свяжется с вами</p>
+      </div>
+      <div class="form-inner">
+        <h3>Оставить заявку</h3>
+        <label for="namelid">Название контрагента</label>
+        <input type="namelid" id="namelid" required>
+        <label for="name">ФИО</label>
+        <input type="text" id="name" required>
+        <label for="phone">Телефон</label>
+        <input type="text" id="phone" required>
+        <label for="email">E-mail</label>
+        <input type="email" id="email" required>
+        <input type="submit" value="Оставить заявку">
+        <p style="font-size: 12px; text-align: center; margin-top: 15px;">Нажимая на кнопку, я даю согласие на обработку персональных данных</p>
+      </div>
+    </div>
+  </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://files.cloudbpm.ru/Delivery/js/track-cookies.js"></script>
+<script src="https://files.cloudbpm.ru/Delivery/js/create-object.js"></script>
+<script>
 
-    <!-- Навигация -->
-    <header class="navbar">
-        <a href="#">
-            <!-- ВСТАВЬТЕ ССЫЛКУ НА ЛОГОТИП ТУТ -->
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRK6OfceKhZ3ojNgMDKuIy4iQz7S8yXnX36Ppf_rpWYQA&s=10?text=LOGO" alt="Logo" class="logo-img">
-        </a>
-        <ul class="nav-links">
-            <li><a href="#">Главная</a></li>
-            <li><a href="#">Решения</a></li>
-            <li><a href="#">Контакты</a></li>
-        </ul>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Разработка инженерных решений и производство геосинтетических материалов</h1>
-        <p>ООО «Сотерра Инжиниринг» (ранее ООО «Тенсар Инновэйтив Солюшнз») специализируется на разработке инженерных решений и производстве геосинтетических материалов для армирования и стабилизации грунта, стабилизации оснований, армогрунтовых систем и усиления асфальтобетона.</p>
-        <button class="cta-button">Смотреть проекты</button>
-    </section>
-
-    <!-- Блок с карточками (вместо заглушки) -->
-    <section class="solutions-section">
-        <div class="solutions-grid">
-            
-            <!-- Карточка 1 (Темная) -->
-            <div class="card card-dark">
-                <div class="card-title">Гексагональная георешетка ТриАкс (TX)</div>
-                <div class="card-icon">
-                    <div class="icon-placeholder">⬡</div> <!-- Заглушка иконки -->
-                </div>
-            </div>
-
-            <!-- Карточка 2 (Темная) -->
-            <div class="card card-dark">
-                <div class="card-title">Одноосная георешетка RE</div>
-                <div class="card-icon">
-                    <div class="icon-placeholder">〓</div>
-                </div>
-            </div>
-
-            <!-- Карточка 4 (Светлая) -->
-            <div class="card card-dark">
-                <div class="card-title">ГласстексГрид</div>
-                <div class="card-icon">
-                    <div class="icon-placeholder">≋</div>
-                </div>
-            </div>
-
-            <!-- Карточка 5 (Темная) -->
-            <div class="card card-dark">
-                <div class="card-title">Модульный бетонный блок TW</div>
-                <div class="card-icon">
-                    <div class="icon-placeholder">▤</div>
-                </div>
-            </div>
-
-            <!-- Карточка 6 (Темная) -->
-            <div class="card card-dark">
-                <div class="card-title">Геопанель из стальной сетки</div>
-                <div class="card-icon">
-                    <div class="icon-placeholder">☷</div>
-                </div>
-            </div>
-
-            <!-- Карточка 7 (Светлая) -->
-            <div class="card card-dark">
-                <div class="card-title">Железобетонные блоки</div>
-                <div class="card-icon">
-                    <div class="icon-placeholder">▥</div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-<div id="bpmsoftocc-chat"></div>
-<script> 
-    window.bpmsoftoccconfig = {};
-    window.bpmsoftoccconfig.channelId = 'bf409ce6-a0c8-41f4-a9bd-4acb216652a3';
-    window.bpmsoftoccconfig.connectorUrl = 'https://bpmsoft-oc-connector1.cloudbpm.ru';
+/**
+* Замените выражение в кавычках "css-selector" в коде ниже значением селектора элемента на Вашей лендинговой странице.
+* Вы можете использовать #id или любой другой CSS селектор, который будет точно определять поле ввода на Вашей лендинговой странице.
+* Пример: "Email": "#MyEmailField".
+* Если Ваша лендинговая страница не содержит одного или нескольких полей из приведенных ниже – оставьте строку без изменений или удалите полностью.
+*/
+var config = {
+    fields: {
+        "Name": "css-selector", // Имя посетителя, заполнившего форму
+        "Email": "css-selector", // Email посетителя
+        "Zip": "css-selector", // Почтовый индекс посетителя
+        "MobilePhone": "css-selector", // Телефон посетителя
+        "Company": "css-selector", // Название компании
+        "Industry": "css-selector", // Отрасль компании
+        "FullJobTitle": "css-selector", // Должность посетителя
+        "UseEmail": "css-selector", // Логическое значение «да» - согласие посетителя получать email рассылки
+        "City": "css-selector", // Город
+        "Country": "css-selector", // Страна
+        "Commentary": "css-selector" // Примечание
+    },
+    contactFields: {
+        "FullName": "css-selector", // Name of a contact
+        "Phone": "css-selector", // Contact's mobile phone
+        "Email": "css-selector" // Contact's email
+    },
+    customFields: {},
+    landingId: "02d1719e-e032-4be9-a30d-2fcbe2367be8",
+    serviceUrl: "https://240423-103815-0000000-bpmsoft-bn.cloudbpm.ru/0/ServiceModel/GeneratedObjectWebFormService.svc/SaveWebFormObjectData",
+    redirectUrl: "https://dkm.ru/"
+};
+/**
+* Функция ниже создает объект из введенных данных.
+* Привяжите вызов этой функции к событию "onSubmit" формы или любому другому элементу события.
+* Пример: <form class="mainForm" name="landingForm" onSubmit="createObject(); return false">
+*/
+function createObject() {
+    landing.createObjectFromLanding(config);
+}
+/**
+* Функция ниже инициализирует лендинг из параметров URL.
+*/
+function initLanding() {
+    landing.initLanding(config);
+}
+jQuery(document).ready(initLanding);
 </script>
-<script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.js" async></script>
-<script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/chunk-vendors.js" async></script>
-
-
-</body>
-</html>
