@@ -20,6 +20,7 @@
       padding: 0;
       font-family: Arial, Helvetica, sans-serif;
       color: #222;
+      /* Применение фона */
       background-image: var(--bg-desktop);
       background-size: cover;
       background-position: center;
@@ -157,7 +158,7 @@
 
     /* --- БЛОК УСПЕШНОЙ ОТПРАВКИ --- */
     #success-message {
-      display: none; /* Скрыт по умолчанию */
+      display: none;
       text-align: center;
       padding: 60px 40px;
     }
@@ -221,16 +222,6 @@
         <label for="email">E-mail</label>
         <input type="email" id="email" required>
 
-        <!-- НОВЫЕ ПОЛЯ -->
-        <label for="industry">Отрасль компании</label>
-        <input type="text" id="industry">
-
-        <label for="jobtitle">Должность</label>
-        <input type="text" id="jobtitle">
-
-        <label for="city">Город</label>
-        <input type="text" id="city">
-
         <label for="country">Страна</label>
         <input type="text" id="country">
 
@@ -259,15 +250,10 @@
       fields: {
         "Name": "#name",
         "Email": "#email",
-        "Zip": "css-selector",
         "MobilePhone": "#phone",
         "Company": "#namelid",
-        "Industry": "#industry",      // Новое поле
-        "FullJobTitle": "#jobtitle",  // Новое поле
-        "UseEmail": "css-selector",
-        "City": "#city",              // Новое поле
-        "Country": "#country",        // Новое поле
-        "Commentary": "#commentary"   // Новое поле
+        "Country": "#country",     // Сохранено
+        "Commentary": "#commentary" // Сохранено
       },
       contactFields: {
         "FullName": "#name",
@@ -281,10 +267,10 @@
     };
 
     function createObject() {
-      // 1. Отправка данных в BPMSoft
+      // Отправка данных в BPMSoft
       landing.createObjectFromLanding(config);
 
-      // 2. Смена области: скрываем форму и показываем сообщение об успехе
+      // Смена области (скрыть форму, показать успех)
       document.getElementById('request-form').style.display = 'none';
       document.getElementById('success-message').style.display = 'block';
     }
