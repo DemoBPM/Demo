@@ -1,9 +1,68 @@
-<link rel="stylesheet" href="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.css">
-<div id="bpmsoftocc-chat"></div>
-<script> 
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест виджета BPMSoft</title>
+    
+    <!-- Стили виджета (реальный URL) -->
+    <link rel="stylesheet" href="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.css">
+    
+    <style>
+        /* ========== ФОН СТРАНИЦЫ ========== */
+        body {
+            background: #f0f2f5;  /* Меняйте на любой цвет */
+        }
+
+        /* ========== МЕНЯЙТЕ ЦВЕТА ЗДЕСЬ ========== */
+        
+        /* Цвет шапки виджета */
+        #bpmsoftoccchat-container .bpmsoftoccchat-conversation-body-profile {
+            background: #4d1965 !important;
+        }
+
+        /* Цвет фона всего чата */
+        div#bpmsoftoccchat-main-feed {
+            background-color: #f5f5f5 !important;
+        }
+
+        /* Цвет сообщений */
+        .bpmsoftoccchat-comment {
+            background: #ffffff !important;
+        }
+
+        /* Цвет кнопки открытия виджета */
+        .bpmsoftoccchat-widget-startbutton {
+            background: #F9763D !important;
+        }
+
+        /* Цвет кнопки отправки */
+        .bpmsoftoccchat-send-button {
+            background: #F9763D !important;
+        }
+
+        /* Цвет текста в сообщениях */
+        .bpmsoftoccchat-comment p {
+            color: #333333 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Контейнер виджета -->
+    <div id="bpmsoftocc-chat"></div>
+
+    <!-- Настройки виджета -->
+ <script> 
     window.bpmsoftoccconfig = {};
     window.bpmsoftoccconfig.channelId = '03cbdd29-bcce-434c-9c4d-e11e67a2ecea';
     window.bpmsoftoccconfig.connectorUrl = 'https://bpmsoft-oc-connector1.cloudbpm.ru';
 </script>
 <script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.js" async></script>
 <script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/chunk-vendors.js" async></script>
+
+</body>
+</html>
+
+
+
