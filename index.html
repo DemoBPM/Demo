@@ -3,63 +3,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тест виджета BPMSoft</title>
-    
-    <!-- Стили виджета (реальный URL) -->
-  <link rel="stylesheet" href="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.css">
+    <title>BPMSoft Smart Widget</title>
+    <link rel="stylesheet" href="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.css">
     <style>
-        /* ========== ФОН СТРАНИЦЫ ========== */
+        /* ========== ЦВЕТОВАЯ ПАЛИТРА BPMSoft ========== */
+        :root {
+            --bpmsoft-orange: #F9763D;
+            --bpmsoft-purple: #4d1965;
+            --bpmsoft-bg: #f0f2f5;
+            --bpmsoft-white: #ffffff;
+            --bpmsoft-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
         body {
-            background: #f0f2f5;  /* Меняйте на любой цвет */
+            background: var(--bpmsoft-bg);
+            font-family: "Segoe UI", Roboto, sans-serif;
         }
 
-        /* ========== МЕНЯЙТЕ ЦВЕТА ЗДЕСЬ ========== */
-        
-        /* Цвет шапки виджета */
-        #bpmsoftoccchat-container .bpmsoftoccchat-conversation-body-profile {
-            background: #4d1965 !important;
-        }
-
-        /* Цвет фона всего чата */
-        div#bpmsoftoccchat-main-feed {
-            background-color: #f5f5f5 !important;
-        }
-
-        /* Цвет сообщений */
-        .bpmsoftoccchat-comment {
-            background: #ffffff !important;
-        }
-
-        /* Цвет кнопки открытия виджета */
+        /* 1. СКРЫВАЕМ ОРИГИНАЛЬНУЮ КНОПКУ ЧАТА */
         .bpmsoftoccchat-widget-startbutton {
-            background: #F9763D !important;
+            display: none !important;
         }
 
-        /* Цвет кнопки отправки */
-        .bpmsoftoccchat-send-button {
-            background: #F9763D !important;
+        /* Стили оригинального виджета (сохраняем ваши настройки) */
+        #bpmsoftoccchat-container .bpmsoftoccchat-conversation-body-profile { background: var(--bpmsoft-purple) !important; }
+        div#bpmsoftoccchat-main-feed { background-color: #f5f5f5 !important; }
+        .bpmsoftoccchat-comment { background: var(--bpmsoft-white) !important; }
+        .bpmsoftoccchat-send-button { background: var(--bpmsoft-orange) !important; }
+        .bpmsoftoccchat-comment p { color: #333333 !important; }
+
+        /* ========== КОНТЕЙНЕР УМНОЙ КНОПКИ ========== */
+        .smart-widget-wrapper {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: flex-end;
+            z-index: 9999;
         }
 
-        /* Цвет текста в сообщениях */
-        .bpmsoftoccchat-comment p {
-            color: #333333 !important;
+        /* Главная кнопка-триггер */
+        .main-action-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--bpmsoft-orange);
+            color: white;
+            border: none;
+            box-shadow: var(--bpmsoft-shadow);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+        .main-action-btn:hover { transform: scale(1.1); }
+        .main-action-btn svg { width: 30px; height: 30px; fill: white; transition: transform 0.3s; }
+        
+        /* Состояние при открытом меню (вращение иконки) */
+        .main-action-btn.active svg { transform: rotate(135deg); }
+
+        /* Выпадающее меню */
+        .action-menu {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        .action-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Кнопки внутри меню */
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border-radius: 30px;
+            border: none;
+            background: var(--bpmsoft-white);
+            box-shadow: var(--bpmsoft-shadow);
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--bpmsoft-purple);
+            transition: all 0.2s;
+            min-width: 140px;
+        }
+        .menu-item:hover {
+            background: var(--bpmsoft-purple);
+            color: white;
+        }
+        .menu-item svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            fill: currentColor;
+        }
+
+        /* ========== МОДАЛЬНОЕ ОКНО ФОРМЫ ========== */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            max-height: 85vh;
+            border-radius: 12px;
+            padding: 25px;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .modal-header {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--bpmsoft-purple);
+            border-bottom: 2px solid var(--bpmsoft-bg);
+            padding-bottom: 10px;
+        }
+        .close-modal {
+            position: absolute;
+            top: 15px; right: 15px;
+            cursor: pointer;
+            font-size: 24px;
+            color: #999;
+        }
+
+        /* Стили полей формы */
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 14px; }
+        .form-group input[type="text"], .form-group input[type="tel"], .form-group input[type="email"], .form-group select {
+            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px;
+        }
+        .radio-group { display: flex; flex-direction: column; gap: 8px; }
+        .radio-item { display: flex; align-items: center; font-size: 14px; cursor: pointer; }
+        .radio-item input { margin-right: 10px; }
+        .btn-submit {
+            width: 100%; padding: 12px; background: var(--bpmsoft-orange); color: white;
+            border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px;
+        }
+        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; font-size: 12px; }
+        .policy-link { color: var(--bpmsoft-purple); text-decoration: underline; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <!-- Контейнер виджета -->
-<div id="bpmsoftocc-chat"></div>
-<script> 
-    window.bpmsoftoccconfig = {};
-    window.bpmsoftoccconfig.channelId = '451c3305-885b-4fd5-9fa2-6cb4f8db46a0';
-    window.bpmsoftoccconfig.connectorUrl = 'https://bpmsoft-oc-connector1.cloudbpm.ru';
-</script>
-<script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.js" async></script>
-<script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/chunk-vendors.js" async></script>
+    <!-- Контейнер виджета чата -->
+    <div id="bpmsoftocc-chat"></div>
 
+    <!-- УМНЫЙ ВИДЖЕТ (Smart Widget) -->
+    <div class="smart-widget-wrapper">
+        <!-- Меню с выбором действий -->
+        <div class="action-menu" id="actionMenu">
+            <button class="menu-item" onclick="triggerChat()">
+                <svg viewBox="0 0 24 24"><path d="M20,2H4C2.9,2 2,2.9 2,4V22L6,18H20C21.1,18 22,17.1 22,16V4C22,2.9 21.1,2 20,2Z" /></svg>
+                Написать в чат
+            </button>
+            <button class="menu-item" onclick="openModal()">
+                <svg viewBox="0 0 24 24"><path d="M19,3H5C3.89,3 3,3.9 3,5V19C3,20.1 3.89,21 5,21H19C20.1,21 21,20.1 21,19V5C21,3.9 20.1,3 19,3M19,19H5V5H19V19M7,10H9V17H7V10M11,7H13V17H11V7M15,13H17V17H15V13Z" /></svg>
+                Оставить заявку
+            </button>
+        </div>
+
+        <!-- Единая кнопка-триггер -->
+        <button class="main-action-btn" id="mainTrigger" onclick="toggleMenu()">
+            <svg viewBox="0 0 24 24"><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+        </button>
+    </div>
+
+    <!-- Модальное окно формы -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-header">Заявка на подбор велосипеда</div>
+            <form id="requestForm">
+                <div class="form-group">
+                    <label>Имя *</label>
+                    <input type="text" name="userName" placeholder="Как к вам обращаться" required>
+                </div>
+                <div class="form-group">
+                    <label>Телефон *</label>
+                    <input type="tel" name="userPhone" id="phoneInput" placeholder="+7 (___) ___-__-__" required>
+                </div>
+                <div class="form-group">
+                    <label>Город *</label>
+                    <select name="city" required>
+                        <option value="">Выберите город</option>
+                        <option value="moscow">Москва</option>
+                        <option value="spb">Санкт-Петербург</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="userEmail">
+                </div>
+                <div class="form-group">
+                    <label>Способ связи *</label>
+                    <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="contactMethod" value="call" checked> Звонок</label>
+                        <label class="radio-item"><input type="radio" name="contactMethod" value="whatsapp"> WhatsApp</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Тип велосипеда *</label>
+                    <select name="bikeType" required>
+                        <option value="mtb">Горный (MTB)</option>
+                        <option value="road">Шоссейный</option>
+                        <option value="e-bike">Электровелосипед</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Бюджет *</label>
+                    <select name="budget" required>
+                        <option value="low">до 20 000 ₽</option>
+                        <option value="mid">20–70 000 ₽</option>
+                        <option value="high">свыше 70 000 ₽</option>
+                    </select>
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" name="privacy" required>
+                    <span>Согласен на обработку ПД согласно <span class="policy-link">политике</span></span>
+                </div>
+                <button type="submit" class="btn-submit">Отправить заявку</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Скрипты BPMSoft -->
+    <script>
+        window.bpmsoftoccconfig = {};
+        window.bpmsoftoccconfig.channelId = '451c3305-885b-4fd5-9fa2-6cb4f8db46a0';
+        window.bpmsoftoccconfig.connectorUrl = 'https://bpmsoft-oc-connector1.cloudbpm.ru';
+    </script>
+    <script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.js" async></script>
+    <script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/chunk-vendors.js" async></script>
+
+    <!-- Логика Smart Widget -->
+    <script>
+        const mainTrigger = document.getElementById('mainTrigger');
+        const actionMenu = document.getElementById('actionMenu');
+        const modal = document.getElementById('modalOverlay');
+        const form = document.getElementById('requestForm');
+
+        // 1. Переключение меню
+        function toggleMenu() {
+            const isOpen = actionMenu.classList.contains('show');
+            if (isOpen) {
+                closeMenu();
+            } else {
+                actionMenu.classList.add('show');
+                mainTrigger.classList.add('active');
+            }
+        }
+
+        function closeMenu() {
+            actionMenu.classList.remove('show');
+            mainTrigger.classList.remove('active');
+        }
+
+        // 2. Функция "прокси-клика" для вызова скрытого чата
+        function triggerChat() {
+            // Ищем оригинальную кнопку чата, которую мы скрыли через CSS
+            const originalChatBtn = document.querySelector('.bpmsoftoccchat-widget-startbutton');
+            if (originalChatBtn) {
+                originalChatBtn.click(); // Имитируем клик пользователя
+                closeMenu();
+            } else {
+                console.error("Кнопка чата BPMSoft не найдена в DOM");
+            }
+        }
+
+        // 3. Логика модального окна
+        function openModal() {
+            modal.style.display = 'flex';
+            closeMenu();
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Закрытие при клике вне модалки
+        window.onclick = function(event) {
+            if (event.target == modal) closeModal();
+        }
+
+        // Маска телефона
+        const phoneInput = document.getElementById('phoneInput');
+        phoneInput.addEventListener('input', function (e) {
+            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+            if (!x) return;
+            e.target.value = !x[2] ? x[1] : '+7 (' + x[2] + ') ' + x[3] + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
+        });
+
+        // Отправка формы
+        form.onsubmit = function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            console.log('Данные для BPMSoft:', data);
+            alert('Заявка успешно отправлена!');
+            form.reset();
+            closeModal();
+        };
+    </script>
 </body>
 </html>
-
-
-
