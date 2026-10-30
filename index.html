@@ -333,7 +333,7 @@
       <h2 id="modalTitle">Подберём велосипед под вас</h2>
       <p class="sub">Заполните форму — перезвоним и пришлём подходящие варианты.</p>
 
-      <form id="leadForm" novalidate>
+      <form id="leadForm" novalidate onSubmit="createObject(); return false">
         <div class="field">
           <label for="name">Имя <span class="req">*</span></label>
           <input class="input" type="text" id="name" name="name" placeholder="Как к вам обращаться" autocomplete="name" required>
@@ -377,7 +377,7 @@
           <div class="error-msg" data-for="email">Проверьте адрес email</div>
         </div>
 
-        <div class="field">
+        <div class="field" id="MethodCommunication">
           <span class="label">Способ связи <span class="req">*</span></span>
           <div class="options">
             <label class="opt"><input type="radio" name="contact" value="Звонок" checked><span>Звонок</span></label>
@@ -415,7 +415,7 @@
           <div class="error-msg" data-for="budget">Выберите бюджет</div>
         </div>
 
-        <div class="field">
+        <div class="field" id="forWhom">
           <span class="label">Для кого <span class="req">*</span></span>
           <div class="options">
             <label class="opt"><input type="radio" name="forWhom" value="Себе"><span>Себе</span></label>
@@ -458,7 +458,64 @@
     </div>
   </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://files.cloudbpm.ru/Delivery/js/track-cookies.js"></script>
+<script src="https://files.cloudbpm.ru/Delivery/js/create-object.js"></script>
+<script>
 
+/**
+* Замените выражение в кавычках "css-selector" в коде ниже значением селектора элемента на Вашей лендинговой странице.
+* Вы можете использовать #id или любой другой CSS селектор, который будет точно определять поле ввода на Вашей лендинговой странице.
+* Пример: "Email": "#MyEmailField".
+* Если Ваша лендинговая страница не содержит одного или нескольких полей из приведенных ниже – оставьте строку без изменений или удалите полностью.
+*/
+var config = {
+    fields: {
+        "Name": "#name", // Имя посетителя, заполнившего форму
+        "Email": "#email", // Email посетителя
+        "Zip": "css-selector", // Почтовый индекс посетителя
+        "MobilePhone": "#phone", // Телефон посетителя
+        "Company": "css-selector", // Название компании
+        "Industry": "css-selector", // Отрасль компании
+        "FullJobTitle": "css-selector", // Должность посетителя
+        "UseEmail": "css-selector", // Логическое значение «да» - согласие посетителя получать email рассылки
+        "City": "#City", // Город
+        "Country": "css-selector", // Страна
+        "Commentary": "css-selector", // Примечание
+        "BPMVidLid": "css-selector", // Вид лида
+        "BPMMethodCommunication": "#MethodCommunication", // Способ связи
+        "BPMTypebicycle": "#bikeType", // Тип велосипеда
+        "BPMBudget": "#budget", // Бюджет
+        "BPMForWhom": "#forWhom", // Для кого
+        "BPMWhenPlanningMakePurchase": "#whenGroup", // Когда планируете покупку?
+        "BPMConsentProcessingPersonalData": "#consent" // Согласие на обработку ПД
+    },
+    contactFields: {
+        "FullName": "css-selector", // Name of a contact
+        "Phone": "css-selector", // Contact's mobile phone
+        "Email": "css-selector" // Contact's email
+    },
+    customFields: {},
+    landingId: "a1d5ac42-0f70-4735-9d53-dfbb387a180d",
+    serviceUrl: "https://26102911441819-0000000-bpmsoft-crm.cloudbpm.ru/ServiceModel/GeneratedObjectWebFormService.svc/SaveWebFormObjectData",
+    redirectUrl: "https://demobpm.github.io/Demo/"
+};
+/**
+* Функция ниже создает объект из введенных данных.
+* Привяжите вызов этой функции к событию "onSubmit" формы или любому другому элементу события.
+* Пример: <form class="mainForm" name="landingForm" onSubmit="createObject(); return false">
+*/
+function createObject() {
+    landing.createObjectFromLanding(config);
+}
+/**
+* Функция ниже инициализирует лендинг из параметров URL.
+*/
+function initLanding() {
+    landing.initLanding(config);
+}
+jQuery(document).ready(initLanding);
+</script>
 <script>
 (function(){
   const overlay   = document.getElementById('modalOverlay');
