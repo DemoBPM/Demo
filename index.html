@@ -1,299 +1,634 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тест виджета BPMSoft с формой заявки</title>
-    <link rel="stylesheet" href="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.css">
-    <style>
-        /* ========== СТИЛИ ПЛАТФОРМЫ BPMSoft ========== */
-        :root {
-            --bpmsoft-orange: #F9763D;
-            --bpmsoft-purple: #4d1965;
-            --bpmsoft-bg: #f0f2f5;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Связаться с Velomotors</title>
 
-        body {
-            background: var(--bpmsoft-bg);
-            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
+<!-- BPMSoft -->
 
-        /* Стили оригинального виджета (согласно вашим требованиям) */
-        #bpmsoftoccchat-container .bpmsoftoccchat-conversation-body-profile { background: var(--bpmsoft-purple) !important; }
-        div#bpmsoftoccchat-main-feed { background-color: #f5f5f5 !important; }
-        .bpmsoftoccchat-comment { background: #ffffff !important; }
-        .bpmsoftoccchat-widget-startbutton { background: var(--bpmsoft-orange) !important; }
-        .bpmsoftoccchat-send-button { background: var(--bpmsoft-orange) !important; }
-        .bpmsoftoccchat-comment p { color: #333333 !important; }
 
-        /* ========== НОВАЯ КНОПКА ЗАЯВКИ ========== */
-        .btn-request-trigger {
-            position: fixed;
-            bottom: 90px; /* Поднимаем чуть выше кнопки чата */
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--bpmsoft-purple);
-            color: white;
-            border: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: transform 0.3s ease;
-        }
-        .btn-request-trigger:hover { transform: scale(1.1); }
-        .btn-request-trigger svg { width: 30px; height: 30px; fill: white; }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-        /* ========== МОДАЛЬНОЕ ОКНО ФОРМЫ ========== */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            display: none; /* Скрыто по умолчанию */
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-        }
-        .modal-content {
-            background: white;
-            width: 90%;
-            max-width: 500px;
-            max-height: 85vh;
-            border-radius: 12px;
-            padding: 25px;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
-        .modal-header {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: var(--bpmsoft-purple);
-            border-bottom: 2px solid var(--bpmsoft-bg);
-            padding-bottom: 10px;
-        }
-        .close-modal {
-            position: absolute;
-            top: 15px; right: 15px;
-            cursor: pointer;
-            font-size: 24px;
-            color: #999;
-        }
+body {
+  font-family: Arial, sans-serif;
+}
 
-        /* Стили полей формы */
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 14px; }
-        .form-group input[type="text"],
-        .form-group input[type="tel"],
-        .form-group input[type="email"],
-        .form-group select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-        .radio-group { display: flex; flex-direction: column; gap: 8px; }
-        .radio-item { display: flex; align-items: center; font-size: 14px; cursor: pointer; }
-        .radio-item input { margin-right: 10px; }
+/* Две кнопки */
+.vm-actions {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+  max-width: 760px;
+  margin: 25px auto;
+}
 
-        .btn-submit {
-            width: 100%;
-            padding: 12px;
-            background: var(--bpmsoft-orange);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .btn-submit:hover { opacity: 0.9; }
-        
-        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; font-size: 12px; }
-        .checkbox-group input { margin-top: 3px; }
-        .policy-link { color: var(--bpmsoft-purple); text-decoration: underline; cursor: pointer; }
-    </style>
+.vm-action {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 18px 22px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  text-align: left;
+  font-family: Arial, sans-serif;
+  transition: .2s;
+}
+
+.vm-action:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.vm-action-chat {
+  background: #d71920;
+  color: #fff;
+}
+
+.vm-action-form {
+  background: #222;
+  color: #fff;
+}
+
+.vm-icon {
+  font-size: 27px;
+}
+
+.vm-action strong,
+.vm-action small {
+  display: block;
+}
+
+.vm-action strong {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.vm-action small {
+  font-size: 12px;
+  opacity: .85;
+}
+
+/* Модальное окно */
+#vmOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: rgba(0,0,0,.68);
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+#vmOverlay.vm-active {
+  display: flex;
+}
+
+.vm-modal {
+  position: relative;
+  background: #fff;
+  width: 100%;
+  max-width: 650px;
+  max-height: 94vh;
+  overflow-y: auto;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 15px 50px rgba(0,0,0,.25);
+}
+
+.vm-close {
+  position: absolute;
+  right: 17px;
+  top: 12px;
+  border: none;
+  background: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: #555;
+}
+
+.vm-modal h2 {
+  font-size: 25px;
+  margin: 0 35px 10px 0;
+  color: #222;
+}
+
+.vm-subtitle {
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+.vm-section-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 23px 0 13px;
+  padding-bottom: 9px;
+  border-bottom: 2px solid #d71920;
+}
+
+.vm-field {
+  margin-bottom: 15px;
+}
+
+.vm-field label,
+.vm-label {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 7px;
+  color: #333;
+}
+
+.vm-field input,
+.vm-field select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d5d5d5;
+  border-radius: 5px;
+  font-size: 14px;
+  background: #fff;
+  outline: none;
+}
+
+.vm-field input:focus,
+.vm-field select:focus {
+  border-color: #d71920;
+}
+
+.vm-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+}
+
+.vm-options label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.vm-options input {
+  accent-color: #d71920;
+}
+
+.vm-consent {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  font-size: 12px;
+  color: #555;
+  line-height: 1.5;
+  margin: 22px 0;
+}
+
+.vm-consent input {
+  margin-top: 3px;
+  accent-color: #d71920;
+}
+
+.vm-consent a {
+  color: #d71920;
+}
+
+.vm-submit {
+  width: 100%;
+  padding: 15px;
+  background: #d71920;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.vm-submit:hover {
+  background: #b9151b;
+}
+
+.vm-note {
+  font-size: 11px;
+  color: #888;
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+.vm-success {
+  display: none;
+  padding: 15px;
+  margin-top: 15px;
+  background: #eef8ee;
+  color: #246b2a;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.vm-catalog {
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+.vm-catalog label {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.vm-catalog input {
+  accent-color: #d71920;
+}
+
+@media(max-width:600px) {
+  .vm-actions {
+    flex-direction: column;
+  }
+
+  .vm-modal {
+    padding: 23px 17px;
+  }
+
+  .vm-modal h2 {
+    font-size: 21px;
+  }
+}
+</style>
 </head>
+
 <body>
 
-    <!-- Контейнер виджета чата -->
-    <div id="bpmsoftocc-chat"></div>
+<!-- Общий блок с двумя кнопками -->
+<div class="vm-actions">
 
-    <!-- Кнопка вызова формы -->
-    <button class="btn-request-trigger" onclick="openModal()" title="Оставить заявку">
-        <svg viewBox="0 0 24 24"><path d="M19,3H5C3.89,3 3,3.9 3,5V19C3,20.1 3.89,21 5,21H19C20.1,21 21,20.1 21,19V5C21,3.9 20.1,3 19,3M19,19H5V5H19V19M7,10H9V17H7V10M11,7H13V17H11V7M15,13H17V17H15V13Z" /></svg>
-    </button>
+  <button type="button" class="vm-action vm-action-chat" id="vmOpenChat">
+    <span class="vm-icon">💬</span>
+    <span>
+      <strong>Открыть чат</strong>
+      <small>Задайте вопрос консультанту</small>
+    </span>
+  </button>
 
-    <!-- Модальное окно формы -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <div class="modal-header">Заявка на подбор велосипеда</div>
-            
-            <form id="requestForm">
-                <!-- Имя -->
-                <div class="form-group">
-                    <label>Имя *</label>
-                    <input type="text" name="userName" placeholder="Как к вам обращаться" required>
-                </div>
+  <button type="button" class="vm-action vm-action-form" id="vmOpenForm">
+    <span class="vm-icon">📝</span>
+    <span>
+      <strong>Оставить заявку</strong>
+      <small>Поможем подобрать велосипед</small>
+    </span>
+  </button>
 
-                <!-- Телефон -->
-                <div class="form-group">
-                    <label>Телефон *</label>
-                    <input type="tel" name="userPhone" id="phoneInput" placeholder="+7 (___) ___-__-__" required>
-                </div>
+</div>
 
-                <!-- Город -->
-                <div class="form-group">
-                    <label>Город *</label>
-                    <select name="city" required>
-                        <option value="">Выберите город</option>
-                        <option value="moscow">Москва</option>
-                        <option value="spb">Санкт-Петербург</option>
-                        <option value="kazan">Казань</option>
-                    </select>
-                </div>
+<!-- Контейнер BPMSoft -->
+<div id="bpmsoftocc-chat"></div>
 
-                <!-- Email -->
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" name="userEmail" placeholder="example@mail.com">
-                </div>
+<!-- Модальное окно формы -->
+<div id="vmOverlay">
 
-                <!-- Способ связи -->
-                <div class="form-group">
-                    <label>Способ связи *</label>
-                    <div class="radio-group">
-                        <label class="radio-item"><input type="radio" name="contactMethod" value="call" checked> Звонок</label>
-                        <label class="radio-item"><input type="radio" name="contactMethod" value="whatsapp"> WhatsApp</label>
-                        <label class="radio-item"><input type="radio" name="contactMethod" value="telegram"> Telegram</label>
-                    </div>
-                </div>
+  <div class="vm-modal">
 
-                <!-- Тип велосипеда -->
-                <div class="form-group">
-                    <label>Тип велосипеда *</label>
-                    <select name="bikeType" required>
-                        <option value="">Выберите тип</option>
-                        <option value="mtb">Горный (MTB)</option>
-                        <option value="road">Шоссейный</option>
-                        <option value="hybrid">Гибрид-городской</option>
-                        <option value="kids">Детский</option>
-                        <option value="bmx">BMX</option>
-                        <option value="e-bike">Электровелосипед</option>
-                        <option value="undecided">Не определился</option>
-                    </select>
-                </div>
+    <button type="button" class="vm-close" id="vmCloseForm">&times;</button>
 
-                <!-- Бюджет -->
-                <div class="form-group">
-                    <label>Бюджет *</label>
-                    <select name="budget" required>
-                        <option value="">Выберите бюджет</option>
-                        <option value="low">до 20 000 ₽</option>
-                        <option value="mid-low">20–40 000 ₽</option>
-                        <option value="mid">40–70 000 ₽</option>
-                        <option value="mid-high">70–120 000 ₽</option>
-                        <option value="high">свыше 120 000 ₽</option>
-                        <option value="unknown">Пока не знаю</option>
-                    </select>
-                </div>
-
-                <!-- Для кого -->
-                <div class="form-group">
-                    <label>Для кого *</label>
-                    <div class="radio-group">
-                        <label class="radio-item"><input type="radio" name="targetAudience" value="self" checked> Себе</label>
-                        <label class="radio-item"><input type="radio" name="targetAudience" value="child"> Ребёнку</label>
-                        <label class="radio-item"><input type="radio" name="targetAudience" value="gift"> В подарок</label>
-                        <label class="radio-item"><input type="radio" name="targetAudience" value="other"> Другое</label>
-                    </div>
-                </div>
-
-                <!-- Когда планируете покупку -->
-                <div class="form-group">
-                    <label>Когда планируете покупку *</label>
-                    <div class="radio-group">
-                        <label class="radio-item"><input type="radio" name="purchaseTime" value="week" checked> На этой неделе</label>
-                        <label class="radio-item"><input type="radio" name="purchaseTime" value="month"> В течение месяца</label>
-                        <label class="radio-item"><input type="radio" name="purchaseTime" value="1-3m"> 1–3 месяца</label>
-                        <label class="radio-item"><input type="radio" name="purchaseTime" value="interest"> Просто интересуюсь</label>
-                    </div>
-                </div>
-
-                <!-- Согласие на ПД -->
-                <div class="form-group checkbox-group">
-                    <input type="checkbox" name="privacy" required>
-                    <span>Я согласен на обработку персональных данных согласно <span class="policy-link">политике конфиденциальности</span></span>
-                </div>
-
-                <button type="submit" class="btn-submit">Отправить заявку</button>
-            </form>
-        </div>
+    <h2>Заявка на подбор велосипеда</h2>
+    <div class="vm-subtitle">
+      Заполните форму, и наш специалист свяжется с вами.
     </div>
 
-    <!-- Скрипты BPMSoft -->
-    <script>
-        window.bpmsoftoccconfig = {};
-        window.bpmsoftoccconfig.channelId = '451c3305-885b-4fd5-9fa2-6cb4f8db46a0';
-        window.bpmsoftoccconfig.connectorUrl = 'https://bpmsoft-oc-connector1.cloudbpm.ru';
-    </script>
-    <script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.js" async></script>
-    <script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/chunk-vendors.js" async></script>
+    <form id="vmApplicationForm">
 
-    <!-- Логика работы формы -->
-    <script>
-        const modal = document.getElementById('modalOverlay');
-        const form = document.getElementById('requestForm');
+      <div class="vm-section-title">Контактные данные</div>
 
-        function openModal() {
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Запрет скролла страницы
-        }
+      <div class="vm-field">
+        <label for="vmName">Имя *</label>
+        <input
+          type="text"
+          id="vmName"
+          name="name"
+          placeholder="Как к вам обращаться"
+          required
+        >
+      </div>
 
-        function closeModal() {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
+      <div class="vm-field">
+        <label for="vmPhone">Телефон *</label>
+        <input
+          type="tel"
+          id="vmPhone"
+          name="phone"
+          placeholder="+7 (___) ___-__-__"
+          required
+        >
+      </div>
 
-        // Закрытие при клике на оверлей
-        window.onclick = function(event) {
-            if (event.target == modal) closeModal();
-        }
+      <div class="vm-field">
+        <label for="vmCity">Город *</label>
+        <input
+          type="text"
+          id="vmCity"
+          name="city"
+          list="vmCities"
+          placeholder="Начните вводить город"
+          required
+        >
+        <datalist id="vmCities">
+          <option value="Москва">
+          <option value="Санкт-Петербург">
+          <option value="Екатеринбург">
+          <option value="Новосибирск">
+          <option value="Казань">
+          <option value="Нижний Новгород">
+          <option value="Челябинск">
+          <option value="Самара">
+          <option value="Ростов-на-Дону">
+          <option value="Краснодар">
+          <option value="Уфа">
+          <option value="Пермь">
+          <option value="Воронеж">
+          <option value="Омск">
+          <option value="Красноярск">
+        </datalist>
+      </div>
 
-        // Простейшая маска для телефона (+7)
-        const phoneInput = document.getElementById('phoneInput');
-        phoneInput.addEventListener('input', function (e) {
-            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
-            if (!x) return;
-            e.target.value = !x[2] ? x[1] : '+7 (' + x[2] + ') ' + x[3] + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
-        });
+      <div class="vm-field">
+        <label for="vmEmail">Email</label>
+        <input
+          type="email"
+          id="vmEmail"
+          name="email"
+          placeholder="example@mail.ru"
+        >
+      </div>
 
-        // Обработка отправки
-        form.onsubmit = function(e) {
-            e.preventDefault();
-            
-            // Собираем данные
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
+      <div class="vm-catalog">
+        <label>
+          <input type="checkbox" id="vmNeedCatalog">
+          Хочу получить каталог или коммерческое предложение
+        </label>
+      </div>
 
-            console.log('Данные заявки (для интеграции с BPMSoft):', data);
+      <div class="vm-section-title">Как с вами связаться?</div>
 
-            // ТУТ ДОЛЖНА БЫТЬ ВАША ЛОГИКА ОТПРАВКИ НА СЕРВЕР
-            // Например: fetch('ваш_api_endpoint', { method: 'POST', body: JSON.stringify(data) })
+      <div class="vm-options">
+        <label>
+          <input type="radio" name="contactMethod" value="Звонок" checked>
+          Звонок
+        </label>
+        <label>
+          <input type="radio" name="contactMethod" value="WhatsApp">
+          WhatsApp
+        </label>
+        <label>
+          <input type="radio" name="contactMethod" value="Telegram">
+          Telegram
+        </label>
+      </div>
 
-            alert('Спасибо! Ваша заявка принята. Наш менеджер свяжется с вами в ближайшее время.');
-            form.reset();
-            closeModal();
-        };
-    </script>
+      <div class="vm-section-title">Подбор велосипеда</div>
+
+      <div class="vm-field">
+        <label for="vmBikeType">Тип велосипеда</label>
+        <select id="vmBikeType" name="bikeType">
+          <option value="">Выберите тип</option>
+          <option>Горный (MTB)</option>
+          <option>Шоссейный</option>
+          <option>Гибрид-городской</option>
+          <option>Детский</option>
+          <option>BMX</option>
+          <option>Электровелосипед</option>
+          <option>Не определился</option>
+        </select>
+      </div>
+
+      <div class="vm-field">
+        <label for="vmBudget">Бюджет</label>
+        <select id="vmBudget" name="budget">
+          <option value="">Выберите бюджет</option>
+          <option>До 20 000 ₽</option>
+          <option>20 000–40 000 ₽</option>
+          <option>40 000–70 000 ₽</option>
+          <option>70 000–120 000 ₽</option>
+          <option>Свыше 120 000 ₽</option>
+          <option>Пока не знаю</option>
+        </select>
+      </div>
+
+      <div class="vm-field">
+        <div class="vm-label">Для кого велосипед?</div>
+        <div class="vm-options">
+          <label><input type="radio" name="forWhom" value="Себе"> Себе</label>
+          <label><input type="radio" name="forWhom" value="Ребёнку"> Ребёнку</label>
+          <label><input type="radio" name="forWhom" value="В подарок"> В подарок</label>
+          <label><input type="radio" name="forWhom" value="Другое"> Другое</label>
+        </div>
+      </div>
+
+      <div class="vm-field">
+        <div class="vm-label">Когда планируете покупку?</div>
+        <div class="vm-options">
+          <label><input type="radio" name="purchaseTime" value="На этой неделе"> На этой неделе</label>
+          <label><input type="radio" name="purchaseTime" value="В течение месяца"> В течение месяца</label>
+          <label><input type="radio" name="purchaseTime" value="1–3 месяца"> 1–3 месяца</label>
+          <label><input type="radio" name="purchaseTime" value="Просто интересуюсь"> Просто интересуюсь</label>
+        </div>
+      </div>
+
+      <label class="vm-consent">
+        <input type="checkbox" id="vmConsent" required>
+        <span>
+          Я согласен на обработку персональных данных
+          в соответствии с
+          <a href="/privacy-policy" target="_blank">Политикой конфиденциальности</a>
+          и даю согласие на обработку персональных данных
+          в соответствии с 152-ФЗ.
+        </span>
+      </label>
+
+      <button type="submit" class="vm-submit">
+        Отправить заявку
+      </button>
+
+      <div class="vm-note">
+        Поля, отмеченные звёздочкой, обязательны для заполнения.
+      </div>
+
+      <div class="vm-success" id="vmSuccess">
+        Спасибо! Ваша заявка подготовлена.
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<script>
+/* BPMSoft: настройки оставлены пустыми */
+window.bpmsoftoccconfig = {};
+window.bpmsoftoccconfig.channelId = '';
+window.bpmsoftoccconfig.connectorUrl = '';
+</script>
+
+<script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.js" async></script>
+<script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/chunk-vendors.js" async></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  const overlay = document.getElementById('vmOverlay');
+  const openForm = document.getElementById('vmOpenForm');
+  const closeForm = document.getElementById('vmCloseForm');
+  const openChat = document.getElementById('vmOpenChat');
+  const form = document.getElementById('vmApplicationForm');
+  const phone = document.getElementById('vmPhone');
+  const email = document.getElementById('vmEmail');
+  const needCatalog = document.getElementById('vmNeedCatalog');
+
+  // Открытие формы
+  openForm.addEventListener('click', function() {
+    overlay.classList.add('vm-active');
+    document.body.style.overflow = 'hidden';
+  });
+
+  // Закрытие формы
+  function closeModal() {
+    overlay.classList.remove('vm-active');
+    document.body.style.overflow = '';
+  }
+
+  closeForm.addEventListener('click', closeModal);
+
+  overlay.addEventListener('click', function(event) {
+    if (event.target === overlay) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+      closeModal();
+    }
+  });
+
+  // Открытие чата BPMSoft
+  openChat.addEventListener('click', function() {
+    const chatButton = document.querySelector(
+      '.bpmsoftoccchat-widget-startbutton'
+    );
+
+    if (chatButton) {
+      chatButton.click();
+    } else {
+      console.warn('Виджет BPMSoft ещё загружается.');
+    }
+  });
+
+  // Скрываем штатную кнопку BPMSoft, оставляя возможность открыть чат программно
+  const hideChatButton = document.createElement('style');
+  hideChatButton.textContent = `
+    .bpmsoftoccchat-widget-startbutton {
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+  `;
+  document.head.appendChild(hideChatButton);
+
+  // Маска российского телефона
+  phone.addEventListener('input', function() {
+    let digits = phone.value.replace(/\D/g, '');
+
+    if (digits.startsWith('8')) {
+      digits = '7' + digits.slice(1);
+    }
+
+    if (!digits.startsWith('7')) {
+      digits = '7' + digits;
+    }
+
+    digits = digits.slice(0, 11);
+
+    let result = '+7';
+
+    if (digits.length > 1) {
+      result += ' (' + digits.slice(1, 4);
+    }
+
+    if (digits.length >= 4) {
+      result += ') ' + digits.slice(4, 7);
+    }
+
+    if (digits.length >= 8) {
+      result += '-' + digits.slice(7, 9);
+    }
+
+    if (digits.length >= 10) {
+      result += '-' + digits.slice(9, 11);
+    }
+
+    phone.value = result;
+  });
+
+  // Email обязателен при запросе каталога или КП
+  needCatalog.addEventListener('change', function() {
+    email.required = needCatalog.checked;
+  });
+
+  // Отправка формы
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const phoneDigits = phone.value.replace(/\D/g, '');
+
+    if (phoneDigits.length !== 11) {
+      alert('Пожалуйста, введите корректный номер телефона.');
+      phone.focus();
+      return;
+    }
+
+    if (needCatalog.checked && !email.value.trim()) {
+      alert('Для получения каталога или КП укажите Email.');
+      email.focus();
+      return;
+    }
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const data = {
+      name: document.getElementById('vmName').value,
+      phone: phone.value,
+      city: document.getElementById('vmCity').value,
+      email: email.value,
+      contactMethod: form.querySelector('[name="contactMethod"]:checked')?.value || '',
+      bikeType: document.getElementById('vmBikeType').value,
+      budget: document.getElementById('vmBudget').value,
+      forWhom: form.querySelector('[name="forWhom"]:checked')?.value || '',
+      purchaseTime: form.querySelector('[name="purchaseTime"]:checked')?.value || '',
+      needCatalog: needCatalog.checked
+    };
+
+    console.log('Данные заявки:', data);
+
+    document.getElementById('vmSuccess').style.display = 'block';
+
+    // Здесь необходимо подключить отправку данных
+    // в CRM или на сервер сайта.
+
+    form.reset();
+    email.required = false;
+  });
+
+});
+</script>
+
 </body>
 </html>
