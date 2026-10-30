@@ -5,44 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Веломоторс — российский производитель велосипедов и мототехники.">
   <title>Веломоторс — велосипеды, квадроциклы и снегоходы</title>
- 
+
   <style>
-    /* ========== ФОН СТРАНИЦЫ ========== */
-        body {
-            background: #f0f2f5;  /* Меняйте на любой цвет */
-        }
+    /* ===== Виджет BPMSoft (ваши цвета) ===== */
+    body { background: #f0f2f5; }
+    #bpmsoftoccchat-container .bpmsoftoccchat-conversation-body-profile { background: #4d1965 !important; }
+    div#bpmsoftoccchat-main-feed { background-color: #f5f5f5 !important; }
+    .bpmsoftoccchat-comment { background: #ffffff !important; }
+    .bpmsoftoccchat-widget-startbutton { background: #F9763D !important; }
+    .bpmsoftoccchat-send-button { background: #F9763D !important; }
+    .bpmsoftoccchat-comment p { color: #333333 !important; }
 
-        /* ========== МЕНЯЙТЕ ЦВЕТА ЗДЕСЬ ========== */
-        
-        /* Цвет шапки виджета */
-        #bpmsoftoccchat-container .bpmsoftoccchat-conversation-body-profile {
-            background: #4d1965 !important;
-        }
-
-        /* Цвет фона всего чата */
-        div#bpmsoftoccchat-main-feed {
-            background-color: #f5f5f5 !important;
-        }
-
-        /* Цвет сообщений */
-        .bpmsoftoccchat-comment {
-            background: #ffffff !important;
-        }
-
-        /* Цвет кнопки открытия виджета */
-        .bpmsoftoccchat-widget-startbutton {
-            background: #F9763D !important;
-        }
-
-        /* Цвет кнопки отправки */
-        .bpmsoftoccchat-send-button {
-            background: #F9763D !important;
-        }
-
-        /* Цвет текста в сообщениях */
-        .bpmsoftoccchat-comment p {
-            color: #333333 !important;
-        }
+    /* ===== Базовые переменные сайта ===== */
     :root {
       --ink: #f4f6fa;
       --muted: #b4bbc7;
@@ -58,430 +32,394 @@
     button, input { font: inherit; }
     button { cursor: pointer; }
     .wrap { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
+
+    /* ===== Шапка ===== */
     .topline { background: #071023; color: #d7dce6; font-size: 12px; }
-    .topline-inner { display:flex; justify-content:space-between; gap:20px; padding:10px 0; }
+    .topline-inner { display: flex; justify-content: space-between; gap: 20px; padding: 10px 0; }
     .topline a:hover, .nav a:hover, footer a:hover { color: var(--red); }
     header { position: sticky; top: 0; z-index: 20; background: rgba(7,16,35,.96); color: #f4f6fa; backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,.12); }
-    .head-main { display:flex; align-items:center; justify-content:space-between; gap:24px; min-height:78px; }
+    .head-main { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 78px; }
     .logo { font-weight: 900; font-size: 27px; letter-spacing: -1.5px; line-height: .9; }
     .logo span { color: var(--red); }
-    .logo small { display:block; margin-top:7px; color:#aab4c6; font-size:9px; letter-spacing:2.3px; font-weight:700; }
-    .nav { display:flex; align-items:center; gap:25px; text-transform:uppercase; font-size:12px; font-weight:800; }
-    .nav a { padding:30px 0; }
-    .search { width: 190px; display:flex; border-bottom:1px solid #bfc3c7; }
-    .search input { width:100%; min-width:0; border:0; outline:0; padding:9px 3px; background:transparent; font-size:12px; }
-    .search button { border:0; background:transparent; font-size:18px; }
-    .menu-toggle { display:none; border:0; background:transparent; font-size:26px; }
-    .hero { min-height:570px; display:flex; align-items:center; color:#fff; position:relative; overflow:hidden; background:#191c20; }
-    .hero::before { content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(5,12,29,.72) 0%,rgba(5,12,29,.42) 48%,rgba(5,12,29,.30) 100%), url("https://raw.githubusercontent.com/DemoBPM/Demo/main/BacgroundFonFactory.png"); background-size:cover; background-position:center; }
-    .hero-content { position:relative; z-index:1; padding:80px 0; max-width:650px; }
-    .eyebrow { color:var(--red); text-transform:uppercase; letter-spacing:3px; font-weight:800; font-size:11px; }
-    h1 { margin:18px 0 20px; font-size:clamp(38px,5.2vw,70px); line-height:.98; letter-spacing:-2.6px; text-transform:uppercase; }
-    .hero p { max-width:470px; color:#d8dadd; font-size:17px; line-height:1.7; }
-    .actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
-    .btn { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:0 22px; border:1px solid transparent; font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.7px; transition:.2s; }
-    .btn-red { background:var(--red); color:#fff; }
-    .btn-red:hover { background:#b91318; }
-    .btn-outline { border-color:rgba(255,255,255,.65); color:#fff; }
-    .btn-outline:hover { background:#fff; color:#111; }
-    .section { padding:88px 0; }
-    .section-soft { background:var(--paper); }
-    .section-head { display:flex; justify-content:space-between; align-items:end; gap:25px; margin-bottom:34px; }
-    .section h2 { margin:10px 0 0; font-size:clamp(30px,4vw,47px); line-height:1; letter-spacing:-1.5px; text-transform:uppercase; }
-    .section-intro { max-width:480px; color:var(--muted); line-height:1.7; font-size:14px; }
-    .product-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-    .product { position:relative; min-height:330px; overflow:hidden; background:#202327; color:#fff; }
-    .product img { position:absolute; width:100%; height:100%; object-fit:cover; inset:0; opacity:.72; transition:transform .45s,opacity .3s; }
-    .product:hover img { transform:scale(1.05); opacity:.9; }
-    .product::after { content:""; position:absolute; inset:0; background:linear-gradient(0deg,rgba(0,0,0,.85),transparent 75%); }
-    .product-copy { position:absolute; z-index:1; left:24px; right:24px; bottom:24px; }
-    .product-copy h3 { margin:0 0 8px; font-size:25px; text-transform:uppercase; }
-    .product-copy p { margin:0 0 18px; color:#d6d7d9; font-size:13px; }
-    .arrow-link { display:inline-flex; align-items:center; gap:10px; font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.8px; }
-    .arrow-link span { color:var(--red); font-size:20px; }
-    .stats { display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin-top:45px; }
-    .stat { padding:28px 18px; border-right:1px solid var(--line); }
-    .stat:last-child { border-right:0; }
-    .stat strong { display:block; font-size:clamp(30px,4vw,46px); letter-spacing:-1.5px; }
-    .stat strong span { color:var(--red); }
-    .stat small { display:block; margin-top:7px; color:var(--muted); font-size:12px; line-height:1.5; }
-    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:54px; align-items:center; }
-    .about-photo { min-height:430px; position:relative; background:#222; overflow:hidden; }
-    .about-photo img { width:100%; height:100%; min-height:430px; position:absolute; object-fit:cover; }
-    .about-text p { color:var(--muted); line-height:1.8; font-size:14px; }
-    .feature-list { margin:25px 0 30px; padding:0; list-style:none; }
-    .feature-list li { padding:13px 0; border-bottom:1px solid var(--line); font-size:13px; font-weight:700; }
-    .feature-list li::before { content:"↗"; color:var(--red); margin-right:12px; }
-    .oem { display:grid; grid-template-columns:1fr 1fr; min-height:330px; background:#071023; color:#fff; }
-    .oem-copy { padding:55px clamp(25px,5vw,70px); align-self:center; }
-    .oem-copy h2 { font-size:clamp(28px,3.5vw,43px); }
-    .oem-copy p { color:#c4c7ca; line-height:1.7; font-size:14px; max-width:440px; }
-    .oem-image { min-height:280px; background:url('https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=1100&q=85') center/cover; }
-    .news-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
-    .news-card { border-bottom:1px solid var(--line); padding-bottom:23px; }
-    .news-card img { width:100%; height:210px; object-fit:cover; background:#ddd; }
-    .news-date { display:block; margin:19px 0 10px; color:var(--red); font-size:11px; font-weight:800; }
-    .news-card h3 { font-size:19px; line-height:1.35; margin:0 0 12px; }
-    .news-card p { font-size:13px; color:var(--muted); line-height:1.65; }
-    .competencies { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:#293449; margin-top:35px; border:1px solid #293449; }
-    .competency { background:#101a2b; color:white; padding:27px 22px; min-height:125px; }
-    .competency span { color:var(--red); font-size:12px; font-weight:900; }
-    .competency h3 { margin:13px 0 0; font-size:16px; text-transform:uppercase; }
-    footer { background:#071023; color:#fff; padding:55px 0 25px; }
-    .footer-grid { display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:35px; padding-bottom:40px; }
-    footer p, footer li, footer address { color:#a9adb1; font-size:12px; line-height:1.9; font-style:normal; }
-    footer h3 { font-size:12px; text-transform:uppercase; letter-spacing:1px; }
-    footer ul { padding:0; margin:0; list-style:none; }
-    .copyright { display:flex; justify-content:space-between; gap:20px; border-top:1px solid #303337; padding-top:20px; color:#8d9297; font-size:11px; }
-    .cookie { position:fixed; z-index:50; left:20px; right:20px; bottom:20px; max-width:800px; margin:auto; display:flex; align-items:center; gap:20px; padding:18px 20px; background:#101a2b; color:#fff; box-shadow:0 8px 40px #0006; border:1px solid var(--line); }
-    .cookie p { margin:0; color:#d1d7e2; font-size:12px; line-height:1.6; }
-    .cookie button { flex-shrink:0; border:0; background:var(--red); color:white; padding:13px 18px; font-size:10px; font-weight:900; text-transform:uppercase; }
+    .logo small { display: block; margin-top: 7px; color: #aab4c6; font-size: 9px; letter-spacing: 2.3px; font-weight: 700; }
+    .nav { display: flex; align-items: center; gap: 25px; text-transform: uppercase; font-size: 12px; font-weight: 800; }
+    .nav a { padding: 30px 0; }
+    .search { width: 190px; display: flex; border-bottom: 1px solid #bfc3c7; }
+    .search input { width: 100%; min-width: 0; border: 0; outline: 0; padding: 9px 3px; background: transparent; font-size: 12px; color: #fff; }
+    .search button { border: 0; background: transparent; font-size: 18px; color: #fff; }
+    .menu-toggle { display: none; border: 0; background: transparent; font-size: 26px; color: #fff; }
+
+    /* ===== Hero ===== */
+    .hero { min-height: 570px; display: flex; align-items: center; color: #fff; position: relative; overflow: hidden; background: #191c20; }
+    .hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5,12,29,.72) 0%, rgba(5,12,29,.42) 48%, rgba(5,12,29,.30) 100%), url("https://raw.githubusercontent.com/DemoBPM/Demo/main/BacgroundFonFactory.png"); background-size: cover; background-position: center; }
+    .hero-content { position: relative; z-index: 1; padding: 80px 0; max-width: 650px; }
+    .eyebrow { color: var(--red); text-transform: uppercase; letter-spacing: 3px; font-weight: 800; font-size: 11px; }
+    h1 { margin: 18px 0 20px; font-size: clamp(38px,5.2vw,70px); line-height: .98; letter-spacing: -2.6px; text-transform: uppercase; }
+    .hero p { max-width: 470px; color: #d8dadd; font-size: 17px; line-height: 1.7; }
+
+    /* Кнопки в hero */
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 24px; border: 1px solid transparent; border-radius: 999px; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .7px; transition: .2s; }
+    .btn-red { background: var(--red); color: #fff; }
+    .btn-red:hover { background: #b91318; }
+    .btn-outline { border-color: rgba(255,255,255,.65); color: #fff; background: transparent; }
+    .btn-outline:hover { background: #fff; color: #111; }
+
+    /* ===== Секции ===== */
+    .section { padding: 88px 0; }
+    .section-soft { background: var(--paper); }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 25px; margin-bottom: 34px; }
+    .section h2 { margin: 10px 0 0; font-size: clamp(30px,4vw,47px); line-height: 1; letter-spacing: -1.5px; text-transform: uppercase; }
+    .section-intro { max-width: 480px; color: var(--muted); line-height: 1.7; font-size: 14px; }
+    .product-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .product { position: relative; min-height: 330px; overflow: hidden; background: #202327; color: #fff; }
+    .product img { position: absolute; width: 100%; height: 100%; object-fit: cover; inset: 0; opacity: .72; transition: transform .45s, opacity .3s; }
+    .product:hover img { transform: scale(1.05); opacity: .9; }
+    .product::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.85), transparent 75%); }
+    .product-copy { position: absolute; z-index: 1; left: 24px; right: 24px; bottom: 24px; }
+    .product-copy h3 { margin: 0 0 8px; font-size: 25px; text-transform: uppercase; }
+    .product-copy p { margin: 0 0 18px; color: #d6d7d9; font-size: 13px; }
+    .arrow-link { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: .8px; }
+    .arrow-link span { color: var(--red); font-size: 20px; }
+
+    /* ===== Футер ===== */
+    footer { background: #071023; color: #fff; padding: 55px 0 25px; }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 35px; padding-bottom: 40px; }
+    footer p, footer li, footer address { color: #a9adb1; font-size: 12px; line-height: 1.9; font-style: normal; }
+    footer h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+    footer ul { padding: 0; margin: 0; list-style: none; }
+    .copyright { display: flex; justify-content: space-between; gap: 20px; border-top: 1px solid #303337; padding-top: 20px; color: #8d9297; font-size: 11px; }
+    .cookie { position: fixed; z-index: 50; left: 20px; right: 20px; bottom: 20px; max-width: 800px; margin: auto; display: flex; align-items: center; gap: 20px; padding: 18px 20px; background: #101a2b; color: #fff; box-shadow: 0 8px 40px #0006; border: 1px solid var(--line); }
+    .cookie p { margin: 0; color: #d1d7e2; font-size: 12px; line-height: 1.6; }
+    .cookie button { flex-shrink: 0; border: 0; background: var(--red); color: white; padding: 13px 18px; font-size: 10px; font-weight: 900; text-transform: uppercase; }
+
     @media (max-width:900px) {
-      .nav { gap:13px; font-size:10px; }
-      .search { display:none; }
-      .product-grid { grid-template-columns:repeat(2,1fr); }
-      .product:last-child { grid-column:span 2; }
-      .about-grid { gap:30px; }
-      .footer-grid { grid-template-columns:repeat(2,1fr); }
+      .nav { gap: 13px; font-size: 10px; }
+      .search { display: none; }
+      .product-grid { grid-template-columns: repeat(2,1fr); }
+      .product:last-child { grid-column: span 2; }
+      .footer-grid { grid-template-columns: repeat(2,1fr); }
     }
     @media (max-width:650px) {
-      .wrap { width:min(100% - 32px,var(--max)); }
-      .topline-inner { flex-direction:column; gap:5px; }
-      .head-main { min-height:68px; }
-      .menu-toggle { display:block; }
-      .nav { display:none; position:absolute; left:0; right:0; top:68px; padding:10px 20px 20px; background:#071023; color:#f4f6fa; border-bottom:1px solid var(--line); flex-direction:column; align-items:stretch; gap:0; }
-      .nav.open { display:flex; }
-      .nav a { padding:14px 0; border-bottom:1px solid var(--line); }
-      .hero { min-height:530px; }
-      .hero::before { background-image:linear-gradient(90deg,rgba(5,12,29,.72),rgba(5,12,29,.30)),url('factory-background.png'); background-position:58% center; }
-      .hero-content { padding:60px 0; }
-      .hero p { font-size:15px; }
-      .section { padding:60px 0; }
-      .section-head { align-items:start; flex-direction:column; }
-      .product-grid, .news-grid, .about-grid, .oem { grid-template-columns:1fr; }
-      .product, .product:last-child { grid-column:auto; min-height:300px; }
-      .stats { grid-template-columns:repeat(2,1fr); }
-      .stat:nth-child(2) { border-right:0; }
-      .stat:nth-child(-n+2) { border-bottom:1px solid var(--line); }
-      .about-photo, .about-photo img { min-height:300px; }
-      .oem-image { order:-1; min-height:230px; }
-      .competencies { grid-template-columns:repeat(2,1fr); }
-      .footer-grid { grid-template-columns:1fr 1fr; gap:25px 18px; }
-      .copyright { flex-direction:column; }
-      .cookie { left:10px; right:10px; bottom:10px; align-items:flex-start; }
-      .cookie p { font-size:11px; }
-      .cookie button { padding:12px; }
+      .wrap { width: min(100% - 32px, var(--max)); }
+      .topline-inner { flex-direction: column; gap: 5px; }
+      .head-main { min-height: 68px; }
+      .menu-toggle { display: block; }
+      .nav { display: none; position: absolute; left: 0; right: 0; top: 68px; padding: 10px 20px 20px; background: #071023; color: #f4f6fa; border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; gap: 0; }
+      .nav.open { display: flex; }
+      .nav a { padding: 14px 0; border-bottom: 1px solid var(--line); }
+      .hero { min-height: 530px; }
+      .hero-content { padding: 60px 0; }
+      .hero p { font-size: 15px; }
+      .section { padding: 60px 0; }
+      .section-head { align-items: start; flex-direction: column; }
+      .product-grid { grid-template-columns: 1fr; }
+      .product, .product:last-child { grid-column: auto; min-height: 300px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 25px 18px; }
+      .copyright { flex-direction: column; }
+      .cookie { left: 10px; right: 10px; bottom: 10px; align-items: flex-start; }
+      .cookie p { font-size: 11px; }
+      .cookie button { padding: 12px; }
     }
-    /* Кнопки-триггеры */
-  .actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
-  .btn{
-    display:inline-flex;align-items:center;gap:6px;
-    padding:14px 22px;border-radius:999px;
-    font-size:15px;font-weight:600;text-decoration:none;
-    cursor:pointer;border:2px solid transparent;transition:.2s;
-  }
-  .btn-red{background:var(--red);color:#fff;}
-  .btn-red:hover{background:#c62828;}
-  .btn-outline{background:#fff;color:var(--dark);border-color:var(--border);}
-  .btn-outline:hover{border-color:var(--red);color:var(--red);}
 
-  /* Модальное окно */
-  .modal-overlay{
-    position:fixed;inset:0;background:rgba(15,17,20,.6);
-    display:flex;align-items:center;justify-content:center;
-    padding:16px;z-index:1000;
-    opacity:0;visibility:hidden;transition:.25s;
-  }
-  .modal-overlay.open{opacity:1;visibility:visible;}
-  .modal{
-    background:#fff;border-radius:20px;
-    width:100%;max-width:560px;max-height:92vh;overflow-y:auto;
-    padding:28px;position:relative;
-    transform:translateY(16px) scale(.98);transition:.25s;
-  }
-  .modal-overlay.open .modal{transform:none;}
-  .modal-close{
-    position:absolute;top:16px;right:16px;
-    width:36px;height:36px;border-radius:50%;
-    border:none;background:#f1f2f4;color:var(--gray);
-    font-size:20px;line-height:1;cursor:pointer;transition:.2s;
-  }
-  .modal-close:hover{background:#e5e7eb;color:var(--dark);}
-  .modal h2{margin:0 0 6px;font-size:22px;line-height:1.25;padding-right:32px;}
-  .modal .sub{margin:0 0 20px;color:var(--gray);font-size:14px;}
+    /* ============================================================
+       МОДАЛЬНОЕ ОКНО — переменные объявлены ЛОКАЛЬНО в .modal-overlay,
+       чтобы не конфликтовать с тёмной темой сайта.
+       ============================================================ */
+    .modal-overlay {
+      --dark: #1f2328;
+      --gray: #6b7280;
+      --border: #e5e7eb;
+      --radius: 14px;
 
-  /* Поля формы */
-  .field{margin-bottom:16px;}
-  .field label,.field .label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;}
-  .req{color:var(--red);}
-  .hint{font-size:12px;color:var(--gray);font-weight:400;margin-left:4px;}
+      position: fixed; inset: 0;
+      background: rgba(15,17,20,.65);
+      display: flex; align-items: center; justify-content: center;
+      padding: 16px; z-index: 1000;
+      opacity: 0; visibility: hidden; transition: .25s;
+    }
+    .modal-overlay.open { opacity: 1; visibility: visible; }
 
-  .input,.select{
-    width:100%;padding:12px 14px;font-size:15px;
-    border:1.5px solid var(--border);border-radius:var(--radius);
-    background:#fff;color:var(--dark);outline:none;transition:.2s;
-    font-family:inherit;
-  }
-  .input:focus,.select:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(229,57,53,.12);}
-  .input.invalid,.select.invalid{border-color:var(--red);background:#fff5f5;}
-  .error-msg{display:none;color:var(--red);font-size:12px;margin-top:4px;}
-  .error-msg.show{display:block;}
+    .modal {
+      background: #fff;
+      color: var(--dark);
+      border-radius: 20px;
+      width: 100%; max-width: 560px; max-height: 92vh;
+      overflow-y: auto;
+      padding: 28px; position: relative;
+      transform: translateY(16px) scale(.98);
+      transition: .25s;
+      box-shadow: 0 24px 80px rgba(0,0,0,.45);
+    }
+    .modal-overlay.open .modal { transform: none; }
 
-  .select{
-    appearance:none;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;
-  }
+    .modal-close {
+      position: absolute; top: 16px; right: 16px;
+      width: 36px; height: 36px; border-radius: 50%;
+      border: none; background: #f1f2f4; color: var(--gray);
+      font-size: 22px; line-height: 1; cursor: pointer; transition: .2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .modal-close:hover { background: #e5e7eb; color: var(--dark); }
 
-  /* Радио / чекбокс группы */
-  .options{display:flex;flex-wrap:wrap;gap:8px;}
-  .opt{
-    position:relative;flex:1 1 auto;min-width:110px;
-  }
-  .opt input{position:absolute;opacity:0;pointer-events:none;}
-  .opt span{
-    display:block;text-align:center;
-    padding:10px 12px;font-size:14px;
-    border:1.5px solid var(--border);border-radius:12px;
-    cursor:pointer;transition:.2s;background:#fff;user-select:none;
-  }
-  .opt input:checked + span{border-color:var(--red);color:var(--red);background:#fff5f5;font-weight:600;}
-  .opt input:focus-visible + span{box-shadow:0 0 0 3px rgba(229,57,53,.15);}
+    .modal h2 { margin: 0 0 6px; font-size: 22px; line-height: 1.25; padding-right: 44px; color: var(--dark); text-transform: none; letter-spacing: 0; }
+    .modal .sub { margin: 0 0 20px; color: var(--gray); font-size: 14px; }
 
-  .consent{display:flex;gap:10px;align-items:flex-start;margin:20px 0 16px;font-size:13px;color:var(--gray);line-height:1.5;}
-  .consent input{margin-top:2px;width:18px;height:18px;accent-color:var(--red);flex-shrink:0;cursor:pointer;}
-  .consent a{color:var(--red);text-decoration:none;border-bottom:1px solid rgba(229,57,53,.35);}
-  .consent a:hover{border-bottom-color:var(--red);}
-  .consent.invalid{color:var(--red);}
+    .field { margin-bottom: 16px; }
+    .field label, .field .label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--dark); }
+    .req { color: #e53935; }
+    .hint { font-size: 12px; color: var(--gray); font-weight: 400; margin-left: 4px; }
 
-  .submit{
-    width:100%;padding:15px;font-size:16px;font-weight:700;
-    color:#fff;background:var(--red);border:none;border-radius:var(--radius);
-    cursor:pointer;transition:.2s;font-family:inherit;
-  }
-  .submit:hover{background:#c62828;}
-  .submit:disabled{opacity:.6;cursor:not-allowed;}
-  .after{margin:12px 0 0;text-align:center;font-size:13px;color:var(--gray);line-height:1.4;}
+    .input, .select {
+      width: 100%; padding: 12px 14px; font-size: 15px;
+      border: 1.5px solid var(--border); border-radius: var(--radius);
+      background: #fff; color: var(--dark); outline: none;
+      transition: .2s; font-family: inherit;
+    }
+    .input:focus, .select:focus { border-color: #e53935; box-shadow: 0 0 0 3px rgba(229,57,53,.12); }
+    .input.invalid, .select.invalid { border-color: #e53935; background: #fff5f5; }
+    .error-msg { display: none; color: #e53935; font-size: 12px; margin-top: 4px; }
+    .error-msg.show { display: block; }
 
-  .success{text-align:center;padding:24px 0;}
-  .success .icon{font-size:48px;margin-bottom:12px;}
-  .success h3{margin:0 0 8px;font-size:20px;}
-  .success p{margin:0;color:var(--gray);font-size:14px;}
+    .select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px;
+    }
 
-  @media (max-width:480px){
-    .modal{padding:22px 18px;border-radius:16px;}
-    .opt{min-width:calc(50% - 4px);}
-    .opt span{padding:9px 6px;font-size:13px;}
-  }
+    .options { display: flex; flex-wrap: wrap; gap: 8px; }
+    .opt { position: relative; flex: 1 1 auto; min-width: 110px; }
+    .opt input { position: absolute; opacity: 0; pointer-events: none; }
+    .opt span {
+      display: block; text-align: center;
+      padding: 10px 12px; font-size: 14px;
+      border: 1.5px solid var(--border); border-radius: 12px;
+      cursor: pointer; transition: .2s; background: #fff; user-select: none;
+      color: var(--dark);
+    }
+    .opt input:checked + span { border-color: #e53935; color: #e53935; background: #fff5f5; font-weight: 600; }
+    .opt input:focus-visible + span { box-shadow: 0 0 0 3px rgba(229,57,53,.15); }
+
+    .consent { display: flex; gap: 10px; align-items: flex-start; margin: 20px 0 16px; font-size: 13px; color: var(--gray); line-height: 1.5; }
+    .consent input { margin-top: 2px; width: 18px; height: 18px; accent-color: #e53935; flex-shrink: 0; cursor: pointer; }
+    .consent a { color: #e53935; text-decoration: none; border-bottom: 1px solid rgba(229,57,53,.35); }
+    .consent a:hover { border-bottom-color: #e53935; }
+    .consent.invalid { color: #e53935; }
+
+    .submit {
+      width: 100%; padding: 15px; font-size: 16px; font-weight: 700;
+      color: #fff; background: #e53935; border: none; border-radius: var(--radius);
+      cursor: pointer; transition: .2s; font-family: inherit;
+    }
+    .submit:hover { background: #c62828; }
+    .submit:disabled { opacity: .6; cursor: not-allowed; }
+
+    .after { margin: 12px 0 0; text-align: center; font-size: 13px; color: var(--gray); line-height: 1.4; }
+
+    .success { text-align: center; padding: 24px 0; }
+    .success .icon { font-size: 48px; margin-bottom: 12px; }
+    .success h3 { margin: 0 0 8px; font-size: 20px; color: var(--dark); }
+    .success p { margin: 0; color: var(--gray); font-size: 14px; }
+
+    @media (max-width:480px) {
+      .modal { padding: 22px 18px; border-radius: 16px; }
+      .opt { min-width: calc(50% - 4px); }
+      .opt span { padding: 9px 6px; font-size: 13px; }
+    }
   </style>
 </head>
 <body>
- <link rel="stylesheet" href="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.css">
+
+<!-- ===== Виджет BPMSoft ===== -->
+<link rel="stylesheet" href="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.css">
 <div id="bpmsoftocc-chat"></div>
-<script> 
-    window.bpmsoftoccconfig = {};
-    window.bpmsoftoccconfig.channelId = '451c3305-885b-4fd5-9fa2-6cb4f8db46a0';
-    window.bpmsoftoccconfig.connectorUrl = 'https://bpmsoft-oc-connector1.cloudbpm.ru';
+<script>
+  window.bpmsoftoccconfig = {};
+  window.bpmsoftoccconfig.channelId = '451c3305-885b-4fd5-9fa2-6cb4f8db46a0';
+  window.bpmsoftoccconfig.connectorUrl = 'https://bpmsoft-oc-connector1.cloudbpm.ru';
 </script>
 <script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.js" async></script>
 <script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/chunk-vendors.js" async></script>
-  <div class="topline">
-    <div class="wrap topline-inner">
-      <span>РФ, МО, г. Люберцы, ул. Шоссейная, д. 42А</span>
-      <a href="mailto:velomotors@velomotors.ru">velomotors@velomotors.ru</a>
-    </div>
+
+<!-- ===== Шапка ===== -->
+<div class="topline">
+  <div class="wrap topline-inner">
+    <span>РФ, МО, г. Люберцы, ул. Шоссейная, д. 42А</span>
+    <a href="mailto:velomotors@velomotors.ru">velomotors@velomotors.ru</a>
   </div>
-  <header>
-    <div class="wrap head-main">
-      <a class="logo" href="#home" aria-label="Веломоторс — главная">VELO<span>MOTORS</span><small>РОССИЙСКОЕ ПРОИЗВОДСТВО</small></a>
-      <button class="menu-toggle" aria-label="Открыть меню" aria-expanded="false">☰</button>
-      <nav class="nav" id="nav">
-        <a href="#products">Продукция</a>
-        <a href="#about">О компании</a>
-        <a href="#news">Медиа-центр</a>
-        <a href="#production">Производство</a>
-        <a href="#contacts">Контакты</a>
-      </nav>
-      <form class="search" id="searchForm">
-        <input id="searchInput" aria-label="Поиск" placeholder="Введите свой запрос">
-        <button aria-label="Найти">⌕</button>
-      </form>
-    </div>
-  </header>
+</div>
 
-  <main id="home">
-    <section class="hero">
-      <div class="wrap hero-content">
-        <div class="eyebrow">Российское производство · с 1996 года</div>
-        <h1>Обрети смысл жизни — путешествуй</h1>
-        <p>Группа компаний «Веломоторс» — производитель велосипедов, квадроциклов и снегоходов. Техника для движения, приключений и новых маршрутов.</p>
-        <div class="nav-container">
-        <button class="btn-trigger" id="openModal">Наша продукция ↗️</button>
-        <a href="#" class="link-about">О компании</a>
-    </div>
+<header>
+  <div class="wrap head-main">
+    <a class="logo" href="#home" aria-label="Веломоторс — главная">VELO<span>MOTORS</span><small>РОССИЙСКОЕ ПРОИЗВОДСТВО</small></a>
+    <button class="menu-toggle" aria-label="Открыть меню" aria-expanded="false">☰</button>
+    <nav class="nav" id="nav">
+      <a href="#products">Продукция</a>
+      <a href="#about">О компании</a>
+      <a href="#news">Медиа-центр</a>
+      <a href="#production">Производство</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <form class="search" id="searchForm">
+      <input id="searchInput" aria-label="Поиск" placeholder="Введите свой запрос">
+      <button aria-label="Найти">⌕</button>
+    </form>
+  </div>
+</header>
+
+<main id="home">
+  <section class="hero">
+    <div class="wrap hero-content">
+      <div class="eyebrow">Российское производство · с 1996 года</div>
+      <h1>Обрети смысл жизни — путешествуй</h1>
+      <p>Группа компаний «Веломоторс» — производитель велосипедов, квадроциклов и снегоходов. Техника для движения, приключений и новых маршрутов.</p>
+      <div class="hero-actions">
+        <button class="btn btn-red" id="openModal" type="button">Наша продукция ↗️</button>
+        <a href="#about" class="btn btn-outline">О компании</a>
       </div>
-    </section>
-    
+    </div>
+  </section>
 
-    <section class="section" id="products">
-      <div class="wrap">
-        <div class="section-head">
-          <div><div class="eyebrow">Выбирай своё направление</div><h2>Велосипеды.<br>Мототехника.</h2></div>
-          <p class="section-intro">Создаём технику для города, путешествий, спорта и работы. Исследуйте основные направления производства «Веломоторс».</p>
-        </div>
-        <div class="product-grid">
-          <a class="product" href="https://stelsbicycle.ru/">
-            <img src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=900&q=85" alt="Велосипед" loading="lazy">
-            <div class="product-copy"><h3>Велосипеды STELS</h3><p>Для города, спорта и приключений</p><span class="arrow-link">Подробнее <span>↗</span></span></div>
-          </a>
-          <a class="product" href="https://stelsoffroad.ru/">
-            <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=85" alt="Мототехника" loading="lazy">
-            <div class="product-copy"><h3>Квадроциклы</h3><p>Мощность и свобода вне дорог</p><span class="arrow-link">Подробнее <span>↗</span></span></div>
-          </a>
-          <a class="product" href="https://stelsoffroad.ru/">
-            <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=900&q=85" alt="Техника для активного отдыха" loading="lazy">
-            <div class="product-copy"><h3>Снегоходы</h3><p>Новые маршруты даже зимой</p><span class="arrow-link">Подробнее <span>↗</span></span></div>
-          </a>
-        </div>
-       
-    </section>
-  </main>
-
-  <footer id="contacts">
+  <section class="section" id="products">
     <div class="wrap">
-      <div class="footer-grid">
-        <div>
-          <a class="logo" href="#home">VELO<span>MOTORS</span><small>РОССИЙСКОЕ ПРОИЗВОДСТВО</small></a>
-          <p>Российский производитель велосипедов, квадроциклов, снегоходов, запасных частей и аксессуаров.</p>
-        </div>
-        <div><h3>О компании</h3><ul><li><a href="#about">О компании</a></li><li><a href="#production">Производство</a></li><li><a href="#news">Новости компании</a></li><li><a href="https://velomotors.ru/">Вакансии</a></li></ul></div>
-        <div><h3>Продукция</h3><ul><li><a href="https://stelsbicycle.ru/">Велосипеды STELS</a></li><li><a href="https://stelsoffroad.ru/">Квадроциклы STELS</a></li><li><a href="https://stelsoffroad.ru/">Снегоходы STELS</a></li><li><a href="https://stelsoffroad.ru/">Мототехника</a></li></ul></div>
-        <div><h3>Контакты</h3><address>РФ, Московская область,<br>г. Люберцы, ул. Шоссейная, д. 42А</address><p><a href="mailto:velomotors@velomotors.ru">velomotors@velomotors.ru</a></p><p><a href="tel:+74997046835">+7 (499) 704-68-35</a></p></div>
+      <div class="section-head">
+        <div><div class="eyebrow">Выбирай своё направление</div><h2>Велосипеды.<br>Мототехника.</h2></div>
+        <p class="section-intro">Создаём технику для города, путешествий, спорта и работы. Исследуйте основные направления производства «Веломоторс».</p>
       </div>
-      <div class="copyright"><span>© 2026 Группа компаний «Веломоторс»</span><span><a href="https://velomotors.ru/">Конфиденциальность</a> · <a href="https://velomotors.ru/">Условия использования</a></span></div>
+      <div class="product-grid">
+        <a class="product" href="https://stelsbicycle.ru/">
+          <img src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=900&q=85" alt="Велосипед" loading="lazy">
+          <div class="product-copy"><h3>Велосипеды STELS</h3><p>Для города, спорта и приключений</p><span class="arrow-link">Подробнее <span>↗</span></span></div>
+        </a>
+        <a class="product" href="https://stelsoffroad.ru/">
+          <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=85" alt="Мототехника" loading="lazy">
+          <div class="product-copy"><h3>Квадроциклы</h3><p>Мощность и свобода вне дорог</p><span class="arrow-link">Подробнее <span>↗</span></span></div>
+        </a>
+        <a class="product" href="https://stelsoffroad.ru/">
+          <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=900&q=85" alt="Техника для активного отдыха" loading="lazy">
+          <div class="product-copy"><h3>Снегоходы</h3><p>Новые маршруты даже зимой</p><span class="arrow-link">Подробнее <span>↗</span></span></div>
+        </a>
+      </div>
     </div>
-  </footer>
+  </section>
+</main>
 
-  <aside class="cookie" id="cookieBanner" aria-label="Уведомление о cookie">
-    <p>На сайте используются cookie-файлы для аналитики и улучшения работы сервиса. Продолжая пользоваться страницей, вы соглашаетесь с их использованием.</p>
-    <button id="cookieAccept">Согласен</button>
-  </aside>
+<footer id="contacts">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="logo" href="#home">VELO<span>MOTORS</span><small>РОССИЙСКОЕ ПРОИЗВОДСТВО</small></a>
+        <p>Российский производитель велосипедов, квадроциклов, снегоходов, запасных частей и аксессуаров.</p>
+      </div>
+      <div><h3>О компании</h3><ul><li><a href="#about">О компании</a></li><li><a href="#production">Производство</a></li><li><a href="#news">Новости компании</a></li><li><a href="https://velomotors.ru/">Вакансии</a></li></ul></div>
+      <div><h3>Продукция</h3><ul><li><a href="https://stelsbicycle.ru/">Велосипеды STELS</a></li><li><a href="https://stelsoffroad.ru/">Квадроциклы STELS</a></li><li><a href="https://stelsoffroad.ru/">Снегоходы STELS</a></li><li><a href="https://stelsoffroad.ru/">Мототехника</a></li></ul></div>
+      <div><h3>Контакты</h3><address>РФ, Московская область,<br>г. Люберцы, ул. Шоссейная, д. 42А</address><p><a href="mailto:velomotors@velomotors.ru">velomotors@velomotors.ru</a></p><p><a href="tel:+74997046835">+7 (499) 704-68-35</a></p></div>
+    </div>
+    <div class="copyright"><span>© 2026 Группа компаний «Веломоторс»</span><span><a href="https://velomotors.ru/">Конфиденциальность</a> · <a href="https://velomotors.ru/">Условия использования</a></span></div>
+  </div>
+</footer>
 
-  <script>
-    const menuButton = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('#nav');
-    menuButton.addEventListener('click', () => {
-      const open = nav.classList.toggle('open');
-      menuButton.setAttribute('aria-expanded', String(open));
-      menuButton.textContent = open ? '×' : '☰';
-    });
-    nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
-      nav.classList.remove('open');
-      menuButton.setAttribute('aria-expanded', 'false');
-      menuButton.textContent = '☰';
-    }));
-    document.querySelector('#cookieAccept').addEventListener('click', () => {
-      document.querySelector('#cookieBanner').remove();
-    });
-    document.querySelector('#searchForm').addEventListener('submit', event => {
-      event.preventDefault();
-      const query = document.querySelector('#searchInput').value.trim();
-      if (!query) {
-        document.querySelector('#searchInput').focus();
-        return;
-      }
-      const targets = [...document.querySelectorAll('main h1, main h2, main h3, main p')];
-      const match = targets.find(el => el.textContent.toLowerCase().includes(query.toLowerCase()));
-      if (match) {
-        match.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        match.style.outline = '2px solid #e31e24';
-        setTimeout(() => match.style.outline = '', 1800);
-      } else {
-        alert('На этой демонстрационной странице совпадений не найдено. Попробуйте: велосипеды, производство, квадроциклы.');
-      }
-    });
-  </script>
-   <div class="modal-overlay" id="modalOverlay">
-        <div class="modal-content">
-            <span class="close-modal" id="closeModal">&times;</span>
-            <h2>Подбор велосипеда</h2>
-            
-            <form id="requestForm">
-                <!-- Имя -->
-                <div class="form-group">
-                    <label class="required">Имя</label>
-                    <input type="text" name="name" placeholder="Как к вам обращаться" required>
-                </div>
+<aside class="cookie" id="cookieBanner" aria-label="Уведомление о cookie">
+  <p>На сайте используются cookie-файлы для аналитики и улучшения работы сервиса. Продолжая пользоваться страницей, вы соглашаетесь с их использованием.</p>
+  <button id="cookieAccept">Согласен</button>
+</aside>
 
-                <!-- Телефон -->
-                <div class="form-group">
-                    <label class="required">Телефон</label>
-                    <input type="tel" name="phone" id="phone" placeholder="+7 (___) ___-__-__" required>
-                </div>
+<!-- ===== МОДАЛЬНОЕ ОКНО (единственное) ===== -->
+<div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" type="button" aria-label="Закрыть" id="closeModal">×</button>
 
-                <!-- Город -->
-                <div class="form-group">
-                    <label class="required">Город</label>
-                    <select name="city" required>
-                        <option value="">Выберите город</option>
-                        <option value="moscow">Москва</option>
-                        <option value="spb">Санкт-Петербург</option>
-                        <option value="kazan">Казань</option>
-                        <option value="novosibirsk">Новосибирск</option>
-                    </select>
-                </div>
+    <div id="formWrap">
+      <h2 id="modalTitle">Подберём велосипед под вас</h2>
+      <p class="sub">Заполните форму — перезвоним и пришлём подходящие варианты.</p>
 
-                <!-- Email -->
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" name="email" placeholder="для отправки каталога">
-                </div>
+      <form id="leadForm" novalidate>
+        <div class="field">
+          <label for="name">Имя <span class="req">*</span></label>
+          <input class="input" type="text" id="name" name="name" placeholder="Как к вам обращаться" autocomplete="name" required>
+          <div class="error-msg" data-for="name">Укажите имя</div>
+        </div>
 
-                <!-- Способ связи -->
-                <div class="form-group">
-                    <label class="required">Способ связи</label>
-                    <div class="radio-group">
-                        <label class="radio-item"><input type="radio" name="contactMethod" value="call" checked> Звонок</label>
-                        <label class="radio-item"><input type="radio" name="contactMethod" value="whatsapp"> WhatsApp</label>
-                        <label class="radio-item"><input type="radio" name="contactMethod" value="telegram"> Telegram</label>
-                    </div>
-                </div>
+        <div class="field">
+          <label for="phone">Телефон <span class="req">*</span></label>
+          <input class="input" type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" inputmode="tel" autocomplete="tel" required>
+          <div class="error-msg" data-for="phone">Введите корректный номер</div>
+        </div>
 
-                <!-- Тип велосипеда -->
-                <div class="form-group">
-                    <label class="required">Тип велосипеда</label>
-                    <select name="bikeType" required>
-                        <option value="">Выберите тип</option>
-                        <option value="mtb">Горный (MTB)</option>
-                        <option value="road">Шоссейный</option>
-                        <option value="hybrid">Гибрид-городской</option>
-                        <option value="kids">Детский</option>
-                        <option value="bmx">BMX</option>
-                        <option value="e-bike">Электровелосипед</option>
-                        <option value="unknown">Не определился</option>
-                    </select>
-                </div>
+        <div class="field">
+          <label for="city">Город <span class="req">*</span></label>
+          <select class="select" id="city" name="city" required>
+            <option value="" disabled selected>Выберите город</option>
+            <option>Москва</option>
+            <option>Санкт-Петербург</option>
+            <option>Новосибирск</option>
+            <option>Екатеринбург</option>
+            <option>Казань</option>
+            <option>Нижний Новгород</option>
+            <option>Челябинск</option>
+            <option>Самара</option>
+            <option>Омск</option>
+            <option>Ростов-на-Дону</option>
+            <option>Уфа</option>
+            <option>Красноярск</option>
+            <option>Воронеж</option>
+            <option>Пермь</option>
+            <option>Волгоград</option>
+            <option>Краснодар</option>
+            <option>Другой город</option>
+          </select>
+          <div class="error-msg" data-for="city">Выберите город</div>
+        </div>
 
-                <!-- Бюджет -->
-                <div class="form-group">
-                    <label class="required">Бюджет</label>
-                    <select name="budget" required>
-                        <option value="">Выберите диапазон</option>
-                        <option value="low">до 20 000 ₽</option>
-                        <option value="mid-low">20–40 000 ₽</option>
-                        <option value="mid">40–70 000 ₽</option>
-                        <option value="mid-high">70–120 000 ₽</option>
-                        <option value="high">свыше 120 000 ₽</option>
-                        <option value="maybe">Пока не знаю</option>
-                    </select>
-                </div>
+        <div class="field">
+          <label for="email">Email <span class="hint">(обязателен для каталога/КП)</span></label>
+          <input class="input" type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email">
+          <div class="error-msg" data-for="email">Проверьте адрес email</div>
+        </div>
 
-                <!-- Для кого -->
-                <div class="form-group">
-                    <label class="required">Для кого</label>
-                    <div class="radio-group">
-                        <label class="radio-item"><input type="radio" name="forWhom" value="self" checked> Себе</label>
-                        <label class="radio-item"><input type="radio" name="forWhom" value="child"> Ребёнку</label>
+        <div class="field">
+          <span class="label">Способ связи <span class="req">*</span></span>
+          <div class="options">
+            <label class="opt"><input type="radio" name="contact" value="Звонок" checked><span>Звонок</span></label>
+            <label class="opt"><input type="radio" name="contact" value="WhatsApp"><span>WhatsApp</span></label>
+            <label class="opt"><input type="radio" name="contact" value="Telegram"><span>Telegram</span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="bikeType">Тип велосипеда <span class="req">*</span></label>
+          <select class="select" id="bikeType" name="bikeType" required>
+            <option value="" disabled selected>Выберите тип</option>
+            <option>Горный (MTB)</option>
+            <option>Шоссейный</option>
+            <option>Гибрид-городской</option>
+            <option>Детский</option>
+            <option>BMX</option>
+            <option>Электровелосипед</option>
+            <option>Не определился</option>
+          </select>
+          <div class="error-msg" data-for="bikeType">Выберите тип велосипеда</div>
+        </div>
+
+        <div class="field">
+          <label for="budget">Бюджет <span class="req">*</span></label>
+          <select class="select" id="budget" name="budget" required>
+            <option value="" disabled selected>Выберите бюджет</option>
+            <option>до 20 000 ₽</option>
+            <option>20–40 000 ₽</option>
+            <option>40–70 000 ₽</option>
+            <option>70–120 000 ₽</option>
+            <option>свыше 120 000 ₽</option>
+            <option>Пока не знаю</option>
+          </select>
+          <div class="error-msg" data-for="budget">Выберите бюджет</div>
+        </div>
+
+        <div class="field">
+          <span class="label">Для кого <span class="req">*</span></span>
+          <div class="options">
+            <label class="opt"><input type="radio" name="forWhom" value="Себе"><span>Себе</span></label>
+            <label class="opt"><input type="radio" name="forWhom" value="Ребёнку"><span>Ребёнку</span></label>
                         <label class="radio-item"><input type="radio" name="forWhom" value="gift"> В подарок</label>
                         <label class="radio-item"><input type="radio" name="forWhom" value="other"> Другое</label>
                     </div>
