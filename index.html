@@ -1,329 +1,492 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BPMSoft Smart Widget</title>
-    <link rel="stylesheet" href="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.css">
-    <style>
-        /* ========== ЦВЕТОВАЯ ПАЛИТРА BPMSoft ========== */
-        :root {
-            --bpmsoft-orange: #F9763D;
-            --bpmsoft-purple: #4d1965;
-            --bpmsoft-bg: #f0f2f5;
-            --bpmsoft-white: #ffffff;
-            --bpmsoft-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
 
-        body {
-            background: var(--bpmsoft-bg);
-            font-family: "Segoe UI", Roboto, sans-serif;
-        }
+<div class="vm-widget">
 
-        /* 1. СКРЫВАЕМ ОРИГИНАЛЬНУЮ КНОПКУ ЧАТА */
-        .bpmsoftoccchat-widget-startbutton {
-            display: none !important;
-        }
+  <!-- Кнопка внизу экрана -->
+  <button class="vm-trigger" onclick="vmOpen()">
+    <span>ОСТАВИТЬ ЗАЯВКУ</span>
+    <span class="vm-arrow">→</span>
+  </button>
 
-        /* Стили оригинального виджета (сохраняем ваши настройки) */
-        #bpmsoftoccchat-container .bpmsoftoccchat-conversation-body-profile { background: var(--bpmsoft-purple) !important; }
-        div#bpmsoftoccchat-main-feed { background-color: #f5f5f5 !important; }
-        .bpmsoftoccchat-comment { background: var(--bpmsoft-white) !important; }
-        .bpmsoftoccchat-send-button { background: var(--bpmsoft-orange) !important; }
-        .bpmsoftoccchat-comment p { color: #333333 !important; }
+  <!-- Модальное окно -->
+  <div class="vm-overlay" id="vmOverlay">
+    <div class="vm-modal">
 
-        /* ========== КОНТЕЙНЕР УМНОЙ КНОПКИ ========== */
-        .smart-widget-wrapper {
-            position: fixed;
-            bottom: 30px;
-            right: 20px;
-            display: flex;
-            flex-direction: column-reverse;
-            align-items: flex-end;
-            z-index: 9999;
-        }
+      <button class="vm-close" onclick="vmClose()">×</button>
 
-        /* Главная кнопка-триггер */
-        .main-action-btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--bpmsoft-orange);
-            color: white;
-            border: none;
-            box-shadow: var(--bpmsoft-shadow);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .main-action-btn:hover { transform: scale(1.1); }
-        .main-action-btn svg { width: 30px; height: 30px; fill: white; transition: transform 0.3s; }
-        
-        /* Состояние при открытом меню (вращение иконки) */
-        .main-action-btn.active svg { transform: rotate(135deg); }
+      <div class="vm-topline">VELOMOTORS / STELS</div>
 
-        /* Выпадающее меню */
-        .action-menu {
-            margin-bottom: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
-            transition: all 0.3s ease;
-        }
-        .action-menu.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
+      <h2>ПОДБОР<br><span>ВЕЛОСИПЕДА</span></h2>
 
-        /* Кнопки внутри меню */
-        .menu-item {
-            display: flex;
-            align-items: center;
-            padding: 10px 15px;
-            border-radius: 30px;
-            border: none;
-            background: var(--bpmsoft-white);
-            box-shadow: var(--bpmsoft-shadow);
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--bpmsoft-purple);
-            transition: all 0.2s;
-            min-width: 140px;
-        }
-        .menu-item:hover {
-            background: var(--bpmsoft-purple);
-            color: white;
-        }
-        .menu-item svg {
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-            fill: currentColor;
-        }
+      <p class="vm-subtitle">
+        Ответьте на несколько вопросов — поможем
+        подобрать подходящую модель.
+      </p>
 
-        /* ========== МОДАЛЬНОЕ ОКНО ФОРМЫ ========== */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-        }
-        .modal-content {
-            background: white;
-            width: 90%;
-            max-width: 500px;
-            max-height: 85vh;
-            border-radius: 12px;
-            padding: 25px;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
-        .modal-header {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: var(--bpmsoft-purple);
-            border-bottom: 2px solid var(--bpmsoft-bg);
-            padding-bottom: 10px;
-        }
-        .close-modal {
-            position: absolute;
-            top: 15px; right: 15px;
-            cursor: pointer;
-            font-size: 24px;
-            color: #999;
-        }
+      <form id="vmForm">
 
-        /* Стили полей формы */
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 14px; }
-        .form-group input[type="text"], .form-group input[type="tel"], .form-group input[type="email"], .form-group select {
-            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px;
-        }
-        .radio-group { display: flex; flex-direction: column; gap: 8px; }
-        .radio-item { display: flex; align-items: center; font-size: 14px; cursor: pointer; }
-        .radio-item input { margin-right: 10px; }
-        .btn-submit {
-            width: 100%; padding: 12px; background: var(--bpmsoft-orange); color: white;
-            border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px;
-        }
-        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; font-size: 12px; }
-        .policy-link { color: var(--bpmsoft-purple); text-decoration: underline; cursor: pointer; }
-    </style>
-</head>
-<body>
+        <div class="vm-section">
+          <div class="vm-section-title">
+            <span>01</span> КОНТАКТНЫЕ ДАННЫЕ
+          </div>
 
-    <!-- Контейнер виджета чата -->
-    <div id="bpmsoftocc-chat"></div>
+          <label>Ваше имя *</label>
+          <input name="name" placeholder="Как к вам обращаться" required>
 
-    <!-- УМНЫЙ ВИДЖЕТ (Smart Widget) -->
-    <div class="smart-widget-wrapper">
-        <!-- Меню с выбором действий -->
-        <div class="action-menu" id="actionMenu">
-            <button class="menu-item" onclick="triggerChat()">
-                <svg viewBox="0 0 24 24"><path d="M20,2H4C2.9,2 2,2.9 2,4V22L6,18H20C21.1,18 22,17.1 22,16V4C22,2.9 21.1,2 20,2Z" /></svg>
-                Написать в чат
-            </button>
-            <button class="menu-item" onclick="openModal()">
-                <svg viewBox="0 0 24 24"><path d="M19,3H5C3.89,3 3,3.9 3,5V19C3,20.1 3.89,21 5,21H19C20.1,21 21,20.1 21,19V5C21,3.9 20.1,3 19,3M19,19H5V5H19V19M7,10H9V17H7V10M11,7H13V17H11V7M15,13H17V17H15V13Z" /></svg>
-                Оставить заявку
-            </button>
+          <label>Телефон *</label>
+          <input name="phone" id="vmPhone"
+            placeholder="+7 (___) ___-__-__" required>
+
+          <label>Город *</label>
+          <input name="city" list="vmCities"
+            placeholder="Введите город" required>
+          <datalist id="vmCities">
+            <option value="Москва">
+            <option value="Санкт-Петербург">
+            <option value="Казань">
+            <option value="Екатеринбург">
+            <option value="Новосибирск">
+            <option value="Краснодар">
+            <option value="Самара">
+            <option value="Уфа">
+            <option value="Челябинск">
+          </datalist>
+
+          <label>Email</label>
+          <input name="email" id="vmEmail" type="email"
+            placeholder="Ваш Email">
+          
+          <label class="vm-check">
+            <input type="checkbox" name="catalog" id="vmCatalog">
+            Нужен каталог или коммерческое предложение
+          </label>
         </div>
 
-        <!-- Единая кнопка-триггер -->
-        <button class="main-action-btn" id="mainTrigger" onclick="toggleMenu()">
-            <svg viewBox="0 0 24 24"><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+        <div class="vm-section">
+          <div class="vm-section-title">
+            <span>02</span> СПОСОБ СВЯЗИ
+          </div>
+
+          <div class="vm-choices">
+            <label><input type="radio" name="contact" value="Звонок" checked> Звонок</label>
+            <label><input type="radio" name="contact" value="WhatsApp"> WhatsApp</label>
+            <label><input type="radio" name="contact" value="Telegram"> Telegram</label>
+          </div>
+        </div>
+
+        <div class="vm-section">
+          <div class="vm-section-title">
+            <span>03</span> ПАРАМЕТРЫ ВЕЛОСИПЕДА
+          </div>
+
+          <label>Тип велосипеда *</label>
+          <select name="bike" required>
+            <option value="">Выберите вариант</option>
+            <option>Горный (MTB)</option>
+            <option>Шоссейный</option>
+            <option>Гибрид-городской</option>
+            <option>Детский</option>
+            <option>BMX</option>
+            <option>Электровелосипед</option>
+            <option>Не определился</option>
+          </select>
+
+          <label>Ваш бюджет *</label>
+          <select name="budget" required>
+            <option value="">Выберите бюджет</option>
+            <option>До 20 000 ₽</option>
+            <option>20–40 000 ₽</option>
+            <option>40–70 000 ₽</option>
+            <option>70–120 000 ₽</option>
+            <option>Свыше 120 000 ₽</option>
+            <option>Пока не знаю</option>
+          </select>
+
+          <label>Для кого велосипед? *</label>
+          <div class="vm-choices">
+            <label><input type="radio" name="forWho" value="Себе" required> Себе</label>
+            <label><input type="radio" name="forWho" value="Ребёнку"> Ребёнку</label>
+            <label><input type="radio" name="forWho" value="В подарок"> В подарок</label>
+            <label><input type="radio" name="forWho" value="Другое"> Другое</label>
+          </div>
+
+          <label>Когда планируете покупку? *</label>
+          <div class="vm-choices vm-vertical">
+            <label><input type="radio" name="when" value="На этой неделе" required> На этой неделе</label>
+            <label><input type="radio" name="when" value="В течение месяца"> В течение месяца</label>
+            <label><input type="radio" name="when" value="1–3 месяца"> В течение 1–3 месяцев</label>
+            <label><input type="radio" name="when" value="Просто интересуюсь"> Просто интересуюсь</label>
+          </div>
+        </div>
+
+        <div class="vm-privacy">
+          <label>
+            <input type="checkbox" name="consent" required>
+            <span>
+              Я согласен(на) на обработку персональных данных
+              в соответствии с 152-ФЗ.
+              <a href="/privacy-policy" target="_blank">
+                Политика конфиденциальности
+              </a>
+            </span>
+          </label>
+        </div>
+
+        <button type="submit" class="vm-submit">
+          ОТПРАВИТЬ ЗАЯВКУ <span>→</span>
         </button>
-    </div>
 
-    <!-- Модальное окно формы -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <div class="modal-header">Заявка на подбор велосипеда</div>
-            <form id="requestForm">
-                <div class="form-group">
-                    <label>Имя *</label>
-                    <input type="text" name="userName" placeholder="Как к вам обращаться" required>
-                </div>
-                <div class="form-group">
-                    <label>Телефон *</label>
-                    <input type="tel" name="userPhone" id="phoneInput" placeholder="+7 (___) ___-__-__" required>
-                </div>
-                <div class="form-group">
-                    <label>Город *</label>
-                    <select name="city" required>
-                        <option value="">Выберите город</option>
-                        <option value="moscow">Москва</option>
-                        <option value="spb">Санкт-Петербург</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" name="userEmail">
-                </div>
-                <div class="form-group">
-                    <label>Способ связи *</label>
-                    <div class="radio-group">
-                        <label class="radio-item"><input type="radio" name="contactMethod" value="call" checked> Звонок</label>
-                        <label class="radio-item"><input type="radio" name="contactMethod" value="whatsapp"> WhatsApp</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Тип велосипеда *</label>
-                    <select name="bikeType" required>
-                        <option value="mtb">Горный (MTB)</option>
-                        <option value="road">Шоссейный</option>
-                        <option value="e-bike">Электровелосипед</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Бюджет *</label>
-                    <select name="budget" required>
-                        <option value="low">до 20 000 ₽</option>
-                        <option value="mid">20–70 000 ₽</option>
-                        <option value="high">свыше 70 000 ₽</option>
-                    </select>
-                </div>
-                <div class="form-group checkbox-group">
-                    <input type="checkbox" name="privacy" required>
-                    <span>Согласен на обработку ПД согласно <span class="policy-link">политике</span></span>
-                </div>
-                <button type="submit" class="btn-submit">Отправить заявку</button>
-            </form>
+        <div id="vmMessage"></div>
+
+        <div class="vm-footer">
+          VELOMOTORS — ДВИЖЕНИЕ ВПЕРЁД
         </div>
+
+      </form>
     </div>
+  </div>
+</div>
 
-    <!-- Скрипты BPMSoft -->
-    <script>
-        window.bpmsoftoccconfig = {};
-        window.bpmsoftoccconfig.channelId = '451c3305-885b-4fd5-9fa2-6cb4f8db46a0';
-        window.bpmsoftoccconfig.connectorUrl = 'https://bpmsoft-oc-connector1.cloudbpm.ru';
-    </script>
-    <script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/widget.js" async></script>
-    <script src="https://bpmsoft-oc-widget1.cloudbpm.ru/3.2/chunk-vendors.js" async></script>
+<style>
+.vm-widget {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #171717;
+}
 
-    <!-- Логика Smart Widget -->
-    <script>
-        const mainTrigger = document.getElementById('mainTrigger');
-        const actionMenu = document.getElementById('actionMenu');
-        const modal = document.getElementById('modalOverlay');
-        const form = document.getElementById('requestForm');
+.vm-widget * {
+  box-sizing: border-box;
+}
 
-        // 1. Переключение меню
-        function toggleMenu() {
-            const isOpen = actionMenu.classList.contains('show');
-            if (isOpen) {
-                closeMenu();
-            } else {
-                actionMenu.classList.add('show');
-                mainTrigger.classList.add('active');
-            }
-        }
+.vm-trigger {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9998;
+  width: min(92%, 430px);
+  height: 62px;
+  padding: 0 25px;
+  background: #d71920;
+  border: 0;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+  cursor: pointer;
+  box-shadow: 0 8px 30px #0003;
+  transition: .2s;
+}
 
-        function closeMenu() {
-            actionMenu.classList.remove('show');
-            mainTrigger.classList.remove('active');
-        }
+.vm-trigger:hover,
+.vm-submit:hover {
+  background: #aa1017;
+}
 
-        // 2. Функция "прокси-клика" для вызова скрытого чата
-        function triggerChat() {
-            // Ищем оригинальную кнопку чата, которую мы скрыли через CSS
-            const originalChatBtn = document.querySelector('.bpmsoftoccchat-widget-startbutton');
-            if (originalChatBtn) {
-                originalChatBtn.click(); // Имитируем клик пользователя
-                closeMenu();
-            } else {
-                console.error("Кнопка чата BPMSoft не найдена в DOM");
-            }
-        }
+.vm-arrow {
+  font-size: 24px;
+}
 
-        // 3. Логика модального окна
-        function openModal() {
-            modal.style.display = 'flex';
-            closeMenu();
-            document.body.style.overflow = 'hidden';
-        }
+.vm-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  padding: 20px 12px;
+  background: rgba(0,0,0,.78);
+  overflow-y: auto;
+}
 
-        function closeModal() {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
+.vm-overlay.active {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
 
-        // Закрытие при клике вне модалки
-        window.onclick = function(event) {
-            if (event.target == modal) closeModal();
-        }
+.vm-modal {
+  position: relative;
+  background: #fff;
+  width: 100%;
+  max-width: 560px;
+  margin: auto;
+  padding: 38px 42px;
+  border-top: 5px solid #d71920;
+  box-shadow: 0 20px 70px #0005;
+}
 
-        // Маска телефона
-        const phoneInput = document.getElementById('phoneInput');
-        phoneInput.addEventListener('input', function (e) {
-            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
-            if (!x) return;
-            e.target.value = !x[2] ? x[1] : '+7 (' + x[2] + ') ' + x[3] + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
-        });
+.vm-close {
+  position: absolute;
+  top: 12px;
+  right: 19px;
+  background: none;
+  border: 0;
+  font-size: 34px;
+  color: #777;
+  cursor: pointer;
+}
 
-        // Отправка формы
-        form.onsubmit = function(e) {
-            e.preventDefault();
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
-            console.log('Данные для BPMSoft:', data);
-            alert('Заявка успешно отправлена!');
-            form.reset();
-            closeModal();
-        };
-    </script>
-</body>
-</html>
+.vm-topline {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #d71920;
+  margin-bottom: 22px;
+}
+
+.vm-modal h2 {
+  font-size: 35px;
+  line-height: 1.05;
+  font-weight: 900;
+  margin: 0;
+  letter-spacing: -1px;
+}
+
+.vm-modal h2 span {
+  color: #d71920;
+}
+
+.vm-subtitle {
+  color: #777;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 15px 0 30px;
+}
+
+.vm-section {
+  border-top: 1px solid #e6e6e6;
+  padding: 24px 0;
+}
+
+.vm-section-title {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  margin-bottom: 22px;
+}
+
+.vm-section-title span {
+  color: #d71920;
+  margin-right: 10px;
+}
+
+.vm-section > label:not(.vm-check) {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 16px 0 8px;
+  color: #333;
+}
+
+.vm-modal input:not([type="radio"]):not([type="checkbox"]),
+.vm-modal select {
+  display: block;
+  width: 100%;
+  height: 48px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+  border-radius: 0;
+  padding: 0 14px;
+  color: #222;
+  font-size: 14px;
+  outline: none;
+}
+
+.vm-modal input:focus,
+.vm-modal select:focus {
+  border-color: #d71920;
+  background: #fff;
+}
+
+.vm-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+}
+
+.vm-choices label {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+}
+
+.vm-choices input,
+.vm-check input,
+.vm-privacy input {
+  accent-color: #d71920;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.vm-vertical {
+  flex-direction: column;
+  gap: 13px;
+}
+
+.vm-check {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 15px;
+  font-size: 13px;
+  color: #555;
+}
+
+.vm-privacy {
+  background: #f5f5f5;
+  padding: 16px;
+  margin-top: 5px;
+}
+
+.vm-privacy label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.vm-privacy input {
+  margin-top: 3px;
+}
+
+.vm-privacy a {
+  display: inline-block;
+  color: #d71920;
+  text-decoration: underline;
+}
+
+.vm-submit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 58px;
+  padding: 0 20px;
+  margin-top: 20px;
+  border: none;
+  background: #d71920;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.vm-submit span {
+  font-size: 22px;
+}
+
+#vmMessage {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 15px;
+  color: #25834c;
+}
+
+.vm-footer {
+  text-align: center;
+  color: #aaa;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-top: 25px;
+}
+
+@media(max-width: 600px) {
+  .vm-modal {
+    padding: 30px 20px;
+  }
+
+  .vm-modal h2 {
+    font-size: 29px;
+  }
+
+  .vm-overlay {
+    padding: 10px;
+  }
+
+  .vm-trigger {
+    bottom: 14px;
+  }
+}
+</style>
+
+<script>
+function vmOpen() {
+  document.getElementById('vmOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function vmClose() {
+  document.getElementById('vmOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('vmOverlay').addEventListener('click', function(e) {
+  if (e.target === this) vmClose();
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') vmClose();
+});
+
+// Маска российского телефона
+const vmPhone = document.getElementById('vmPhone');
+
+vmPhone.addEventListener('input', function() {
+  let d = this.value.replace(/\D/g, '');
+
+  if (d.startsWith('8')) d = '7' + d.slice(1);
+  if (!d.startsWith('7')) d = '7' + d;
+  d = d.slice(0, 11);
+
+  let s = '+7';
+  if (d.length > 1) s += ' (' + d.slice(1, 4);
+  if (d.length >= 4) s += ') ' + d.slice(4, 7);
+  if (d.length >= 7) s += '-' + d.slice(7, 9);
+  if (d.length >= 9) s += '-' + d.slice(9, 11);
+
+  this.value = s;
+});
+
+// Email обязателен при запросе каталога
+document.getElementById('vmCatalog').addEventListener('change', function() {
+  document.getElementById('vmEmail').required = this.checked;
+});
+
+// Проверка и обработка
+document.getElementById('vmForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const phone = vmPhone.value.replace(/\D/g, '');
+  const email = document.getElementById('vmEmail');
+
+  if (phone.length !== 11) {
+    alert('Введите корректный номер телефона');
+    vmPhone.focus();
+    return;
+  }
+
+  if (document.getElementById('vmCatalog').checked &&
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+    alert('Введите корректный Email');
+    email.focus();
+    return;
+  }
+
+  const data = Object.fromEntries(new FormData(this).entries());
+
+  // Здесь подключается CRM или API отправки
+  console.log('Новая заявка:', data);
+
+  document.getElementById('vmMessage').textContent =
+    'Спасибо! Форма заполнена. Подключите обработчик для отправки заявки.';
+
+});
+</script>
