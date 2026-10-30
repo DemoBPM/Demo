@@ -214,12 +214,13 @@
         <div class="eyebrow">Российское производство · с 1996 года</div>
         <h1>Обрети смысл жизни — путешествуй</h1>
         <p>Группа компаний «Веломоторс» — производитель велосипедов, квадроциклов и снегоходов. Техника для движения, приключений и новых маршрутов.</p>
-        <div class="actions">
-          <a class="btn btn-red" href="#products">Наша продукция&nbsp; ↗</a>
-          <a class="btn btn-outline" href="#about">О компании</a>
-        </div>
+        <div class="nav-container">
+        <button class="btn-trigger" id="openModal">Наша продукция ↗️</button>
+        <a href="#" class="link-about">О компании</a>
+    </div>
       </div>
     </section>
+    
 
     <section class="section" id="products">
       <div class="wrap">
@@ -299,5 +300,174 @@
       }
     });
   </script>
+   <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h2>Подбор велосипеда</h2>
+            
+            <form id="requestForm">
+                <!-- Имя -->
+                <div class="form-group">
+                    <label class="required">Имя</label>
+                    <input type="text" name="name" placeholder="Как к вам обращаться" required>
+                </div>
+
+                <!-- Телефон -->
+                <div class="form-group">
+                    <label class="required">Телефон</label>
+                    <input type="tel" name="phone" id="phone" placeholder="+7 (___) ___-__-__" required>
+                </div>
+
+                <!-- Город -->
+                <div class="form-group">
+                    <label class="required">Город</label>
+                    <select name="city" required>
+                        <option value="">Выберите город</option>
+                        <option value="moscow">Москва</option>
+                        <option value="spb">Санкт-Петербург</option>
+                        <option value="kazan">Казань</option>
+                        <option value="novosibirsk">Новосибирск</option>
+                    </select>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="для отправки каталога">
+                </div>
+
+                <!-- Способ связи -->
+                <div class="form-group">
+                    <label class="required">Способ связи</label>
+                    <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="contactMethod" value="call" checked> Звонок</label>
+                        <label class="radio-item"><input type="radio" name="contactMethod" value="whatsapp"> WhatsApp</label>
+                        <label class="radio-item"><input type="radio" name="contactMethod" value="telegram"> Telegram</label>
+                    </div>
+                </div>
+
+                <!-- Тип велосипеда -->
+                <div class="form-group">
+                    <label class="required">Тип велосипеда</label>
+                    <select name="bikeType" required>
+                        <option value="">Выберите тип</option>
+                        <option value="mtb">Горный (MTB)</option>
+                        <option value="road">Шоссейный</option>
+                        <option value="hybrid">Гибрид-городской</option>
+                        <option value="kids">Детский</option>
+                        <option value="bmx">BMX</option>
+                        <option value="e-bike">Электровелосипед</option>
+                        <option value="unknown">Не определился</option>
+                    </select>
+                </div>
+
+                <!-- Бюджет -->
+                <div class="form-group">
+                    <label class="required">Бюджет</label>
+                    <select name="budget" required>
+                        <option value="">Выберите диапазон</option>
+                        <option value="low">до 20 000 ₽</option>
+                        <option value="mid-low">20–40 000 ₽</option>
+                        <option value="mid">40–70 000 ₽</option>
+                        <option value="mid-high">70–120 000 ₽</option>
+                        <option value="high">свыше 120 000 ₽</option>
+                        <option value="maybe">Пока не знаю</option>
+                    </select>
+                </div>
+
+                <!-- Для кого -->
+                <div class="form-group">
+                    <label class="required">Для кого</label>
+                    <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="forWhom" value="self" checked> Себе</label>
+                        <label class="radio-item"><input type="radio" name="forWhom" value="child"> Ребёнку</label>
+                        <label class="radio-item"><input type="radio" name="forWhom" value="gift"> В подарок</label>
+                        <label class="radio-item"><input type="radio" name="forWhom" value="other"> Другое</label>
+                    </div>
+                </div>
+
+                <!-- Когда планируете покупку -->
+                <div class="form-group">
+                    <label class="required">Когда планируете покупку</label>
+                    <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="purchaseTiming" value="week" checked> На этой неделе</label>
+                        <label class="radio-item"><input type="radio" name="purchaseTiming" value="month"> В течение месяца</label>
+                        <label class="radio-item"><input type="radio" name="purchaseTiming" value="3months"> 1–3 месяца</label>
+                        <label class="radio-item"><input type="radio" name="purchaseTiming" value="interest"> Просто интересуюсь</label>
+                    </div>
+                </div>
+
+                <!-- Согласие на ПД -->
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="pdConsent" required>
+                        <span class="policy-link">Согласен на обработку <a href="#">персональных данных (152-ФЗ)</a> и <a href="#">политику конфиденциальности</a></span>
+                    </label>
+                </div>
+
+                <!-- Кнопка и подпись -->
+                <button type="submit" class="submit-btn">Подобрать велосипед</button>
+                <span class="submit-subtitle">Перезвоним за 15 минут и пришлём 3 варианта под ваш бюджет</span>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('modalOverlay');
+        const openBtn = document.getElementById('openModal');
+        const closeBtn = document.getElementById('closeModal');
+        const form = document.getElementById('requestForm');
+        const phoneInput = document.getElementById('phone');
+
+        // 1. Логика открытия/закрытия модального окна
+        openBtn.onclick = () => modal.style.display = 'flex';
+        closeBtn.onclick = () => modal.style.display = 'none';
+        window.onclick = (event) => {
+            if (event.target == modal) modal.style.display = 'none';
+        }
+
+        // 2. Маска для телефона (+7)
+        phoneInput.addEventListener('input', function (e) {
+            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+            
+            // Принудительно ставим 7 в начало, если пользователь начинает вводить
+            if (!x[1]) {
+                e.target.value = '7';
+                return;
+            }
+            
+            if (x[1] === '7' || x[1] === '8') {
+                e.target.value = '+7 (' + x[2] + ') ' + x[3] + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
+            } else {
+                e.target.value = '+7 (' + x[2] + ') ' + x[3] + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
+            }
+        });
+
+        // 3. Обработка отправки формы
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+
+            // Сбор данных
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Дополнительная проверка для radio/checkbox, которые могут не попасть в FormData
+            data.pdConsent = form.pdConsent.checked;
+
+            console.log('Данные для отправки в BPMSoft:', data);
+
+            // Имитация запроса к серверу
+            try {
+                // В реальности здесь будет вызов API нашей платформы BPMSoft
+                // Например: await bpmsoftService.sendLead(data);
+                
+                alert('Спасибо! Ваша заявка принята. Мы свяжемся с вами в ближайшее время.');
+                form.reset();
+                modal.style.display = 'none';
+            } catch (error) {
+                alert('Произошла ошибка при отправке. Попробуйте позже.');
+            }
+        };
+    </script>
 </body>
 </html>
