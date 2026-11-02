@@ -625,7 +625,7 @@ jQuery(document).ready(initLanding);
   }
 
   /* ---------- Отправка ---------- */
-  form.addEventListener('submit', e => {
+ /* form.addEventListener('submit', e => {
     e.preventDefault();
     if(!validate()){
       const firstInvalid = form.querySelector('.invalid, .consent.invalid');
@@ -652,10 +652,10 @@ jQuery(document).ready(initLanding);
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify(data)
     }).then(r => { if(!r.ok) throw new Error(); showSuccess(); })
-      .catch(() => alert('Не удалось отправить заявку. Попробуйте позже.')); */
+      .catch(() => alert('Не удалось отправить заявку. Попробуйте позже.')); 
 
     showSuccess();
-  });
+  }); */
 
   function showSuccess(){
     formWrap.hidden = true;
