@@ -427,7 +427,7 @@
         </div>
 
         <!-- Когда планируете покупку -->
-        <div class="field">
+        <div class="field" id="WhenBuy">
           <span class="label">Когда планируете покупку <span class="req">*</span></span>
           <div class="options" id="whenGroup">
             <label class="opt"><input type="radio" name="when" value="На этой неделе"><span>На этой неделе</span></label>
@@ -483,11 +483,11 @@ var config = {
         "Country": "css-selector", // Страна
         "Commentary": "css-selector", // Примечание
         "BPMVidLid": "css-selector", // Вид лида
-        "BPMMethodCommunication": "#MethodCommunication", // Способ связи
+        "BPMMethodCommunication": "input[name='MethodCommunication']:checked", // Способ связи
         "BPMTypebicycle": "#bikeType", // Тип велосипеда
         "BPMBudget": "#budget", // Бюджет
         "BPMForWhom": "input[name='forWhom']:checked", // Для кого
-        "BPMWhenPlanningMakePurchase": "#whenGroup", // Когда планируете покупку?
+        "BPMWhenPlanningMakePurchase": "input[name='WhenBuy']:checked", // Когда планируете покупку?
         "BPMConsentProcessingPersonalData": "#consent" // Согласие на обработку ПД
     },
     contactFields: {
