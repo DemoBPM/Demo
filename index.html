@@ -333,7 +333,7 @@
       <h2 id="modalTitle">Подберём велосипед под вас</h2>
       <p class="sub">Заполните форму — перезвоним и пришлём подходящие варианты.</p>
 
-      <form id="leadForm" novalidate onSubmit="createObject(); return false">
+      <form id="leadForm" novalidate>
         <div class="field">
           <label for="name">Имя <span class="req">*</span></label>
           <input class="input" type="text" id="name" name="name" placeholder="Как к вам обращаться" autocomplete="name" required>
@@ -479,21 +479,21 @@ var config = {
         "Industry": "css-selector", // Отрасль компании
         "FullJobTitle": "css-selector", // Должность посетителя
         "UseEmail": "css-selector", // Логическое значение «да» - согласие посетителя получать email рассылки
-        "City": "#City", // Город
+        "City": "#city", // Город
         "Country": "css-selector", // Страна
         "Commentary": "css-selector", // Примечание
         "BPMVidLid": "css-selector", // Вид лида
-        "BPMMethodCommunication": "input[name='MethodCommunication']:checked", // Способ связи
+        "BPMMethodCommunication": "input[name='contact']:checked", // Способ связи
         "BPMTypebicycle": "#bikeType", // Тип велосипеда
         "BPMBudget": "#budget", // Бюджет
         "BPMForWhom": "input[name='forWhom']:checked", // Для кого
-        "BPMWhenPlanningMakePurchase": "input[name='WhenBuy']:checked", // Когда планируете покупку?
+        "BPMWhenPlanningMakePurchase": "input[name='when']:checked", // Когда планируете покупку?
         "BPMConsentProcessingPersonalData": "#consent" // Согласие на обработку ПД
     },
     contactFields: {
-        "FullName": "css-selector", // Name of a contact
-        "Phone": "css-selector", // Contact's mobile phone
-        "Email": "css-selector" // Contact's email
+        "FullName": "#name", // Имя контакта
+        "Phone": "#phone", // Телефон контакта
+        "Email": "#email" // Email контакта (необязательный)
     },
     customFields: {},
     landingId: "a1d5ac42-0f70-4735-9d53-dfbb387a180d",
@@ -541,8 +541,7 @@ jQuery(document).ready(initLanding);
 
   openBtn.addEventListener('click', openModal);
   closeBtn.addEventListener('click', closeModal);
-  overlay.addEventListener('click', e => { if(e.target === overlay) closeModal(); });
-  document.addEventListener('keydown', e => { if(e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+  // По выбранному сценарию закрытие доступно только по кнопке-крестику.
 
   /* ---------- Маска телефона +7 (___) ___-__-__ ---------- */
   const phone = document.getElementById('phone');
@@ -625,42 +624,72 @@ jQuery(document).ready(initLanding);
   }
 
   /* ---------- Отправка ---------- */
- /* form.addEventListener('submit', e => {
+  let submitting = false;
+  let requestTimer = null;
+  let requestHandled = false;
+  const submitBtn = form.querySelector('button[type="submit"]');
+
+  function finishSubmission(successful, message){
+    if(!submitting || requestHandled) return;
+    requestHandled = true;
+    submitting = false;
+    if(requestTimer) clearTimeout(requestTimer);
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Подобрать велосипед';
+    if(successful){
+      showSuccess();
+    } else {
+      alert(message || 'Не удалось подтвердить отправку заявки в CRM. Проверьте соединение и попробуйте ещё раз.');
+    }
+  }
+
+  // Библиотека create-object.js отправляет данные через jQuery AJAX.
+  // Слушаем ответ именно сервиса сохранения BPMSoft, а не факт вызова функции.
+  if(window.jQuery){
+    jQuery(document).on('ajaxSuccess.leadForm', function(event, xhr, settings){
+      if(settings && settings.url && settings.url.indexOf(config.serviceUrl) !== -1){
+        finishSubmission(true);
+      }
+    });
+    jQuery(document).on('ajaxError.leadForm', function(event, xhr, settings){
+      if(settings && settings.url && settings.url.indexOf(config.serviceUrl) !== -1){
+        finishSubmission(false);
+      }
+    });
+  }
+
+  form.addEventListener('submit', function(e){
     e.preventDefault();
+    if(submitting) return;
     if(!validate()){
       const firstInvalid = form.querySelector('.invalid, .consent.invalid');
       if(firstInvalid) firstInvalid.scrollIntoView({behavior:'smooth', block:'center'});
       return;
     }
 
-    const data = {
-      name: document.getElementById('name').value.trim(),
-      phone: phone.value,
-      city: document.getElementById('city').value,
-      email: document.getElementById('email').value.trim(),
-      contact: form.querySelector('input[name="contact"]:checked').value,
-      bikeType: document.getElementById('bikeType').value,
-      budget: document.getElementById('budget').value,
-      forWhom: form.querySelector('input[name="forWhom"]:checked').value,
-      when: form.querySelector('input[name="when"]:checked').value,
-      consent: true
-    };
-    console.log('Отправка заявки:', data);
+    if(!window.jQuery || !window.landing || typeof window.landing.createObjectFromLanding !== 'function'){
+      alert('Не удалось подключиться к сервису отправки CRM. Попробуйте позже.');
+      return;
+    }
 
-    /* fetch('/api/lead', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify(data)
-    }).then(r => { if(!r.ok) throw new Error(); showSuccess(); })
-      .catch(() => alert('Не удалось отправить заявку. Попробуйте позже.')); 
+    submitting = true;
+    requestHandled = false;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Отправляем…';
+    requestTimer = setTimeout(function(){
+      finishSubmission(false, 'CRM не подтвердила сохранение заявки за отведённое время. Заявка не отмечена как отправленная. Попробуйте ещё раз позже.');
+    }, 30000);
 
-    showSuccess();
-  }); */
+    try {
+      createObject();
+    } catch(error) {
+      finishSubmission(false);
+    }
+  });
 
   function showSuccess(){
     formWrap.hidden = true;
     success.hidden = false;
-    setTimeout(closeModal, 4000);
   }
 
   openBtn.addEventListener('click', () => {
